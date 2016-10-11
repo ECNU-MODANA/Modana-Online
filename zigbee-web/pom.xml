@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<version>0.0.1</version>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.zigbee.manage</groupId>
-	<artifactId>zigbee-web</artifactId>
+	<groupId>com.wls.manage</groupId>
+	<artifactId>wls-web</artifactId>
 	<packaging>war</packaging>
 	<properties>
 		<env>alpha</env>
