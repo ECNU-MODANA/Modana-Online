@@ -3,7 +3,7 @@
   type="WEB"
   name="wls-web"
   id="myeclipse.1465024770130"
-  context-root="/zigbee-web"
+  context-root="/wls-web"
   j2ee-spec="6.0"
   archive="wls-web.war">
   <attributes>
