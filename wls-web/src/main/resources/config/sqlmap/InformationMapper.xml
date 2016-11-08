@@ -2,28 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.smartcold.zigbee.manage.dao.InformationMapper">
+<mapper namespace="com.wls.manage.dao.InformationMapper">
 
     <insert id="insertInformation" parameterType="InformationEntity">
         INSERT INTO `information`(
 		`title`,
-		`keywords`,
-		`category`,
-		`posterid`,
-		`browsenum`,
+		`infocategory`,
+		`imglist`,
+		`coverpiclist`,
+		`source`,
 		`content`,
-		`coverpic`,
-		`posttime`
+		`time`
 		)
 		VALUE 
 		(
 		#{title},
-		#{keywords},
-		#{category},
-		#{posterid},
-		#{browsenum},
+		#{infocategory},
+		#{imglist},
+		#{coverpiclist},
+		#{source},
 		#{content},
-		#{coverpic},
 		now()
 		)
     </insert>
@@ -34,23 +32,20 @@
             <if test="title != null" >
                 title = #{title},
             </if>
-            <if test="keywords != null" >
-                keywords = #{keywords},
+            <if test="source != null" >
+                source = #{source},
             </if>
-            <if test="category != null" >
-                category = #{category},
+            <if test="infocategory != null" >
+                infocategory = #{infocategory},
             </if>
-            <if test="posterid != null" >
-                posterid = #{posterid},
+            <if test="imglist != null" >
+                imglist = #{imglist},
             </if>
-            <if test="browsenum != null" >
-                browsenum = #{browsenum},
+            <if test="coverpiclist != null" >
+                coverpiclist = #{coverpiclist},
             </if>
             <if test="content != null" >
                 content = #{content},
-            </if>
-            <if test="coverpic != null" >
-                coverpic = #{coverpic},
             </if>
         </set>
         where id = #{id}
@@ -63,7 +58,7 @@
 		        AND title like "%"#{keyword}"%"
 		    </if>
 		 </where>
-         order by `posttime` desc
+         order by `time` desc
     </select>
     
      <select id="findInformationByID" parameterType="map" resultType="InformationEntity">
@@ -71,20 +66,9 @@
 		FROM `information` WHERE `id` = #{inforID}
 	</select>
 	
-	<select id="findInformationByPosterID" parameterType="map" resultType="InformationEntity">
-		SELECT *
-		FROM `information`
-		<where> `posterid` = #{posterID}
-		    <if test="keyword != null">
-		        AND title like "%"#{keyword}"%"
-		    </if>
-		 </where>
-         order by `posttime` desc 
-	</select>
-	
 	<select id="findInformationByCategory" parameterType="map" resultType="InformationEntity">
 		SELECT *
-		FROM `information` WHERE `category` = #{categoryID} order by `posttime` desc 
+		FROM `information` WHERE `infocategory` = #{infocategory} order by `time` desc 
 	</select>
 	
 	<delete id="deleteInformation" parameterType="map">

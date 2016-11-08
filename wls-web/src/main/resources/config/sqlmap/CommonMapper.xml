@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.smartcold.zigbee.manage.dao.CommonMapper">
+<mapper namespace="com.wls.manage.dao.CommonMapper">
    <!-- 公用组件查询 -->
     <select id="getBaseData" parameterType="map" resultType="map">
         select ${code},${value} from ${table} ;

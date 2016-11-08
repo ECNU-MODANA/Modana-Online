@@ -92,7 +92,7 @@
 
         <description>监听我们自己的推送类</description>
 
-        <listener-class>com.smartcold.zigbee.manage.util.CometUtil</listener-class>
+        <listener-class>com.wls.manage.util.CometUtil</listener-class>
 
     </listener>
 
@@ -154,7 +154,7 @@
 
 	    <filter-name>cors</filter-name>
 
-	    <filter-class>com.smartcold.zigbee.manage.filter.CrossInterceptor</filter-class>
+	    <filter-class>com.wls.manage.filter.CrossInterceptor</filter-class>
 
 	</filter>
 
