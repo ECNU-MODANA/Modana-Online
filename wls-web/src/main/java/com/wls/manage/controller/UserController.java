@@ -1,6 +1,8 @@
 package com.wls.manage.controller;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,35 +13,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.taobao.api.ApiException;
-import com.wls.manage.dao.FileDataMapper;
 import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.ResultDto;
+import com.wls.manage.dto.UploadFileEntity;
 import com.wls.manage.entity.CookieEntity;
-import com.wls.manage.entity.FileDataEntity;
 import com.wls.manage.entity.UserEntity;
 import com.wls.manage.service.CookieService;
-import com.wls.manage.service.DocLibraryService;
 import com.wls.manage.service.FtpService;
 import com.wls.manage.util.EncodeUtil;
 import com.wls.manage.util.ResponseData;
-import com.wls.manage.util.SetUtil;
 import com.wls.manage.util.StringUtil;
 import com.wls.manage.util.TelephoneVerifyUtil;
 
 @Controller
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
-
+	private static String baseDir = "picture";
 	@Autowired
 	private UserMapper userDao;
 	@Autowired
 	private CookieService cookieService;
-	@Resource(name="docLibraryService")
-	private DocLibraryService docLibraryService;
-
+	@Autowired
+	private FtpService ftpService;
 	@RequestMapping(value = "/login")
 	@ResponseBody
 	public ResponseData<String> login(HttpServletRequest request, String userName, String password) {
@@ -168,28 +167,22 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value = "/updateUser")
 	@ResponseBody
-	public Object updateUser(HttpServletRequest request,UserEntity user) throws ApiException {
-		try {
-			UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
-			user.setId(old_user.getId());
-			List<FileDataEntity> handleFile = this.docLibraryService.handleFile(old_user.getId(), FileDataMapper.CATEGORY_AVATAR_PIC, old_user, request);//用于更新头像信息
-			if(SetUtil.isnotNullList(handleFile)){
-				FileDataEntity fileDataEntity = handleFile.get(0);
-				user.setAvatar(FtpService.READ_URL+fileDataEntity.getLocation());
-			}else{
-				user.setAvatar(null);
-			}
-			if(user.getId()!=0){
-				if(StringUtil.isnotNull(user.getPassword())){user.setPassword(EncodeUtil.encodeByMD5(user.getPassword()));}
-				this.userDao.updateUser(user);
-				UserEntity	ol_user=this.userDao.findUserById(user.getId());
-				ol_user.setPassword("********");
-				request.getSession().setAttribute("user",ol_user);
-				return ol_user;
-			}
-			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
+	public Object updateUser(HttpServletRequest request, @RequestParam(required = false) MultipartFile useravatar,UserEntity user) throws ApiException {
+		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
+		user.setId(old_user.getId());
+		String dir = String.format("%s/user/%s", baseDir, user.getId());
+		String fileName = String.format("user%s_%s.%s", user.getId(), new Date().getTime(), "jpg");
+		UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, useravatar, dir);
+		ftpService.uploadFile(uploadFileEntity);
+		user.setAvatar(FtpService.READ_URL+dir + "/" + fileName);
+		if(user.getId().equals(0)){
+			if(StringUtil.isnotNull(user.getPassword()))
+			{user.setPassword(EncodeUtil.encodeByMD5(user.getPassword()));}
+			this.userDao.updateUser(user);
+			UserEntity	ol_user=this.userDao.findUserById(user.getId().intValue());
+			ol_user.setPassword("********");
+			request.getSession().setAttribute("user",ol_user);
+			return ol_user;
 		}
 		return false;
 	}
@@ -200,9 +193,10 @@ public class UserController extends BaseController {
 		if(StringUtil.isNull(pwd)){return false;};
 		pwd=EncodeUtil.encodeByMD5(pwd);
 		UserEntity ol_user = (UserEntity)request.getSession().getAttribute("user");
-		UserEntity	new_user=this.userDao.findUserById(ol_user.getId());
+		UserEntity	new_user=this.userDao.findUserById(ol_user.getId().intValue());
 		return pwd.equals(new_user.getPassword());
 	}
+	
 	@RequestMapping(value = "/upPwdByTelephone")
 	@ResponseBody
 	public ResponseData<String> upPwdByTelephone(HttpServletRequest request,String key,String toke,UserEntity user){
@@ -210,13 +204,8 @@ public class UserController extends BaseController {
 			String stoke=request.getSession().getAttribute(key+"shear_yzm")+""; request.getSession().removeAttribute(key+"shear_yzm");  
 			if(toke.equalsIgnoreCase(stoke)){
 				if(StringUtil.isnotNull(user.getPassword())){user.setPassword(EncodeUtil.encodeByMD5(user.getPassword()));}
-				boolean isok=this.userDao.upPwdByTelephone(user)>0;
-				if(isok){
-					return ResponseData.newSuccess("密码修改重置成功！");
-					
-				}else{
-					return ResponseData.newFailure("密码重置失败！该账户已被锁定！请联系管理员！");
-				}
+				userDao.updateUser(user);
+				return ResponseData.newSuccess("密码修改重置成功！");
 			}else{
 				return ResponseData.newFailure("非法操作！");			}
 		}

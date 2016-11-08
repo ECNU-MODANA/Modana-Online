@@ -32,13 +32,11 @@ public class InformationController extends BaseController {
 	private static String baseDir = "picture";
 	@Autowired
 	private FtpService ftpService;
+
 	@Autowired
 	private InformationMapper informationDao;
-	@Autowired
-	private InforCategoryMapper inforCategoryDao;
-	
 	/**
-	 * 为后台管理员操作提供查询服务
+	 * 提供查询服务
 	 * @param pageNum
 	 * @param pageSize
 	 * @param posterID
@@ -46,57 +44,26 @@ public class InformationController extends BaseController {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	@RequestMapping(value = "/findAllInformationForAdmin")
+	@RequestMapping(value = "/findAllInformation")
 	@ResponseBody
 	public Object findAllInformationForAdmin(@RequestParam(value="pageNum",required=false) Integer pageNum,
 			@RequestParam(value="pageSize") Integer pageSize, 
-			@RequestParam(value="posterID") Integer posterID, 
-			//@RequestParam(value="audit", required=false) Integer audit,
-			@RequestParam(value="keyword", required=false) String keyword) throws UnsupportedEncodingException {
-	    /*	if( !(audit == -1 || audit == 1 || audit == 0) ){
-			audit = null;
-		}*/
-		pageNum = pageNum == null? 1:pageNum;
-		pageSize = pageSize==null? 10:pageSize;
-		PageHelper.startPage(pageNum, pageSize);
-		if (posterID!=1) {
-			return new PageInfo<InformationEntity>(informationDao.findInformationByPosterID(posterID,keyword));
-		}
-		else {
-			return new PageInfo<InformationEntity>(informationDao.findAllInformation(keyword));
-		}
-	}
-	
-	
-	/**
-	 * 为前台user资讯查询提供服务
-	 * @param pageNum
-	 * @param pageSize
-	 * @param keyword
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 */
-	@RequestMapping(value = "/findAllInformationForUser")
-	@ResponseBody
-	public Object findAllInformationForUser(@RequestParam(value="pageNum",required=false) Integer pageNum,
-			@RequestParam(value="pageSize") Integer pageSize, 
 			@RequestParam(value="keyword", required=false) String keyword) throws UnsupportedEncodingException {
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 10:pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		PageInfo<InformationEntity> pageInfo= new PageInfo<InformationEntity>(informationDao.findAllInformation(keyword));
-	    return pageInfo;
+		return new PageInfo<InformationEntity>(informationDao.findAllInformation(keyword));
 	}
 	
 	
 	@RequestMapping(value = "/findInformationsByCate")
 	@ResponseBody
 	public Object findInformationsByCate(@RequestParam(value="pageNum",required=false) Integer pageNum,
-			@RequestParam(value="pageSize") Integer pageSize,@RequestParam(value="categoryID") Integer categoryID) throws UnsupportedEncodingException {
+			@RequestParam(value="pageSize") Integer pageSize,@RequestParam(value="categoryID") String infocategory) throws UnsupportedEncodingException {
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 10:pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		Page<InformationEntity> info = informationDao.findInformationByCategory(categoryID);
+		Page<InformationEntity> info = informationDao.findInformationByCategory(infocategory);
 		PageInfo<InformationEntity> data = new PageInfo<InformationEntity>(info);
 	    return ResponseData.newSuccess(data);
 	}
@@ -125,7 +92,7 @@ public class InformationController extends BaseController {
 	}
 	
 	/**
-	 * 添加和修改资讯公用服务，根据id是否为空判断是发布或是修改
+	 * 添加和修改资讯公用服务
 	 * @param information
 	 * @return
 	 * @throws Exception 
@@ -136,49 +103,21 @@ public class InformationController extends BaseController {
 		if (information.getTitle() == null || information.getContent() == null) {
 			return new ResultDto(-1, "标题和内容不能为空");
 		}
-		String dir = String.format("%s/rdc/%s", baseDir, information.getId());
+		String dir = String.format("%s/infor/%s", baseDir, information.getId());
 		if (uploadcoverpic != null) {
+			/**
+			 * 这个地方需要把information爬取得图片存到ftp服务器上
+			 */
 			String fileName = String.format("information%s_%s.%s", information.getId(), new Date().getTime(), "jpg");
 			UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, uploadcoverpic, dir);
 			ftpService.uploadFile(uploadFileEntity);
-			information.setCoverpic(FtpService.READ_URL+dir + "/" + fileName);
+			information.setCoverpiclist(FtpService.READ_URL+dir + "/" + fileName);
 		}
 		else {
 			  throw new Exception("资讯上传图片时，封面图片为空异常");
 		}
-		if (information.getId()!=0) {
-			
-			informationDao.updateInformation(information);
-		}
-		else {
-			informationDao.insertInformation(information);
-		}
+		informationDao.insertInformation(information);
 		return new BaseDto(0);
 	}
-	
-	/**
-	 * 查询所有的资讯类别
-	 * @return
-	 */
-	@RequestMapping(value = "/findAllInforCategory")
-	@ResponseBody
-	public Object findAllInforCategory() {
-		return inforCategoryDao.findAllInforCategory();
-	}
-	
-	/*@ResponseBody
-	@RequestMapping(value="/changeAudit", method=RequestMethod.POST)
-	public Object changeAudit(int userID, int audit){
-		userDao.changeAudit(userID, audit);
-		return new BaseDto(0);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/changeAudits", method=RequestMethod.POST)
-	public Object changeAudits(int[] userIDs, int audit){
-		for(int userID:userIDs)
-			userDao.changeAudit(userID, audit);
-		return new BaseDto(0);
-	}*/
 	
 }

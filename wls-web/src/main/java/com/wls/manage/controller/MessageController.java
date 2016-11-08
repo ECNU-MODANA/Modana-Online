@@ -44,7 +44,7 @@ public class MessageController extends BaseController {
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 10:pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		PageInfo<MessageEntity> data= new PageInfo<MessageEntity>(messageDao.findMessageByUserID(userID));
+		PageInfo<MessageEntity> data= new PageInfo<MessageEntity>(messageDao.findMessageBySenderID(userID));
 		return ResponseData.newSuccess(data);
 	}
 	
@@ -59,11 +59,11 @@ public class MessageController extends BaseController {
 	@RequestMapping(value = "/findMessageByCate")
 	@ResponseBody
 	public Object findMessageByCate(@RequestParam(value="pageNum",required=false) Integer pageNum,
-			@RequestParam(value="pageSize") Integer pageSize,@RequestParam(value="categoryID") Integer categoryID) throws UnsupportedEncodingException {
+			@RequestParam(value="pageSize") Integer pageSize,@RequestParam(value="category") String category) throws UnsupportedEncodingException {
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 10:pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		Page<MessageEntity> msg = messageDao.findMessageByCategory(categoryID);
+		Page<MessageEntity> msg = messageDao.findMessageByCategory(category);
 		PageInfo<MessageEntity> data = new PageInfo<MessageEntity>(msg);
 	    return ResponseData.newSuccess(data);
 	}
