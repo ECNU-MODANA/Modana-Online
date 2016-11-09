@@ -34,8 +34,8 @@ JS.Engine.on(
            msgData : function(msgData){
         	   //alert(msgData);
         	   $(".msgPush").fadeIn();
-        	   $(".pushContent p").html(msgData)
-        	   setTimeout(function(){$(".msgPush").fadeOut()}, 4000);
+        	   $(".pushContent p").html(msgData);
+        	   setTimeout(function(){$(".msgPush").fadeOut();}, 4000);
            },
        }
    );
@@ -43,7 +43,7 @@ JS.Engine.on(
 wls.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/home");
     //index
-    $stateProvider.state('login', {
+    $stateProvider.state('register', {
         url: '/login',
         controller: 'login',
         templateUrl: 'app/template/login.html'

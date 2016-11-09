@@ -1,11 +1,6 @@
 package com.wls.manage.controller;
 
-import java.io.IOException;
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
