@@ -41,7 +41,7 @@
 	.header-mobi-ext .header-navigation a:hover,
 	.header-mobi-ext .header-navigation li.current a {
 		border-bottom: 1px solid #efefef;
-		background: #64AED9;
+		background: #0066ff;
 		color: #fff;
 	}
 
@@ -55,17 +55,15 @@
 	.checkout-block .text-right {
 		padding-top: 10px;
 	}
-
-	.slider-item-1 .promo-like i {
-	  font-size: 70px;
+	.promo-block {
+	  height:200px;
 	}
-	.slider-item-1 .promo-like-text {
+    .large_bold_white{
+		padding-top:40px;
+	}
+	.promo-like-text p{
 	  font-size: 18px;
 	  padding: 22px 25px 17px;
-	}
-	.slider-item-1 .promo-like-text h2 {
-	  font-size: 28px;
-	  margin: 0 0 3px;
 	}
 }
 @media (min-width: 1025px) {
@@ -74,6 +72,12 @@
 	}
 	.team-block .img-responsive {
 		display: inline-block;
+	}
+	.img-responsive {
+		display: inline-block;
+	}
+	.promo-block {
+	  height:700px;
 	}
 }
 @media (max-width: 992px) {
@@ -112,10 +116,23 @@
 	.team-block .img-responsive {
 	  width: 100%;
 	}
+	.img-responsive {
+	  width: 100%;
+	}
 }
 @media (min-width: 760px) {
-	.slider-item-1 .large_bold_white {
-	  letter-spacing: 2px !important;
+	.promo-block {
+	  height:600px;
+	}
+    .large_bold_white{
+      padding-top:90px;
+	  letter-spacing: 4px !important;
+	  font-size:60px;
+	}
+	.promo-like-text p{
+	  font-size: 20px;
+	  letter-spacing: 1px !important;
+	  padding: 5px 25px;
 	}
 }
 @media (max-width: 768px) {
@@ -156,26 +173,16 @@
 	  bottom: 34%;
 	  right: 6%;
 	}
-
-	.slider-item-1 .promo-like-text {
+    .promo-like-text {
 		margin-top: 30px;
-	}
-	.slider-item-1 .promo-like {
-		padding: 29px 22px 26px 21px;
-	}
-	.slider-item-1 .promo-like i {
-	  font-size: 49px;
-	}
-	.slider-item-1 .promo-like-text {
-	  font: 400 14px "Open Sans", Arial, sans-serif;
-	  padding: 22px 25px 17px;
-	}
-	.slider-item-1 .promo-like-text h2 {
-	  font: 400 23px/23px "PT Sans Narrow", Arial, sans-serif;
+	    font: 400 14px Microsoft YaHei;
 	}
 }
 @media (max-width: 767px) {
 	.choose-us-block .img-responsive {
+	  margin: 0 auto;
+	}
+	.img-responsive {
 	  margin: 0 auto;
 	}
 
@@ -197,23 +204,26 @@
 	}
 }
 @media (max-width: 600px) {
-	.slider-item-1 .promo-like-text {
-		margin-top: 30px;
+	.large_bold_white{
+		font-size:40px;
 	}
-	.slider-item-1 .promo-like {
+	.promo-like-text {
+		margin-top: 30px;
 		padding: 27px 22px 28px;
 		top: -18px;
+	    font-size: 13px;
 	}
-	.slider-item-1 .promo-like i {
-	  font-size: 23px;
+	.news_mune{
+		position:relative !important;
+		margin-bottom:10px;
 	}
-	.slider-item-1 .promo-like-text {
-	  font-size: 13px;
-	  padding: 10px;
+	.geek_mune{
+		position:relative !important;
+		margin-bottom:10px;
 	}
-	.slider-item-1 .promo-like-text h2 {
-	  font: 400 18px/1 "Open Sans", Arial, sans-serif;
-	  margin-bottom: 5px;
+	.post_bar_mune{
+		position:relative !important;
+		margin-bottom:10px;
 	}
 }
 @media (max-width: 480px) {
@@ -223,19 +233,24 @@
 	.ab-cirle-red {
 	  bottom: 36px;
 	}
-
-	.slider-item-1 .promo-like {
-		display: none;
+    .large_bold_white{
+		font-size:30px;
+	}
+	.promo-like-text {
+	  white-space: normal;
+	  margin: 40px 15px 0;
 	}
 }
 @media (max-width: 400px) {
 	.tb-socio .fa {
 	  margin-bottom: 20px;
 	}
-
-	.slider-item-1 .promo-like-text {
-	  white-space: normal;
-	  margin: 40px 15px 0;
+    .large_bold_white{
+		font-size:25px;
+		padding-bottom:40px;
+	}
+	 .promo-like-text {
+	  display:none;
 	}
 }
 @media (max-width: 320px) {

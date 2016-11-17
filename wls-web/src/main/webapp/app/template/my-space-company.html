@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+ <!--<![endif]-->
+ <!-- Head BEGIN -->
+ <head> 
+  <title>蔚蓝树</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+  <meta content="weilanshu" name="description" /> 
+  <meta content="weilanshu" name="keywords" /> 
+  <meta content="chenrong" name="author" /> 
+  <meta property="og:site_name" content="-CUSTOMER VALUE-" /> 
+  <meta property="og:title" content="-CUSTOMER VALUE-" /> 
+  <meta property="og:description" content="-CUSTOMER VALUE-" /> 
+  <meta property="og:type" content="website" /> 
+  <meta property="og:image" content="-CUSTOMER VALUE-" /> 
+  <meta property="og:url" content="-CUSTOMER VALUE-" /> 
+  <link rel="shortcut icon" href="../../assets/img/favicon.ico" /> 
+  <!-- Global styles BEGIN --> 
+  <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" /> 
+  <link href="../../assets/css/font-awesome.min.css" rel="stylesheet" /> 
+  <!-- Global styles END --> 
+  <!-- Theme styles BEGIN --> 
+  <link href="../../assets/css/components.css" rel="stylesheet" /> 
+  <link href="../../assets/css/style.css" rel="stylesheet" /> 
+  <link href="../../assets/css/plugins.css" rel="stylesheet" type="text/css" /> 
+  <link href="../../assets/css/bootstrap-fileinput.css" rel="stylesheet" type="text/css" /> 
+  <!-- Theme styles END --> 
+  <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-editable.css" /> 
+ </head> 
+ <!--DOC: menu-always-on-top class to the body element to set menu on top --> 
+ <body class="menu-always-on-top"> 
+  <!-- Header BEGIN --> 
+  <div class="header header-mobi-ext"> 
+   <div class="container"> 
+    <div class="row"> 
+     <!-- Logo BEGIN --> 
+     <div class="col-md-2 col-sm-2"> 
+      <a class="scroll site-logo" href="#promo-block"><img src="../../assets/img/logo/logo.png" alt="蔚蓝树" /></a> 
+     </div> 
+     <!-- Logo END --> 
+     <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a> 
+     <!-- Navigation BEGIN --> 
+     <div class="col-md-10 pull-right"> 
+      <ul class="header-navigation  pull-right font-transform-inherit"> 
+       <li><a href="../../index.html">首页</a></li> 
+       <li><a href="news.html">资讯</a></li> 
+       <li><a href="geek.html">极客</a></li> 
+       <li><a href="post-bar.html">贴吧</a></li> 
+       <li class="current"><a href="my-space.html">我的</a></li> 
+       <li><a href="../../register.html" style="display: inline; font-size:15px;">注册</a> | <a href="../../login.html" style="display: inline; font-size:15px;">登录</a></li> 
+      </ul> 
+     </div> 
+     <!-- Navigation END --> 
+    </div> 
+   </div> 
+  </div> 
+  <!-- Header END --> 
+  <div class="weilanshu" id="base_content_container"> 
+   <div class="title-wrapper-company"> 
+    <div class="container"> 
+     <div class="container-inner"> 
+      <em> <a data-toggle="modal" href="#edit_img" title="修改LOGO"><img src="../../assets/img/people/2.jpg" alt="头像" title="点击修改头像" /></a> <p>蔚蓝树 <i class="fa fa-female"></i> <span class="badge bg-yellow-casablanca">Lv 8</span></p> <p style="font-size:14px">一句话介绍一下自己吧，让别人更了解你</p> <a href="#attention_me" data-toggle="modal" class="btn red"><i class="fa fa-plus"></i> 关注</a> <a href="#" class="btn red" id="send_message"><i class="fa fa-comment"></i> 私信</a> </em> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="main"> 
+    <div class="container"> 
+     <!-- BEGIN SIDEBAR & CONTENT --> 
+     <div class="row"> 
+      <div class="product-page-content margin-bottom-20"> 
+       <ul id="myTab" class="nav nav-tabs"> 
+        <li class="active"><a href="#tab-1" data-toggle="tab">基本资料</a></li> 
+        <li><a href="#tab-2" data-toggle="tab">关注</a></li> 
+        <li><a href="#tab-3" data-toggle="tab">消息</a></li> 
+       </ul> 
+       <div id="myTabContent" class="tab-content"> 
+        <div class="tab-pane fade row in active" id="tab-1"> 
+         <div class="portlet light"> 
+          <div class="portlet-title"> 
+           <div class="caption caption-md"> 
+            <i class="icon-bar-chart theme-font hide"></i> 
+            <span class="caption-subject font-blue-madison bold uppercase">我的名片</span> 
+           </div> 
+           <div class="pull-right">
+            <a href="javascript:;" class="btn blue" id="edit_card_btn">编辑 </a> 
+            <a href="javascript:;" class="btn grey" id="concel_card_btn" style="display:none"> 取消 </a> 
+            <a href="javascript:;" class="btn yellow" id="save_card_btn" style="display:none"> 保存 </a> 
+           </div>
+          </div> 
+          <div class="portlet-body"> 
+           <div class="row"> 
+            <div class="col-md-5"> 
+             <div class="business-card col-md-12" id="card_body"> 
+              <div class="business-card-line col-md-4"> 
+               <a data-toggle="modal" href="#edit_logo" title="点击修改logo"> <img src="../../assets/img/logo/logo.png" /> </a> 
+              </div> 
+              <div class="business-card-body col-md-8"> 
+               <h2>陈山猫
+               <span>销售经理</span> 
+               </h2> 
+               <span><i class="fa  fa-mobile-phone"></i> 18800001111</span> 
+               <h4>上海蔚蓝树信息科技有限公司</h4> 
+               <p><b>地址:</b>上海市杨浦区翔殷路100号1号楼1009</p> 
+               <p><b>电话:</b>021-5111222-111</p> 
+               <p><b>邮箱:</b>chen@weilanshu.com</p> 
+              </div> 
+             </div> 
+             <div class="business-card col-md-12" id="edit_card_body" style="display:none"> 
+              <div class="business-card-line col-md-4"> 
+               <a data-toggle="modal" href="#edit_logo" title="点击修改logo"> <img src="../../assets/img/logo/logo.png" /> </a> 
+              </div> 
+              <div class="business-card-body col-md-8"> 
+               <p><b>姓名:</b><input type="text" class="form-control" placeholder="姓名" value="陈山猫" /></p>
+               <p><b>职位:</b><input type="text" class="form-control" placeholder="职位" value="销售经理" /></p>   
+               <p><b>手机:</b><input type="text" class="form-control" placeholder="手机" value="18800001111" /></p> 
+               <p><b>公司名称:</b><input type="text" class="form-control" placeholder="公司名称" value="上海蔚蓝树信息科技有限公司" /></p> 
+               <p><b>地址:</b> <input type="text" class="form-control" placeholder="地址" value="上海市杨浦区翔殷路100号1号楼1009" /></p> 
+               <p><b>电话:</b> <input type="text" class="form-control" placeholder="电话" value="021-5111222-111" /></p> 
+               <p><b>邮箱:</b> <input type="text" class="form-control" placeholder="邮箱" value="chen@weilanshu.com" /></p> 
+              </div> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="tab-pane fade row" id="tab-2"> 
+         <!-- BEGIN ATTENTION --> 
+         <div class="portlet light"> 
+          <div class="portlet-title"> 
+           <div class="caption caption-md"> 
+            <i class="icon-bar-chart theme-font hide"></i> 
+            <span class="caption-subject font-blue-madison bold uppercase">全部关注</span> 
+            <span class="caption-helper">45个</span> 
+           </div> 
+           <div class="inputs"> 
+            <div class="portlet-input input-inline input-small "> 
+             <div class="input-icon right"> 
+              <i class="fa fa-search"></i> 
+              <input type="text" class="form-control form-control-solid" placeholder="搜索..." /> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+          <div class="portlet-body"> 
+           <div class="row geeks-list margin-bottom-20"> 
+            <div class="col-md-6 margin-bottom-20"> 
+             <div class="geek-item col-md-12"> 
+              <a href="my-space.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/1.jpg" /> <img class="geek-item-img-v" src="../../assets/img/vip.png" /></a> 
+              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">伊个小希</a> <span class="geek-item-score"><i class="fa fa-star"></i>51986</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
+              <div class="geek-item-tags col-md-3"> 
+               <span class="bgblue"> 宅男 </span> 
+               <span class="bgyellow"> 宅男 </span> 
+              </div> 
+             </div> 
+            </div> 
+            <div class="col-md-6 margin-bottom-20"> 
+             <div class="geek-item col-md-12"> 
+              <a href="my-space.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/2.jpg" /> <img class="geek-item-img-v" src="../../assets/img/vip.png" /></a> 
+              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">伊个小希</a> <span class="geek-item-score"><i class="fa fa-star"></i>51986</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
+              <div class="geek-item-tags col-md-3"> 
+               <span class="bggreen"> 宅男 </span> 
+               <span class="bgred"> 宅男 </span> 
+               <span class="bgblue"> 宅男 </span> 
+              </div> 
+             </div> 
+            </div> 
+            <div class="col-md-6 margin-bottom-20"> 
+             <div class="geek-item col-md-12"> 
+              <a href="my-space.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/3.jpg" /> <img class="geek-item-img-v" src="../../assets/img/vip.png" /></a> 
+              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">伊个小希</a> <span class="geek-item-score"><i class="fa fa-star"></i>51986</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
+              <div class="geek-item-tags col-md-3"> 
+               <span class="bggreen"> 宅男 </span> 
+              </div> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+         <!-- END ATTENTION --> 
+        </div> 
+        <div class="tab-pane fade row" id="tab-3"> 
+         <!-- BEGIN MESSAGE --> 
+         <div class="portlet light"> 
+          <div class="portlet-title"> 
+           <div class="caption caption-md"> 
+            <i class="icon-bar-chart theme-font hide"></i> 
+            <span class="caption-subject font-blue-madison bold uppercase">全部消息</span> 
+            <span class="caption-helper">45条</span> 
+           </div> 
+           <div class="inputs"> 
+            <div class="portlet-input input-inline input-small "> 
+             <div class="input-icon right"> 
+              <i class="fa fa-search"></i> 
+              <input type="text" class="form-control form-control-solid" placeholder="搜索..." /> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+          <div class="portlet-body"> 
+           <div style="height: 300px; overflow-y:scroll"> 
+            <div class="general-item-list col-md-12"> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/1.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">3小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-success"></span> 已读</span> 
+              </div> 
+              <div class="item-body">
+                哈哈哈哈，你好 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/7.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">5小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-warning"></span> 未读</span> 
+              </div> 
+              <div class="item-body">
+                再见！！！！！ 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/8.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">3小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-success"></span> 已读</span> 
+              </div> 
+              <div class="item-body">
+                哈哈哈哈，你好 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/9.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">5小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-warning"></span> 未读</span> 
+              </div> 
+              <div class="item-body">
+                再见！！！！！ 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/1.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">3小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-success"></span> 已读</span> 
+              </div> 
+              <div class="item-body">
+                哈哈哈哈，你好 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/1.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">5小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-warning"></span> 未读</span> 
+              </div> 
+              <div class="item-body">
+                再见！！！！！ 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/1.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">3小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-success"></span> 已读</span> 
+              </div> 
+              <div class="item-body">
+                哈哈哈哈，你好 
+              </div> 
+             </div> 
+             <div class="item"> 
+              <div class="item-head"> 
+               <div class="item-details"> 
+                <img class="item-pic" src="../../assets/img/people/1.jpg" /> 
+                <a href="" class="item-name primary-link">陈山猫</a> 
+                <span class="item-label">5小时以前</span> 
+               </div> 
+               <span class="item-status"><span class="badge badge-empty badge-warning"></span> 未读</span> 
+              </div> 
+              <div class="item-body">
+                再见！！！！！ 
+              </div> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+         <!-- END MESSAGE --> 
+        </div> 
+       </div> 
+      </div> 
+      <!--edit_img--> 
+   <div class="modal fade" id="edit_logo" tabindex="-1" role="basic" aria-hidden="true"> 
+    <div class="modal-dialog"> 
+     <div class="modal-content"> 
+      <div class="modal-header"> 
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> 
+       <h4 class="modal-title">修改LOGO</h4> 
+      </div> 
+      <div class="row modal-body"> 
+       <div class="col-md-12 form-group "> 
+        <label class="control-label col-md-3">选择图片</label> 
+        <div class="col-md-9"> 
+         <div class="fileinput fileinput-new" data-provides="fileinput"> 
+          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;"> 
+          </div> 
+          <div> 
+           <span class="btn default btn-file"> <span class="fileinput-new"> 选择图片 </span> <span class="fileinput-exists"> 更改 </span> <input type="hidden" /><input type="file" name="..." /> </span> 
+           <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="modal-footer"> 
+       <button type="button" class="btn default" data-dismiss="modal">关闭</button> 
+       <button type="button" class="btn blue">确定</button> 
+      </div> 
+     </div> 
+     <!-- /.modal-content --> 
+    </div> 
+    <!-- /.modal-dialog --> 
+   </div> 
+   <!-- /.modal --> 
+     </div> 
+     <!-- END SIDEBAR & CONTENT --> 
+    </div> 
+   </div> 
+   <!--edit_img--> 
+   <div class="modal fade" id="edit_img" tabindex="-1" role="basic" aria-hidden="true"> 
+    <div class="modal-dialog"> 
+     <div class="modal-content"> 
+      <div class="modal-header"> 
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> 
+       <h4 class="modal-title">修改头像</h4> 
+      </div> 
+      <div class="row modal-body"> 
+       <div class="col-md-12 form-group "> 
+        <label class="control-label col-md-3">选择图片</label> 
+        <div class="col-md-9"> 
+         <div class="fileinput fileinput-new" data-provides="fileinput"> 
+          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;"> 
+          </div> 
+          <div> 
+           <span class="btn default btn-file"> <span class="fileinput-new"> 选择图片 </span> <span class="fileinput-exists"> 更改 </span> <input type="hidden" /><input type="file" name="..." /> </span> 
+           <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="modal-footer"> 
+       <button type="button" class="btn default" data-dismiss="modal">关闭</button> 
+       <button type="button" class="btn blue">确定</button> 
+      </div> 
+     </div> 
+     <!-- /.modal-content --> 
+    </div> 
+    <!-- /.modal-dialog --> 
+   </div> 
+   <!-- /.modal --> 
+   <!--attention_me--> 
+   <div class="modal fade" id="attention_me" tabindex="-1" role="basic" aria-hidden="true"> 
+    <div class="modal-dialog"> 
+     <div class="modal-content"> 
+      <div class="modal-header"> 
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> 
+       <h4 class="modal-title">关注成功</h4> 
+      </div> 
+      <div class="modal-body"> 
+       <i class="fa fa-check-circle-o" style="color:green; font-size:20px;padding:5px;"></i> 关注成功！ 
+      </div> 
+      <div class="modal-footer"> 
+       <button type="button" class="btn default" data-dismiss="modal">关闭</button> 
+      </div> 
+     </div> 
+     <!-- /.modal-content --> 
+    </div> 
+    <!-- /.modal-dialog --> 
+   </div> 
+   <!-- /.modal --> 
+   <!--save_card_alter--> 
+   <div class="modal fade" id="save_card_alter" tabindex="-1" role="basic" aria-hidden="true"> 
+    <div class="modal-dialog"> 
+     <div class="modal-content"> 
+      <div class="modal-header"> 
+       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> 
+       <h4 class="modal-title">保存成功</h4> 
+      </div> 
+      <div class="modal-body"> 
+       <i class="fa fa-check-circle-o" style="color:green; font-size:20px;padding:5px;"></i> 名片保存成功！ 
+      </div> 
+      <div class="modal-footer"> 
+       <button type="button" class="btn default" data-dismiss="modal">关闭</button> 
+      </div> 
+     </div> 
+     <!-- /.modal-content --> 
+    </div> 
+    <!-- /.modal-dialog --> 
+   </div> 
+   <!-- /.modal --> 
+  </div> 
+  <!-- BEGIN FOOTER --> 
+  <div class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <!-- BEGIN COPYRIGHT --> 
+     <div class="col-md-6 col-sm-6"> 
+      <div class="pull-left copyright">
+        2016 &copy; 蔚蓝树. ALL Rights Reserved. 
+      </div> 
+     </div> 
+     <!-- END COPYRIGHT --> 
+     <!-- BEGIN SOCIAL ICONS --> 
+     <div class="col-md-6 col-sm-6"> 
+      <div class="pull-right copyright"> 
+       <a href="javascript:void(0);">免责</a> 
+       <span>|</span> 
+       <a href="javascript:void(0);">关于我们</a> 
+       <span>|</span> 
+       <a href="javascript:void(0);">联系我们</a> 
+      </div> 
+     </div> 
+     <!-- END SOCIAL ICONS --> 
+    </div> 
+   </div> 
+  </div> 
+  <!-- END FOOTER --> 
+  <!--send_message--> 
+  <div class="send-message" style="display:none;" id="send-message"> 
+   <div class="col-md-12 padding-top-10 message-title"> 
+    <div class="col-md-11 no-padding">
+      呵呵呵 
+    </div> 
+    <div class="col-md-1 no-padding"> 
+     <a class="pull-right" id="colse_message"> &times; </a> 
+    </div> 
+   </div> 
+   <div class="col-md-12 padding-top-10 message-body"> 
+    <div class="col-md-2 no-padding"> 
+     <a href="" class="pull-left"><img alt="" src="../../assets/img/people/2.jpg" width="35px" /></a> 
+    </div> 
+    <div class="col-md-10 no-padding"> 
+     <span class="left-span"></span> 
+     <p class="left-p pull-left">你好！！！</p> 
+    </div> 
+    <div class="col-md-12 padding-top-10 message-body"> 
+     <div class="col-md-10 no-padding"> 
+      <span class="right-span"></span> 
+      <p class="right-p pull-right">你好！！！ </p> 
+     </div> 
+     <div class="col-md-2 no-padding"> 
+      <a href="" class="pull-right"><img alt="" src="../../assets/img/people/1.jpg" width="35px" /></a> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="col-md-12 padding-top-10 message-footer"> 
+    <div class="col-md-2 no-padding"> 
+     <a href=""><img alt="" src="../../assets/img/people/1.jpg" width="35px" /></a> 
+    </div> 
+    <div class="col-md-10 form-group input-group no-padding"> 
+     <input type="text" class="form-control" /> 
+     <span class="input-group-btn"> <button class="btn btn-primary" type="button">发送</button> </span> 
+    </div> 
+   </div> 
+  </div> 
+  <a href="#base_content_container" class="go2top scroll"><i class="fa fa-arrow-up"></i></a> 
+  <!--[if lt IE 9]>
+  <script src="../../assets/global/plugins/respond.min.js"></script>
+  <![endif]--> 
+  <!-- Load JavaScripts at the bottom, because it will reduce page load time --> 
+  <!-- Core plugins BEGIN (For ALL pages) --> 
+  <script src="../../assets/js/jquery.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/jquery-migrate.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script> 
+  <!-- Core plugins END (For ALL pages) --> 
+  <!-- Core plugins BEGIN (required only for current page) --> 
+  <script src="../../assets/js/jquery.nav.js"></script> 
+  <!-- Core plugins END (required only for current page) --> 
+  <script src="../../assets/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/jquery.slimscroll.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/jquery.uniform.min.js" type="text/javascript"></script> 
+  <script type="text/javascript" src="../../assets/js/bootstrap-fileinput.js"></script> 
+  <script type="text/javascript" src="../../assets/js/jquery.mockjax.js"></script> 
+  <script type="text/javascript" src="../../assets/js/bootstrap-editable.js"></script> 
+  <!-- Global js BEGIN --> 
+  <script src="../../assets/js/metronic.js" type="text/javascript"></script> 
+  <script src="../../assets/js/demo.js" type="text/javascript"></script> 
+  <script src="../../assets/js/layout.js" type="text/javascript"></script> 
+  <script src="../../assets/js/form-editable.js"></script> 
+  <script src="../../assets/js/common.js"></script> 
+  <script>
+    $(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features
+      FormEditable.init();
+      CommonObj.init();
+    });
+  </script> 
+  <!-- Global js END -->  
+ </body>
+</html>

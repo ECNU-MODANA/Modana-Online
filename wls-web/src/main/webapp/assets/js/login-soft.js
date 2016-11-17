@@ -19,10 +19,10 @@ var Login = function () {
 
 	            messages: {
 	                username: {
-	                    required: "Username is required."
+	                    required: "用户名出错！"
 	                },
 	                password: {
-	                    required: "Password is required."
+	                    required: "密码出错！"
 	                }
 	            },
 
@@ -60,21 +60,29 @@ var Login = function () {
 	}
 
 	var handleForgetPassword = function () {
+		
 		$('.forget-form').validate({
 	            errorElement: 'span', //default input error message container
 	            errorClass: 'help-block', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            ignore: "",
 	            rules: {
-	                email: {
+	                phone: {
 	                    required: true,
-	                    email: true
+	                    phone: true
+	                },
+					validate_code: {
+	                    required: true,
+	                    validate_code: true
 	                }
 	            },
 
 	            messages: {
-	                email: {
-	                    required: "Email is required."
+	                phone: {
+	                    required: "手机号出错！"
+	                },
+					validate_code: {
+	                    required: "验证码出错！"
 	                }
 	            },
 
@@ -113,23 +121,23 @@ var Login = function () {
 	        jQuery('#forget-password').click(function () {
 	            jQuery('.login-form').hide();
 	            jQuery('.forget-form').show();
+				jQuery('.reset-form').hide();
 	        });
 
 	        jQuery('#back-btn').click(function () {
 	            jQuery('.login-form').show();
 	            jQuery('.forget-form').hide();
+				jQuery('.reset-form').hide();
 	        });
 
 	}
 
-	var handleRegister = function () {
+	/*var handleRegister = function () {
 
 		function format(state) {
             if (!state.id) return state.text; // optgroup
             return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
         }
-
-
 		$("#select2_sample4").select2({
 		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
             allowClear: true,
@@ -240,14 +248,83 @@ var Login = function () {
 	            jQuery('.register-form').hide();
 	        });
 	}
+    */
     
-    return {
+	var handleResetPassword = function () {
+		
+		$('.reset-form').validate({
+	            errorElement: 'span', //default input error message container
+	            errorClass: 'help-block', // default input error message class
+	            focusInvalid: false, // do not focus the last invalid input
+	            ignore: "",
+	            rules: {
+	                password1: {
+	                    required: true,
+	                    password1: true
+	                },
+					password2: {
+	                    required: true,
+	                    password2: true
+	                }
+	            },
+
+	            messages: {
+	                password1: {
+	                    required: "密码出错！"
+	                },
+					password2: {
+	                    required: "确认密码出错！"
+	                }
+	            },
+
+	            invalidHandler: function (event, validator) { //display error alert on form submit   
+
+	            },
+
+	            highlight: function (element) { // hightlight error inputs
+	                $(element)
+	                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+	            },
+
+	            success: function (label) {
+	                label.closest('.form-group').removeClass('has-error');
+	                label.remove();
+	            },
+
+	            errorPlacement: function (error, element) {
+	                error.insertAfter(element.closest('.input-icon'));
+	            },
+
+	            submitHandler: function (form) {
+	                form.submit();
+	            }
+	        });
+
+	        $('.reset-form input').keypress(function (e) {
+	            if (e.which == 13) {
+	                if ($('.reset-form').validate().form()) {
+	                    $('.reset-form').submit();
+	                }
+	                return false;
+	            }
+	        });
+
+	        jQuery('#reset-password').click(function () {
+	            jQuery('.login-form').hide();
+	            jQuery('.reset-form').show();
+				jQuery('.forget-form').hide();
+	        });
+
+	}
+
+	return {
         //main function to initiate the module
         init: function () {
         	
             handleLogin();
             handleForgetPassword();
-            handleRegister();    
+            //handleRegister();
+			handleResetPassword();
         }
 
     };

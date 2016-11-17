@@ -216,7 +216,7 @@ var Layout = function () {
     return {
         init: function () {
             //handlePromoBlock();
-            handleParallax();
+            //handleParallax();
             handleScrolling();
             handleNavItemCurrent();
             handleHeaderPosition();

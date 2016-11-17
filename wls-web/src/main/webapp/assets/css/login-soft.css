@@ -3,15 +3,11 @@ Login page
 ***/
 /* logo page */
 .login {
-  /*background-color: #666 !important;*/
+  background-color: #0066ff !important;
   background: url(../img/bg/bg-login.jpg) no-repeat;
-  width: 100%;
-  height: 100%;
+  background-size:100%;
   opacity: 1;
   visibility: inherit;
-  background-color: rgba(0, 0, 0, 0);
-  background-size: cover;
-  background-position: 50% 50%;
 }
 
 .login .logo {
@@ -49,7 +45,8 @@ Login page
 }
 
 .login .content .login-form,
-.login .content .forget-form {
+.login .content .forget-form,
+.login .content .reset-form, {
   padding: 0px;
   margin: 0px;
 }
@@ -65,7 +62,9 @@ Login page
 .login .content .register-form {
   display: none;
 }
-
+.login .content .reset-form {
+    display: none;
+}
 .login .content .form-title {
   font-weight: 300;
   margin-bottom: 25px;
@@ -95,6 +94,11 @@ Login page
   border: 0;
   margin-bottom: 0;
   padding-bottom: 0px;
+}
+.login .content .reset-form .form-actions {
+  border: 0;
+  margin-bottom: 0;
+  padding-bottom: 50px;
 }
 
 .login .content .form-actions .checkbox {

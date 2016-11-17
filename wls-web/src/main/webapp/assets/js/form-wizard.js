@@ -188,6 +188,7 @@ var FormWizard = function () {
                 }
 
                 if (current >= total) {
+                    $('#form_wizard_1').find('.button-previous').hide();
                     $('#form_wizard_1').find('.button-next').hide();
                     $('#form_wizard_1').find('.button-submit').show();
                     displayConfirm();
@@ -241,7 +242,7 @@ var FormWizard = function () {
 
             $('#form_wizard_1').find('.button-previous').hide();
             $('#form_wizard_1 .button-submit').click(function () {
-                alert('Finished! Hope you like it :)');
+                window.open("my-space.html");
             }).hide();
         }
 
