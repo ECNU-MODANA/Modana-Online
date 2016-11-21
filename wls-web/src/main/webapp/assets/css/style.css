@@ -474,6 +474,7 @@ a:hover {
   background-image: url("../img/bg/bg-weilanshu.jpg");
   background-repeat:no-repeat;
   background-size:100%;
+  background-position:center center;
 }
 .large_bold_white {
   color: #333;
@@ -1298,16 +1299,12 @@ Styler Panel
   margin: -30px 0 23px;
   position: relative;
   overflow: hidden;
-  background-color: #72c2ff;
-  background-position:100% 100%;
-  background-repeat: no-repeat;
   min-height: 300px;
   padding-top: 64px;
-  width: 100%;
-  overflow: hidden;
-}
-#img_bg_space{
-  background-image:url("../img/bg/1.jpg");
+  background-color: #72c2ff;
+  background-image: url("../img/bg/1.jpg");
+  background-repeat:no-repeat;
+  background-position:center center;
 }
 .title-wrapper .container-inner {
     float: auto;
@@ -2298,9 +2295,9 @@ table .product-quantity .input-group {
   border-radius: 150px !important;
 }*/
 .blog-item-body-info img{
-	width:270px;
-	height:160px;
-	padding:10px 15px 10px 0px;
+    width:270px;
+    height:160px;
+    padding:10px 15px 10px 0px;
 }
 .blogs-list .blog-item-img{
   float: left;
@@ -2475,11 +2472,30 @@ table .product-quantity .input-group {
   border-right: solid 1px #ECEBEB;
   height:162px;
 }
-.business-card img{
-  padding: 40px 14px;
+.business-card-line img{
+  padding: 40px 0px;
   max-width:140px;
   margin:auto;
+  position:absolute;
+  z-index:99;
 }
+.business-card-img img{
+  padding: 40px 0px;
+  max-width:140px;
+  margin:auto;
+  position:absolute;
+  z-index:99;
+  opacity:0.2;filter(alpha=20);
+  
+}
+.business-card-img .layer{
+    position:absolute;
+    padding: 50px;
+    color:#999;
+    z-index:100;
+    border:1px solid #e3e4e5;
+    }
+  
 .business-card-body{
   padding:0px 30px 15px 30px;
 }
@@ -2516,8 +2532,29 @@ table .product-quantity .input-group {
 .resume-basic .photo{
   width:168px;
   height:200px;
-  border:1px solid #f1f2f3
+  border:1px solid #999
 }
+.resume-basic-img img{
+  width:168px;
+  height:200px;
+  border:1px solid #999;
+  position:absolute;
+  z-index:99;
+  opacity:0.2;filter(alpha=20);
+  
+}
+.resume-basic-img .layer{
+    position:absolute;
+    color:#999;
+    z-index:100;
+    border:1px solid #999;
+    }
+.resume-basic-img .layer  i{
+    position:absolute;
+    padding: 80px;
+    color:#999;
+    z-index:100;
+    }
 .resume-basic h2 {
   font-size:50px;
   color:#3399cc;

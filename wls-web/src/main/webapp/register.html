@@ -38,7 +38,7 @@
   <!-- Theme styles END -->
 </head>
 <!--DOC: menu-always-on-top class to the body element to set menu on top -->
-<body class="menu-always-on-top">
+<body class="menu-always-on-top" ng-app="app"  ng-controller="register" >
   <!-- Header BEGIN -->
   <div class="header header-mobi-ext">
     <div class="container">
@@ -136,13 +136,13 @@
                         <div class="col-md-offset-3 col-md-3" id="company_gate">
                           <h3 class="margin-bottom-20">企业入口</h3>
                           <div class="account-type selected">
-                            <img src="assets/img/icons/company.png" alt="企业入口" title="企业入口"/>
+                            <img ng-click="company_gate()" src="assets/img/icons/company.png" alt="企业入口" title="企业入口"/>
                           </div>
                         </div>
                         <div class="col-md-3" id="geek_gate">
                           <h3 class="margin-bottom-20">极客入口</h3>
                           <div class="account-type" >
-                            <img src="assets/img/icons/student.png" alt="极客入口" title="极客入口"/>
+                            <img ng-click="geek_gate()" src="assets/img/icons/student.png" alt="极客入口" title="极客入口"/>
                           </div>
                         </div>
                       </div>
@@ -154,10 +154,10 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                            <div class="input-group" name="phone" > 
-                             <input type="text"  class="form-control" id="phone"/> 
+                            <div class="input-group" name="phone"  > 
+                             <input type="text"  class="form-control" id="phone" ng-model="telephone"/> 
                              <span class="input-group-btn" > 
-                               <button class="btn blue" type="button" id="J_getCode">发送验证码</button>
+                               <button class="btn blue" type="button" id="J_getCode" ng-click="getVerCode();">发送验证码</button>
                                <button class="btn blue" type="button" id="J_resetCode" style="display:none"><span id="J_second">60</span>秒后重发</button>
                              </span> 
                             </div> 
@@ -169,7 +169,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" ng-model="verCode" class="form-control" name=""/>
                           </div>
                         </div>
                         <div class="form-group">
@@ -189,7 +189,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                            <input type="text" class="form-control" name="username"/>
+                            <input type="text" class="form-control"  ng-model="username" name="username"/>
                           </div>
                         </div>
                         <div class="form-group">
@@ -197,7 +197,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                            <input type="text" class="form-control" name="email"/>
+                            <input type="text" class="form-control" ng-model="email"  name="email"/>
                           </div>
                         </div>
                         <div class="form-group">
@@ -205,7 +205,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                            <input type="password" class="form-control" name="password" id="submit_form_password"/>
+                            <input type="password" class="form-control" ng-model="password" name="password" id="submit_form_password"/>
                           </div>
                         </div>
                         <div class="form-group">
@@ -213,7 +213,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                            <input type="password" class="form-control" name="rpassword"/>
+                            <input type="password" class="form-control" ng-model="rpassword"  name="rpassword"/>
                           </div>
                         </div>
                       </div>
@@ -312,7 +312,8 @@
   <script src="assets/js/layout.js" type="text/javascript"></script>
   <script src="assets/js/form-wizard.js"></script>
   <script src="assets/js/common.js" type="text/javascript"></script>
-  <script src="assets/js/register.js" type="text/javascript"></script>
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="app/js/register.js" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
       Layout.init();

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.taobao.api.ApiException;
 import com.wls.manage.dao.UserMapper;
-import com.wls.manage.dto.ResultDto;
 import com.wls.manage.dto.UploadFileEntity;
 import com.wls.manage.entity.CookieEntity;
 import com.wls.manage.entity.UserEntity;
@@ -114,16 +113,27 @@ public class UserController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value = "/telephoneVerify", method = RequestMethod.POST)
+	@RequestMapping(value = "/sendSignUpCode", method = RequestMethod.POST)
 	@ResponseBody
-	public Object telephoneVerify(HttpServletRequest request, String telephone) throws ApiException {
+	public Object sendSignUpCode(HttpServletRequest request, String telephone) throws ApiException {
 		if(telephone!=null&&!telephone.equals("")){
 			TelephoneVerifyUtil teleVerify = new TelephoneVerifyUtil();
 			String signUpCode = teleVerify.signUpVerify(telephone);
 			request.getSession().setAttribute("signUpCode", signUpCode);
-			return new ResultDto(0, "验证码已发送");
+			return ResponseData.newSuccess("验证码已发送"); 
 		}
-		return new ResultDto(-1, "请填写手机号");
+		return ResponseData.newFailure("请填写手机号"); 
+	}
+	
+	
+	@RequestMapping(value = "/verifySignUpCode", method = RequestMethod.POST)
+	@ResponseBody
+	public Object verifySignUpCode(HttpServletRequest request, String signUpCode) throws ApiException {
+		String sessyzm=""+request.getSession().getAttribute("signUpCode");
+		if(signUpCode==null||!(sessyzm).equalsIgnoreCase(signUpCode))
+			return ResponseData.newFailure("验证码输入错误");
+		else 
+			return ResponseData.newSuccess("验证码验证成功");
 	}
 	
 	@RequestMapping(value = "/identityVerify", method = RequestMethod.POST)
@@ -133,30 +143,27 @@ public class UserController extends BaseController {
 			TelephoneVerifyUtil teleVerify = new TelephoneVerifyUtil();
 			String identityVerifyCode = teleVerify.identityVerify(telephone);
 			request.getSession().setAttribute("identityVerifyCode", identityVerifyCode);
-			return new ResultDto(0, "验证码已发送");
+			return ResponseData.newSuccess("验证码已发送"); 
 		}
-		return new ResultDto(-1, "请填写手机号");
+		return ResponseData.newFailure("请填写手机号"); 
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	@ResponseBody
-	public Object signup(HttpServletRequest request,String username, String password,String password1, String email,String telephone,String signUpCode) throws ApiException {
-		if (username == null || password == null || !password.equals(password1)) {
-			return new ResultDto(-1, "用户名和密码不能为空");
+	public Object signup(HttpServletRequest request,String username, String password,String rpassword, String email,String telephone,Integer suproleid) throws ApiException {
+		if (username == null || password == null ) {
+			return ResponseData.newFailure("用户名和密码输入不能为空"); 
 		}
-		String sessyzm=""+request.getSession().getAttribute("signUpCode");
-		if(StringUtil.isNull(sessyzm)||"null".endsWith(sessyzm)){
-			sessyzm=request.getSession().getAttribute("signUpCodeshear_yzm")+"";
-			}//跨app获得验证码
-		if(signUpCode==null||!(sessyzm).equalsIgnoreCase(signUpCode))
-			return new ResultDto(-1, "验证码输入错误");
+		if (!password.equals(rpassword) ) {
+			return ResponseData.newFailure("两次密码输入不一致"); 
+		}
 		UserEntity userEntity = new UserEntity();
 		userEntity.setUsername(username);
 		userEntity.setPassword(EncodeUtil.encodeByMD5(password));
 		userEntity.setEmail(email);
 		userEntity.setTelephone(telephone);
 		userDao.insertUser(userEntity);
-		return new ResultDto(0, "注册成功");
+		return ResponseData.newSuccess("注册成功");
 	}
 	
 	
