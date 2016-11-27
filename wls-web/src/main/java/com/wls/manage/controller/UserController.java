@@ -113,9 +113,9 @@ public class UserController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value = "/sendSignUpCode", method = RequestMethod.POST)
+	@RequestMapping(value = "/sendSignUpCode")
 	@ResponseBody
-	public Object sendSignUpCode(HttpServletRequest request, String telephone) throws ApiException {
+	public Object sendSignUpCode(HttpServletRequest request,@RequestParam(value="telephone",required=false) String telephone) throws ApiException {
 		if(telephone!=null&&!telephone.equals("")){
 			TelephoneVerifyUtil teleVerify = new TelephoneVerifyUtil();
 			String signUpCode = teleVerify.signUpVerify(telephone);
@@ -126,7 +126,7 @@ public class UserController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value = "/verifySignUpCode", method = RequestMethod.POST)
+	@RequestMapping(value = "/verifySignUpCode")
 	@ResponseBody
 	public Object verifySignUpCode(HttpServletRequest request, String signUpCode) throws ApiException {
 		String sessyzm=""+request.getSession().getAttribute("signUpCode");
@@ -148,7 +148,7 @@ public class UserController extends BaseController {
 		return ResponseData.newFailure("请填写手机号"); 
 	}
 	
-	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	@RequestMapping(value = "/signup")
 	@ResponseBody
 	public Object signup(HttpServletRequest request,String username, String password,String rpassword, String email,String telephone,Integer suproleid) throws ApiException {
 		if (username == null || password == null ) {
@@ -162,6 +162,7 @@ public class UserController extends BaseController {
 		userEntity.setPassword(EncodeUtil.encodeByMD5(password));
 		userEntity.setEmail(email);
 		userEntity.setTelephone(telephone);
+		userEntity.setSuproleid(suproleid);
 		userDao.insertUser(userEntity);
 		return ResponseData.newSuccess("注册成功");
 	}

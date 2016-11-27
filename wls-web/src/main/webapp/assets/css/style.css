@@ -2589,3 +2589,9 @@ table .product-quantity .input-group {
   padding-top:10px;
   background:#3399cc;
 }
+.datasheet-features-type{
+    width:10% !important;
+  }
+.datasheet-features-type2{
+    width:40% !important;
+  }

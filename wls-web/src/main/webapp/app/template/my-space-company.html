@@ -33,7 +33,7 @@
   <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-editable.css" /> 
  </head> 
  <!--DOC: menu-always-on-top class to the body element to set menu on top --> 
- <body class="menu-always-on-top"> 
+ <body class="menu-always-on-top" ng-app="app"  ng-controller="my-space-company"> 
   <!-- Header BEGIN --> 
   <div class="header header-mobi-ext"> 
    <div class="container"> 
@@ -520,6 +520,8 @@
   <script src="../../assets/js/layout.js" type="text/javascript"></script> 
   <script src="../../assets/js/form-editable.js"></script> 
   <script src="../../assets/js/common.js"></script> 
+   <script src="../../bower_components/angular/angular.min.js"></script>
+  <script src="../../app/js/my-space-company.js" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
       Metronic.init(); // init metronic core components

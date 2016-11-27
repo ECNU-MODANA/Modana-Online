@@ -29,6 +29,10 @@ var broswerHeight = function(){
 
 var handleActions = function(){
     $('body')
+    /*计算内容高度*/
+    .on('click', '#resume_cal_height', function(e) {
+      broswerHeight();
+    })
     /*倒计时*/
     .on('click', '#J_getCode', function(e) {
       resetCode();

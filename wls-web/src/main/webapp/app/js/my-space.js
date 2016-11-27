@@ -1,12 +1,16 @@
-var app = angular.module('app', []).controller('register',function($http, $location, $scope) {
-	$scope.suproleid = 2;
-	$scope.company_gate = function() {
-       $scope.suproleid = 2;
-    };
-    $scope.geek_gate = function() {
-    	 $scope.suproleid = 1;  
-    };
-    $scope.getVerCode = function() {
+var app = angular.module('app', []).controller('my-space',function($http, $location, $scope) {
+    $scope.load = function(){
+			 $.ajax({type: "GET",cache: false,dataType: 'json',url: '/i/user/findUser'}).success(function(data,status,config,headers){
+				$scope.user = data;
+				if($scope.user.id==undefined){
+					alert("请先登录");
+					window.location.href="../../login.html";
+				}
+		    });
+	   };
+	$scope.load();
+	
+	$scope.getVerCode = function() {
       if($scope.telephone!=undefined){
     	$http.get( "/i/user/sendSignUpCode",{
     		params : {telephone : $scope.telephone}
