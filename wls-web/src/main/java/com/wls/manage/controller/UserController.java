@@ -70,7 +70,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public Object findUser(HttpServletRequest request,String token) {
 		UserEntity user = (UserEntity)request.getSession().getAttribute("user");
-		if(user!=null){return user;}
+		if(user!=null){return ResponseData.newSuccess(user);}
 		if(StringUtil.isNull(token)){
 			Cookie[] cookies = request.getCookies();
 			if(cookies!=null&&cookies.length>0){
@@ -86,12 +86,11 @@ public class UserController extends BaseController {
 				if(user!=null){
 					user.setPassword("********");
 					request.getSession().setAttribute("user", user);
-					return user;
+					return ResponseData.newSuccess(user);
 				}
 			}
 		}
-		user = new UserEntity();
-		return user;
+		return ResponseData.newFailure();
 	}
 
 	@RequestMapping(value = "/userNameVerify", method = RequestMethod.POST)
@@ -173,21 +172,25 @@ public class UserController extends BaseController {
 	public Object updateUser(HttpServletRequest request, @RequestParam(required = false) MultipartFile useravatar,UserEntity user) throws ApiException {
 		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
 		user.setId(old_user.getId());
-		String dir = String.format("%s/user/%s", baseDir, user.getId());
-		String fileName = String.format("user%s_%s.%s", user.getId(), new Date().getTime(), "jpg");
-		UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, useravatar, dir);
-		ftpService.uploadFile(uploadFileEntity);
-		user.setAvatar(FtpService.READ_URL+dir + "/" + fileName);
-		if(user.getId().equals(0)){
+		if(useravatar!=null){
+			String dir = String.format("%s/user/%s", baseDir, user.getId());
+			String fileName = String.format("user%s_%s.%s", user.getId(), new Date().getTime(), "jpg");
+			UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, useravatar, dir);
+			ftpService.uploadFile(uploadFileEntity);
+			user.setAvatar(FtpService.READ_URL+dir + "/" + fileName);
+		}
+		if(!user.getId().equals(0)){
 			if(StringUtil.isnotNull(user.getPassword()))
-			{user.setPassword(EncodeUtil.encodeByMD5(user.getPassword()));}
+			{
+				user.setPassword(EncodeUtil.encodeByMD5(user.getPassword()));
+			}
 			this.userDao.updateUser(user);
-			UserEntity	ol_user=this.userDao.findUserById(user.getId().intValue());
+			UserEntity	ol_user = this.userDao.findUserById(user.getId().intValue());
 			ol_user.setPassword("********");
 			request.getSession().setAttribute("user",ol_user);
-			return ol_user;
+			return ResponseData.newSuccess(ol_user);
 		}
-		return false;
+		return ResponseData.newFailure();
 	}
 	
 	@RequestMapping(value = "/checkOldPassword")

@@ -31,6 +31,8 @@
   <link href="../../assets/css/bootstrap-fileinput.css" rel="stylesheet" type="text/css" /> 
   <!-- Theme styles END --> 
   <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-editable.css" /> 
+  <script src="../../bower_components/angular/angular.min.js"></script>
+  <script src="../../app/js/my-space-company.js" type="text/javascript"></script>
  </head> 
  <!--DOC: menu-always-on-top class to the body element to set menu on top --> 
  <body class="menu-always-on-top" ng-app="app"  ng-controller="my-space-company"> 
@@ -50,7 +52,7 @@
        <li><a href="../../index.html">首页</a></li> 
        <li><a href="news.html">资讯</a></li> 
        <li><a href="geek.html">极客</a></li> 
-       <li><a href="post-bar.html">贴吧</a></li> 
+       <li><a href="post-bar.html">创吧</a></li> 
        <li class="current"><a href="my-space.html">我的</a></li> 
        <li><a href="../../register.html" style="display: inline; font-size:15px;">注册</a> | <a href="../../login.html" style="display: inline; font-size:15px;">登录</a></li> 
       </ul> 
@@ -64,7 +66,8 @@
    <div class="title-wrapper-company"> 
     <div class="container"> 
      <div class="container-inner"> 
-      <em> <a data-toggle="modal" href="#edit_img" title="修改LOGO"><img src="../../assets/img/people/2.jpg" alt="头像" title="点击修改头像" /></a> <p>蔚蓝树 <i class="fa fa-female"></i> <span class="badge bg-yellow-casablanca">Lv 8</span></p> <p style="font-size:14px">一句话介绍一下自己吧，让别人更了解你</p> <a href="#attention_me" data-toggle="modal" class="btn red"><i class="fa fa-plus"></i> 关注</a> <a href="#" class="btn red" id="send_message"><i class="fa fa-comment"></i> 私信</a> </em> 
+      <em> <a data-toggle="modal" href="#edit_img" title="修改LOGO"><img src="../../assets/img/people/2.jpg" alt="头像" title="点击修改头像" /></a> <p>{{user.username}} <i class="fa fa-female"></i> <span class="badge bg-yellow-casablanca">Lv 8</span></p>
+       <p style="font-size:14px">{{user.signature}}</p> <a href="#attention_me" data-toggle="modal" class="btn red"><i class="fa fa-plus"></i> 关注</a> <a href="#" class="btn red" id="send_message"><i class="fa fa-comment"></i> 私信</a> </em> 
      </div> 
     </div> 
    </div> 
@@ -89,7 +92,7 @@
            <div class="pull-right">
             <a href="javascript:;" class="btn blue" id="edit_card_btn">编辑 </a> 
             <a href="javascript:;" class="btn grey" id="concel_card_btn" style="display:none"> 取消 </a> 
-            <a href="javascript:;" class="btn yellow" id="save_card_btn" style="display:none"> 保存 </a> 
+           <span ng-click="saveInfo"> <a href="javascript:;" class="btn yellow" id="save_card_btn" style="display:none"> 保存 </a></span> 
            </div>
           </div> 
           <div class="portlet-body"> 
@@ -100,14 +103,14 @@
                <a data-toggle="modal" href="#edit_logo" title="点击修改logo"> <img src="../../assets/img/logo/logo.png" /> </a> 
               </div> 
               <div class="business-card-body col-md-8"> 
-               <h2>陈山猫
-               <span>销售经理</span> 
+               <h2>{{user.realname}}
+               <span>{{user.position}}</span> 
                </h2> 
-               <span><i class="fa  fa-mobile-phone"></i> 18800001111</span> 
-               <h4>上海蔚蓝树信息科技有限公司</h4> 
-               <p><b>地址:</b>上海市杨浦区翔殷路100号1号楼1009</p> 
-               <p><b>电话:</b>021-5111222-111</p> 
-               <p><b>邮箱:</b>chen@weilanshu.com</p> 
+               <span><i class="fa  fa-mobile-phone"></i> {{user.telephone}}</span> 
+               <h4>{{user.company}}</h4> 
+               <p><b>地址:</b>{{user.address}}</p> 
+               <p><b>电话:</b>{{user.phone}}</p> 
+               <p><b>邮箱:</b>{{user.email}}</p> 
               </div> 
              </div> 
              <div class="business-card col-md-12" id="edit_card_body" style="display:none"> 
@@ -118,13 +121,15 @@
                </a> 
               </div> 
               <div class="business-card-body col-md-8"> 
-               <p><b>姓名:</b><input type="text" class="form-control" placeholder="姓名" value="陈山猫" /></p>
-               <p><b>职位:</b><input type="text" class="form-control" placeholder="职位" value="销售经理" /></p>   
-               <p><b>手机:</b><input type="text" class="form-control" placeholder="手机" value="18800001111" /></p> 
-               <p><b>公司名称:</b><input type="text" class="form-control" placeholder="公司名称" value="上海蔚蓝树信息科技有限公司" /></p> 
-               <p><b>地址:</b> <input type="text" class="form-control" placeholder="地址" value="上海市杨浦区翔殷路100号1号楼1009" /></p> 
-               <p><b>电话:</b> <input type="text" class="form-control" placeholder="电话" value="021-5111222-111" /></p> 
-               <p><b>邮箱:</b> <input type="text" class="form-control" placeholder="邮箱" value="chen@weilanshu.com" /></p> 
+               <p><b>姓名:</b><input type="text" class="form-control" placeholder="姓名" ng-model="user.realname" /></p>
+               <p><b>性别:</b><select id="editsexselect" class="form-control" value="{{user.sex}}" ><option>男</option><option>女</option></select></p>
+               <p><b>职位:</b><input type="text" class="form-control" placeholder="职位" ng-model="user.position"  /></p>   
+               <p><b>手机:</b><input type="text" class="form-control" placeholder="手机" ng-model="user.telephone"  /></p> 
+               <p><b>公司名称:</b><input type="text" class="form-control" placeholder="公司名称" ng-model="user.company"  /></p> 
+               <p><b>地址:</b> <input type="text" class="form-control" placeholder="地址" ng-model="user.address"  /></p> 
+               <p><b>电话:</b> <input type="text" class="form-control" placeholder="电话" ng-model="user.phone" /></p> 
+               <p><b>邮箱:</b> <input type="text" class="form-control" placeholder="邮箱" ng-model="user.email" /></p>
+               <p><b>个性签名</b> <input type="text" class="form-control" placeholder="一句话介绍一下自己吧"  ng-model="user.signature" /></p> 
               </div> 
              </div> 
             </div> 
@@ -411,7 +416,7 @@
    </div> 
    <!-- /.modal --> 
    <!--save_card_alter--> 
-   <div class="modal fade" id="save_card_alter" tabindex="-1" role="basic" aria-hidden="true"> 
+  <!--  <div class="modal fade" id="save_card_alter" tabindex="-1" role="basic" aria-hidden="true"> 
     <div class="modal-dialog"> 
      <div class="modal-content"> 
       <div class="modal-header"> 
@@ -425,10 +430,10 @@
        <button type="button" class="btn default" data-dismiss="modal">关闭</button> 
       </div> 
      </div> 
-     <!-- /.modal-content --> 
+     /.modal-content 
     </div> 
-    <!-- /.modal-dialog --> 
-   </div> 
+    /.modal-dialog 
+   </div>  -->
    <!-- /.modal --> 
   </div> 
   <!-- BEGIN FOOTER --> 
@@ -520,8 +525,6 @@
   <script src="../../assets/js/layout.js" type="text/javascript"></script> 
   <script src="../../assets/js/form-editable.js"></script> 
   <script src="../../assets/js/common.js"></script> 
-   <script src="../../bower_components/angular/angular.min.js"></script>
-  <script src="../../app/js/my-space-company.js" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
       Metronic.init(); // init metronic core components

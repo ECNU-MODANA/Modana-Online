@@ -44,6 +44,14 @@ public class UserEntity {
 	
 	private String realname;
 	
+	private String company;
+	
+	private String position;
+	
+	private String phone;
+	 
+	private String signature;
+	
 	private String avatar;//用户头像
 	
 	private Date registertime;
@@ -228,6 +236,38 @@ public class UserEntity {
 
 	public void setScore(BigInteger score) {
 		this.score = score;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 	
 	
