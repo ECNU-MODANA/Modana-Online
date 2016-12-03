@@ -1,5 +1,5 @@
 var app = angular.module('app', []).controller('register',function($http, $location, $scope) {
-	$scope.suproleid = 2;
+	$scope.suproleid = 1;
 	$scope.company_gate = function() {
        $scope.suproleid = 2;
     };

@@ -1,5 +1,6 @@
 package com.wls.manage.dao;
 
+import com.github.pagehelper.Page;
 import com.wls.manage.entity.UserEntity;
 
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +16,8 @@ public interface UserMapper {
 	void insertUser(UserEntity userEntity);
 	
 	void updateUser(UserEntity userEntity);
+	
+	Page<UserEntity> findAllUser(@Param("audit")Integer audit, @Param("keyword")String keyword);
 	
 	public int existenceUserName(@Param("username")String username);
 }

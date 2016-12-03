@@ -61,6 +61,16 @@ public class UserEntity {
 	private Integer verify;
 	
 	private BigInteger score;
+	
+	private String interest;
+	
+	private String skill;
+	
+	private String major;
+	
+	private String intention;
+	
+	private String introduction;
 
 	public BigInteger getId() {
 		return id;
@@ -269,7 +279,45 @@ public class UserEntity {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
-	
-	
+
+	public String getInterest() {
+		return interest;
+	}
+
+	public void setInterest(String interest) {
+		this.interest = interest;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getIntention() {
+		return intention;
+	}
+
+	public void setIntention(String intention) {
+		this.intention = intention;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
 	
 }

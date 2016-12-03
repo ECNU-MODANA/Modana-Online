@@ -1,5 +1,7 @@
 package com.wls.manage.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.taobao.api.ApiException;
 import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.UploadFileEntity;
@@ -70,7 +75,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public Object findUser(HttpServletRequest request,String token) {
 		UserEntity user = (UserEntity)request.getSession().getAttribute("user");
-		if(user!=null){return ResponseData.newSuccess(user);}
+		if(user!=null){return user;}
 		if(StringUtil.isNull(token)){
 			Cookie[] cookies = request.getCookies();
 			if(cookies!=null&&cookies.length>0){
@@ -86,13 +91,34 @@ public class UserController extends BaseController {
 				if(user!=null){
 					user.setPassword("********");
 					request.getSession().setAttribute("user", user);
-					return ResponseData.newSuccess(user);
+					return user;
 				}
 			}
 		}
-		return ResponseData.newFailure();
+		user = new UserEntity();
+		return user;
 	}
-
+	
+	@RequestMapping(value = "/findUserList", method = RequestMethod.POST)
+	@ResponseBody
+	public Object findUserList(@RequestParam(value="pageNum",required=false) Integer pageNum,
+			@RequestParam(value="pageSize") Integer pageSize, 
+			@RequestParam(value="audit", required=false) Integer audit,
+			@RequestParam(value="keyword", required=false) String keyword) throws UnsupportedEncodingException {
+		if( !(audit == -1 || audit == 1 || audit == 0) ){
+			audit = null;
+		}
+		pageNum = pageNum == null? 1:pageNum;
+		pageSize = pageSize==null? 12:pageSize;
+		PageHelper.startPage(pageNum, pageSize);
+		if(keyword.equals("undefined"))
+			keyword = null;
+		else{
+		keyword = URLDecoder.decode(keyword, "UTF-8");
+		}
+		return new PageInfo<UserEntity>(userDao.findAllUser(audit,keyword));
+		
+	}
 	@RequestMapping(value = "/userNameVerify", method = RequestMethod.POST)
 	@ResponseBody
 	public Object userNameVerify(HttpServletRequest request, String username) throws ApiException {
@@ -166,19 +192,30 @@ public class UserController extends BaseController {
 		return ResponseData.newSuccess("注册成功");
 	}
 	
-	
 	@RequestMapping(value = "/updateUser")
 	@ResponseBody
-	public Object updateUser(HttpServletRequest request, @RequestParam(required = false) MultipartFile useravatar,UserEntity user) throws ApiException {
+	public Object updateUser(HttpServletRequest request, @RequestParam(value="realname",required=false)String realname,
+			@RequestParam(value="telephone",required=false)String telephone,
+			@RequestParam(value="position",required=false)String position,
+			@RequestParam(value="company",required=false)String company,
+			@RequestParam(value="address",required=false)String address,
+			@RequestParam(value="phone",required=false)String phone,
+			@RequestParam(value="email",required=false)String email,
+			@RequestParam(value="signature",required=false)String signature,
+			@RequestParam(value="sex",required=false)int sex
+			) throws ApiException {
+		UserEntity user = new UserEntity();
 		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
 		user.setId(old_user.getId());
-		if(useravatar!=null){
-			String dir = String.format("%s/user/%s", baseDir, user.getId());
-			String fileName = String.format("user%s_%s.%s", user.getId(), new Date().getTime(), "jpg");
-			UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, useravatar, dir);
-			ftpService.uploadFile(uploadFileEntity);
-			user.setAvatar(FtpService.READ_URL+dir + "/" + fileName);
-		}
+		user.setAddress(address);
+		user.setRealname(realname);
+		user.setTelephone(telephone);
+		user.setPosition(position);
+		user.setCompany(company);
+		user.setPhone(phone);
+		user.setEmail(email);
+		user.setSignature(signature);
+		user.setSex(sex);
 		if(!user.getId().equals(0)){
 			if(StringUtil.isnotNull(user.getPassword()))
 			{
@@ -192,6 +229,29 @@ public class UserController extends BaseController {
 		}
 		return ResponseData.newFailure();
 	}
+	
+	@RequestMapping(value = "/updateAvatar")
+	@ResponseBody
+	public Object updateAvatar(HttpServletRequest request, @RequestParam(required = false) MultipartFile useravatar) throws ApiException {
+		UserEntity user = new UserEntity();
+		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
+		user.setId(old_user.getId());
+		if(useravatar!=null){
+			String dir = String.format("%s/user/%s", baseDir, user.getId());
+			String fileName = String.format("user%s_%s.%s", user.getId(), new Date().getTime(), "jpg");
+			UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, useravatar, dir);
+			ftpService.uploadFile(uploadFileEntity);
+			user.setAvatar(FtpService.READ_URL+dir + "/" + fileName);
+			this.userDao.updateUser(user);
+			UserEntity	ol_user = this.userDao.findUserById(user.getId().intValue());
+			ol_user.setPassword("********");
+			request.getSession().setAttribute("user",ol_user);
+			return ResponseData.newSuccess(ol_user);
+		}
+		return ResponseData.newFailure();
+	}
+	
+	
 	
 	@RequestMapping(value = "/checkOldPassword")
 	@ResponseBody

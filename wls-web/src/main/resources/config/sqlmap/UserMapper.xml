@@ -45,10 +45,23 @@
 	         <if test="email      !=null and email    !=''">   email   =#{email     },</if>
 	         <if test="avatar     !=null and avatar   !=''">   avatar  =#{avatar    },</if>
 	         <if test="score     !=null and score   !=''">   score  =#{score    },</if>
-	         <if test="updateTime !=null and updateTime!=''">updateTime=now()</if>
+	         <if test="updatetime !=null and updatetime!=''">updatetime=now()</if>
         </set>
         where id = ${id}
     </update>
+    
+    <select id="findAllUser" parameterType="int" resultType="UserEntity">
+         SELECT * FROM `user`
+		 <where> 
+			<if test="audit != null">
+			    audit=#{audit}
+			</if>
+		    <if test="keyword != null">
+		        AND username like "%"#{keyword}"%"
+		    </if>
+		 </where>
+         order by `registertime` desc
+    </select>
     
     <select id="existenceUserName" parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM user u  WHERE u.`username` = #{username};
