@@ -6,5 +6,5 @@ package com.wls.service;
  *@Description: (1)Test Git Update
  */
 public class CommonTest {
-
+private String ChenRTest;
 }
