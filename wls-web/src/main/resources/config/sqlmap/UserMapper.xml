@@ -36,7 +36,7 @@
 	         <if test="cityid !=null">cityid =#{cityid},</if>
 	         <if test="schoolid !=null">schoolid =#{schoolid},</if>
 	         <if test="verify !=null">   verify  =#{verify    },</if>
-	         <if test="age !=null">   age  =#{age    },</if>
+	         <if test="age !=null and age !=''">   age  =#{age    },</if>
 	         <if test="password   !=null and password !=''">password   =#{password  },</if>
 	         <if test="telephone  !=null and telephone!=''">telephone  =#{telephone },</if>
 	         <if test="qq  !=null and qq!=''">qq  =#{qq },</if>
@@ -45,6 +45,16 @@
 	         <if test="email      !=null and email    !=''">   email   =#{email     },</if>
 	         <if test="avatar     !=null and avatar   !=''">   avatar  =#{avatar    },</if>
 	         <if test="score     !=null and score   !=''">   score  =#{score    },</if>
+	         <if test="company   !=null and company !=''"> company  =#{company  },</if>
+	         <if test="phone   !=null and phone !=''"> phone  =#{phone  },</if> 
+	         <if test="position      !=null and position    !=''">   position   =#{position     },</if>
+	         <if test="signature     !=null and signature   !=''">   signature  =#{signature    },</if>
+	         <if test="interest     !=null and interest   !=''">   interest  =#{interest    },</if>
+	         <if test="skill   !=null and skill !=''"> skill  =#{skill  },</if> 
+	         <if test="major      !=null and major    !=''">   major   =#{major     },</if>
+	         <if test="intention     !=null and intention   !=''">   intention  =#{intention    },</if>
+	         <if test="introduction     !=null and introduction   !=''">   introduction  =#{introduction    },</if>
+	         
 	         <if test="updatetime !=null and updatetime!=''">updatetime=now()</if>
         </set>
         where id = ${id}

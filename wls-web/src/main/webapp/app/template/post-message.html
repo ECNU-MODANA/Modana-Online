@@ -143,14 +143,13 @@
 
        </div> 
        <div class="col-md-12 margin-bottom-20">
-         <div name="summernote" id="summernote_1">
-         </div>
+         <script id="editor" type="text/plain" style="width:888px;height:300px;"></script>
        </div>
-       <div class="content-center">
+      <!--  <div class="content-center">
 	  <a class="btn blue">预览</a> 
       <a class="btn blue">发布</a> 
       <a class="btn grey">返回</a>
-     </div> 
+     </div>  -->
     </div> 
      </div> 
   </div> 
@@ -214,6 +213,7 @@
      $('.icon-picture').html("上传图片");
      $('.icon-play').html("上传视频");
     });
+    var ue = UE.getEditor('editor');
   </script> 
  </body>
 </html>

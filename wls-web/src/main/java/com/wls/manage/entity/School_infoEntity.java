@@ -10,7 +10,7 @@ public class School_infoEntity {
 	
 	private Integer sh_city;
 	
-	private String sh_school;
+	private String sh_shool;
 
 	public Integer getSh_id() {
 		return sh_id;
@@ -28,13 +28,14 @@ public class School_infoEntity {
 		this.sh_city = sh_city;
 	}
 
-	public String getSh_school() {
-		return sh_school;
+	public String getSh_shool() {
+		return sh_shool;
 	}
 
-	public void setSh_school(String sh_school) {
-		this.sh_school = sh_school;
+	public void setSh_shool(String sh_shool) {
+		this.sh_shool = sh_shool;
 	}
+
 	
 	
 }

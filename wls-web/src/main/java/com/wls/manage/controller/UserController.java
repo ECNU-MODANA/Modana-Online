@@ -194,7 +194,8 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value = "/updateUser")
 	@ResponseBody
-	public Object updateUser(HttpServletRequest request, @RequestParam(value="realname",required=false)String realname,
+	public Object updateUser(HttpServletRequest request, 
+			@RequestParam(value="realname",required=false)String realname,
 			@RequestParam(value="telephone",required=false)String telephone,
 			@RequestParam(value="position",required=false)String position,
 			@RequestParam(value="company",required=false)String company,
@@ -202,7 +203,16 @@ public class UserController extends BaseController {
 			@RequestParam(value="phone",required=false)String phone,
 			@RequestParam(value="email",required=false)String email,
 			@RequestParam(value="signature",required=false)String signature,
-			@RequestParam(value="sex",required=false)int sex
+			@RequestParam(value="sex",required=false)int sex,
+			
+			@RequestParam(value="pr_id",required=false)int pr_id,
+			@RequestParam(value="ci_id",required=false)int ci_id,
+			@RequestParam(value="sh_id",required=false)int sh_id,
+			@RequestParam(value="major",required=false)String major,
+			@RequestParam(value="skill",required=false)String skill,
+			@RequestParam(value="nickname",required=false)String nickname,
+			@RequestParam(value="interest",required=false)String interest,
+			@RequestParam(value="age",required=false)int age
 			) throws ApiException {
 		UserEntity user = new UserEntity();
 		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
@@ -216,6 +226,15 @@ public class UserController extends BaseController {
 		user.setEmail(email);
 		user.setSignature(signature);
 		user.setSex(sex);
+		
+		user.setProvinceid(pr_id);
+		user.setCityid(ci_id);
+		user.setSchoolid(sh_id);
+		user.setMajor(major);
+		user.setSkill(skill);
+		user.setNickname(nickname);
+		user.setInterest(interest);
+		user.setAge(age);
 		if(!user.getId().equals(0)){
 			if(StringUtil.isnotNull(user.getPassword()))
 			{

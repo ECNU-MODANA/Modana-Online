@@ -108,7 +108,7 @@
            <div class="pull-right"> 
             <a class="btn default" id="edit_info">编辑</a> 
             <a class="btn default" id="edit_info_concel" style="display:none">取消</a> 
-            <a class="btn default" id="edit_info_save" style="display:none">保存</a> 
+            <a class="btn default" id="edit_info_save" ng-click="saveInfo()" style="display:none">保存</a> 
            </div> 
           </div> 
           <div class="portlet-body"> 
@@ -118,13 +118,13 @@
               <td class="datasheet-features-type">昵称：</td> 
               <td class="datasheet-features-type2">{{user.nickname}}</td> 
               <td class="datasheet-features-type">所在地：</td> 
-              <td class="datasheet-features-type2">{{user.address}} </td> 
+              <td class="datasheet-features-type2">{{userProvince}}-{{userCity}}</td> 
              </tr> 
              <tr> 
               <td class="datasheet-features-type">性别：</td> 
               <td class="datasheet-features-type2">{{user.sex}}</td> 
               <td class="datasheet-features-type">学校：</td> 
-              <td class="datasheet-features-type2">{{user.school}}</td> 
+              <td class="datasheet-features-type2">{{userSchool}}</td> 
              </tr> 
              <tr> 
               <td class="datasheet-features-type">年龄：</td> 
@@ -150,13 +150,21 @@
               <td class="datasheet-features-type">昵称：</td> 
               <td><input type="text" class="form-control" ng-model="user.nickname" placeholder="流浪的风"/></td> 
               <td class="datasheet-features-type">所在地：</td> 
-              <td><select id="" class="selectpicker form-control" data-live-search="true" style="max-height:200px !important" value="上海"><option>上海</option> <option>北京</option> <option>浙江</option> <option>北京</option> <option>江苏</option> <option>重庆</option> <option>安徽</option> <option>深圳</option> <option>湖南</option> <option>湖北</option> <option>四川</option> <option>云南</option> <option>贵州</option> <option>甘肃</option> <option>广东</option> </select> </td> 
+              <td><select id=""  style="height:35px !important"
+               ng-model="user.provinceid" ng-disabled="editable"
+                                     ng-change="provinceSelected(user.provinceid)"
+                                     ng-options="x.pr_id as x.pr_province for x in provinces"></select>
+              <select id=""  style="height:35px !important" ng-model="user.cityid"
+                                    ng-disabled="editable" ng-change="citySelected(user.cityid)"
+                                    ng-options="x.ci_id as x.ci_city for x in citys"></select> </td> 
              </tr> 
              <tr> 
               <td class="datasheet-features-type">性别：</td> 
               <td><select id="" class="form-control" ng-model="user.sex"><option>男</option><option>女</option></select></td> 
               <td class="datasheet-features-type">学校：</td> 
-              <td><select id="" class="selectpicker form-control" data-live-search="true"><option selected="">上海交通大学</option> <option>北京大学</option> <option>浙江大学</option> <option>清华大学</option> <option>南京大学</option> <option>四川大学</option> <option>浙江大学</option> <option>复旦大学</option> <option>同济大学</option> <option>西安交通大学</option> <option>大连理工大学</option> <option>上海财经学院</option> <option>上海师范学院</option> <option>山东大学</option> <option>厦门大学</option> </select> </td> 
+              <td><select id="" style="height:35px !important" ng-model="user.schoolid"
+                                    ng-disabled="editable"
+                                    ng-options="x.sh_id as x.sh_shool for x in schools"> </select> </td> 
              </tr> 
              <tr> 
               <td class="datasheet-features-type">年龄：</td> 

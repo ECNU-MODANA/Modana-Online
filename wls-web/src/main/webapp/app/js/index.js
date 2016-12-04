@@ -12,4 +12,4 @@ var app = angular.module('app', []).controller('index',function($http, $location
 		   window.location.reload();
 	   });
   };
-});
+ });

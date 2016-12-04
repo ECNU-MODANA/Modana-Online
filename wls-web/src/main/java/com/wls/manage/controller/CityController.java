@@ -35,10 +35,31 @@ public class CityController {
     public Object findCitysByProvinceId(@RequestParam int provinceID) {
         return cityListDao.findCitysByProvinceId(provinceID);
     }
+    
+    @APP
+    @RequestMapping(value = "/findSchoolsByCityId", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findSchoolsByCityId(@RequestParam int cityID) {
+        return cityListDao.findSchoolsByCityId(cityID);
+    }
 
     @RequestMapping(value = "/findCityById", method = RequestMethod.GET)
     @ResponseBody
     public Object findCityById(@RequestParam int CityID) {
         return cityListDao.findCityById(CityID);
     }
+    
+    @RequestMapping(value = "/findProvinceById", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findProvinceById(@RequestParam int provinceID) {
+        return cityListDao.findProvinceById(provinceID);
+    }
+    
+    @RequestMapping(value = "/findSchoolById", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findSchoolById(@RequestParam int schoolID) {
+        return cityListDao.findSchoolById(schoolID);
+    }
+    
+    
 }

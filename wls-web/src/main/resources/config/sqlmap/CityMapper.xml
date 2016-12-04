@@ -4,14 +4,29 @@
 
 <mapper namespace="com.wls.manage.dao.CityMapper">
 
-    <select id="findCitysByProvinceId" parameterType="map" resultType="City_infoEntity">
+    <select id="findCitysByProvinceId" parameterType="map" resultType="com.wls.manage.entity.City_infoEntity">
         SELECT *
         FROM `city_info` WHERE `ci_province` = #{provinceID}
     </select>
+    
+    <select id="findSchoolsByCityId" parameterType="map" resultType="School_infoEntity">
+        SELECT *
+        FROM `shool_info` WHERE `sh_city` = #{cityID}
+    </select>
 
-    <select id="findCityById" parameterType="map" resultType="City_infoEntity">
+    <select id="findCityById" parameterType="map" resultType="com.wls.manage.entity.City_infoEntity">
         SELECT *
         FROM `city_info` WHERE `ci_id` = #{CityID}
+    </select>
+    
+     <select id="findProvinceById" parameterType="map" resultType="Province_infoEntity">
+        SELECT *
+        FROM `province_info` WHERE `pr_id` = #{provinceID}
+    </select>
+    
+     <select id="findSchoolById" parameterType="map" resultType="School_infoEntity">
+        SELECT *
+        FROM `shool_info` WHERE `sh_id` = #{schoolID}
     </select>
 
 </mapper>
