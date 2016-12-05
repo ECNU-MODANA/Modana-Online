@@ -8,8 +8,7 @@ var app = angular.module('app', []).controller('login',function($http, $location
  	    			password : $scope.password
  	    			}
  	    	}).success(function(data) {
- 	    		alert(data.message);
- 	    		if(data.success){
+ 	    		if(data!=null&&user.id!=undefined){
  	    			window.location.href="index.html";
  	    		}
  		   });

@@ -76,7 +76,7 @@
     <div class="container"> 
      <div class="container-inner"> 
       <em> <a data-toggle="modal" href="#edit_img"><img src="../../assets/img/people/1.jpg" alt="头像" title="点击修改头像" />
-      </a> <p>{{user.username}} <span ng-if="user.sex=='男'"><i class="fa fa-male"></i></span> <span ng-if="user.sex=='女'"><i class="fa fa-female"></i></span> 
+      </a> <p>{{user.nickname}} <span ng-if="user.sex=='男'"><i class="fa fa-male"></i></span> <span ng-if="user.sex=='女'"><i class="fa fa-female"></i></span> 
       <span class="badge bg-yellow-casablanca">Lv {{level}}</span></p>
        <p style="font-size:14px">{{user.signature}}</p>
       <a href="#attention_me" data-toggle="modal" class="btn red" id="unattention"><i class="fa fa-plus"></i> 关注</a> 
@@ -304,8 +304,8 @@
                 <div class="col-md-9 no-padding"> 
                  <div class="col-md-12 no-padding margin-bottom-70"> 
                   <div class="col-md-4"> 
-                   <h2>蔚蓝树</h2> 
-                   <span>求职意向：销售经理</span> 
+                   <h2>{{user.realname}}</h2> 
+                   <span>求职意向：{{user.intention}}</span> 
                   </div> 
                   <div class="col-md-8"> 
                    <img src="../../assets/img/personal-resume.png" class="pull-right" height="100px" /> 
@@ -314,16 +314,16 @@
                  </div> 
                  <div class="resume-basic-info col-md-12"> 
                   <div class="col-md-2"> 
-                   <i class="fa fa-user"></i> 25岁 
+                   <i class="fa fa-user"></i> {{user.age}}岁 
                   </div> 
                   <div class="col-md-2"> 
-                   <i class="fa fa-map-marker"></i> 上海 
+                   <i class="fa fa-map-marker"></i> {{user.address}}
                   </div> 
                   <div class="col-md-3"> 
-                   <i class="fa fa-mobile"></i> 18800001111 
+                   <i class="fa fa-mobile"></i> {{user.telephone}} 
                   </div> 
                   <div class="col-md-5"> 
-                   <i class="fa fa-envelope-o"></i> weilanshu@weilanshu.com 
+                   <i class="fa fa-envelope-o"></i> {{user.email}}
                   </div> 
                  </div> 
                 </div> 
@@ -395,7 +395,7 @@
                   </div> 
                   <div class="timeline-body"> 
                    <div class="timeline-content"> 
-                    本人性格开朗、为人诚恳、乐观向上、兴趣广泛、拥有较强的组织能力和适应能力、并具有较强的管理策划与组织管理协调能力。活泼开朗、乐观向上、兴趣广泛、适应力强、上手快、勤奋好学、脚踏实地、认真负责、坚毅不拔、吃苦耐劳、勇于迎接新挑战。
+                   {{user.introduction}}
                    </div> 
                   </div> 
                  </li> 
@@ -510,8 +510,8 @@
                 <div class="col-md-9 no-padding"> 
                  <div class="col-md-12 no-padding margin-bottom-70"> 
                   <div class="col-md-4"> 
-                   <h2><input type="text" class="form-control" placeholder="姓名" value="蔚蓝树" /></h2> 
-                   <span>求职意向：<input type="text" class="form-control" placeholder="求职意向" value="销售经理" /></span> 
+                   <h2><input type="text" class="form-control" placeholder="姓名" ng-model="user.realname" /></h2> 
+                   <span>求职意向：<input type="text" class="form-control" placeholder="求职意向" ng-model="user.intention" /></span> 
                   </div> 
                   <div class="col-md-8"> 
                    <img src="../../assets/img/personal-resume.png" class="pull-right" height="100px" /> 
@@ -521,19 +521,19 @@
                  <div class="resume-basic-info col-md-12"> 
                   <div class="col-md-3 input-icon"> 
                    <i class="fa fa-user"></i> 
-                   <input type="text" class="form-control" placeholder="年龄" value="25岁 " /> 
+                   <input type="text" class="form-control" placeholder="年龄" ng-model="user.age"  /> 
                   </div> 
                   <div class="col-md-3 input-icon"> 
                    <i class="fa fa-map-marker"></i> 
-                   <input type="text" class="form-control" placeholder="所在地" value="上海 " /> 
+                   <input type="text" class="form-control" placeholder="所在地" ng-model="user.address"  /> 
                   </div> 
                   <div class="col-md-3 input-icon"> 
                    <i class="fa fa-mobile"></i> 
-                   <input type="text" class="form-control" placeholder="手机" value="18800001111 " /> 
+                   <input type="text" class="form-control" placeholder="手机" ng-model="user.telephone" /> 
                   </div> 
                   <div class="col-md-3 input-icon"> 
                    <i class="fa fa-envelope-o"></i> 
-                   <input type="text" class="form-control" placeholder="邮箱" value="18800001111" /> 
+                   <input type="text" class="form-control" placeholder="邮箱" ng-model="user.email" /> 
                   </div> 
                  </div> 
                 </div> 
@@ -718,7 +718,7 @@
                   </div> 
                   <div class="timeline-body"> 
                    <div class="timeline-content"> 
-                    <textarea class="form-control" rows="3">本人性格开朗、为人诚恳、乐观向上、兴趣广泛、拥有较强的组织能力和适应能力、并具有较强的管理策划与组织管理协调能力。活泼开朗、乐观向上、兴趣广泛、适应力强、上手快、勤奋好学、脚踏实地、认真负责、坚毅不拔、吃苦耐劳、勇于迎接新挑战。</textarea> 
+                    <textarea class="form-control" rows="3">{{user.introduction}}</textarea> 
                    </div> 
                   </div> </li> 
                  <li> 

@@ -63,16 +63,16 @@
     
      <select id="findResumeByUserId" parameterType="map" resultType="ResumeEntity">
 		SELECT *
-		FROM `information` WHERE `id` = #{inforID}
+		FROM `resume` WHERE `userid` = #{userID}
 	</select>
 	
 	<select id="findResumeByID" parameterType="map" resultType="ResumeEntity">
 		SELECT *
-		FROM `information` WHERE `infocategory` = #{infocategory} order by `time` desc 
+		FROM `resume` WHERE `id` = #{resumeID} order by `addtime` desc 
 	</select>
 	
 	<delete id="deleteResume" parameterType="map">
-	    DELETE FROM information WHERE `id` = #{inforID}
+	    DELETE FROM resume WHERE `id` = #{resumeID}
 	</delete>
 	
 	
