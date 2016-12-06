@@ -339,14 +339,15 @@
                   <div class="timeline-icon"> 
                    <i class="fa fa-mortar-board "></i> 
                   </div> 
-                  <div class="timeline-body"> 
-                   <h2>2010.9—2014.7 </h2> 
-                   <span>上海交通大学</span> 
+                  <div class="timeline-body" ng-repeat="educate in educates"> 
+                   <h2>{{educate.starttime}}至{{educate.endtime}} </h2> 
+                   <span>{{educate.school}}</span> 
                    <div class="timeline-content">
-                     国际贸易实务、外贸英语 、 剑桥商务英语 、英语函电及写作、计算机应用，外贸单证制作，外贸跟单操作，跨文化交际与商务礼仪，商务翻译及商务现场口译，英语口语等科目 
+                     {{educate.describe}}
                    </div> 
                    <div class="timeline-footer"> 
-                    <a href="javascript:;" class="nav-link pull-left"> 专业：电子商务 </a> 
+                    <span>{{educate.major}} </span> | <span ng-if="educate.fulltime==1">非</span> 
+                    <span> 全日制 </span>  |  <span>{{educate.degree}}</span>
                    </div> 
                   </div> </li> 
                  <li> 
@@ -357,34 +358,20 @@
                   <div class="timeline-icon"> 
                    <i class="fa fa-user"></i> 
                   </div> 
-                  <div class="timeline-body"> 
-                   <h2>2010.9—2014.7 </h2> 
-                   <span>上海蔚蓝树信息科技有限公司</span> 
+                  <div class="timeline-body" ng-repeat="job in jobs"> 
+                   <h2>{{job.starttime}}至{{job.endtime}} </h2> 
+                   <span>{{job.company}}</span>|<span>{{job.companysize}}</span>|
+                   <span>{{job.companynature}}</span> |  <span>{{job.industry}}</span> 
                    <div class="timeline-content">
-                     职位描述：
-                    <br /> 1. 专业人员职位，在上级的领导和监督下定期完成量化的工作要求，并能独立处理和解决所负责的任务。
-                    <br /> 2. 协助财务预算、审核、监督工作，按照公司及政府有关部门要求及时编制各种财务报表并抱送相关部门。
-                    <br /> 3. 负责员工报销费用的审核、凭证的编制和登帐。 
+                                                    职位描述：{{job.describe}}
                    </div> 
                    <div class="timeline-footer"> 
-                    <a href="javascript:;" class="nav-link pull-left"> 担任职位：产品经理 </a> 
+                    <a href="javascript:;" class="nav-link pull-left"> 担任职位：{{job.position}} </a> 
                    </div> 
                   </div> 
                   <div class="timeline-icon"> 
                   </div> 
-                  <div class="timeline-body"> 
-                   <h2>2010.9—2014.7 </h2> 
-                   <span>上海蔚蓝树信息科技有限公司</span> 
-                   <div class="timeline-content">
-                     职位描述：
-                    <br /> 1. 专业人员职位，在上级的领导和监督下定期完成量化的工作要求，并能独立处理和解决所负责的任务。
-                    <br /> 2. 协助财务预算、审核、监督工作，按照公司及政府有关部门要求及时编制各种财务报表并抱送相关部门。
-                    <br /> 3. 负责员工报销费用的审核、凭证的编制和登帐。 
-                   </div> 
-                   <div class="timeline-footer"> 
-                    <a href="javascript:;" class="nav-link pull-left"> 担任职位：产品经理 </a> 
-                   </div> 
-                  </div> </li>
+                  </li>
                   <li> 
                   <div class="timeline-time"> 
                    <span class="time"> 自我评价</span> 
@@ -407,18 +394,10 @@
                   <div class="timeline-icon"> 
                    <i class="fa fa-user"></i> 
                   </div>  
-                  <div class="timeline-body"> 
-                   <h2>2007年12月</h2> 
-                   <span class="honor_text">中山大学二等学生奖学金</span> 
+                  <div class="timeline-body" ng-repeat="honor in honors"> 
+                   <h2>{{honor.starttime}}至{{honor.endtime}}</h2> 
+                   <span class="honor_text">{{honor.honor}}</span> 
                  </div> 
-                  <div class="timeline-body"> 
-                   <h2>2007年12月</h2> 
-                   <span class="honor_text">中山大学二等学生奖学金</span> 
-                  </div> 
-                  <div class="timeline-body"> 
-                   <h2>2007年12月</h2> 
-                   <span class="honor_text">中山大学二等学生奖学金</span> 
-                  </div> 
                   </li> 
                  <li> 
                   <div class="timeline-time"> 
@@ -431,58 +410,22 @@
                   <div class="timeline-body"> 
                    <h2>技能列表</h2> 
                    <div class="timeline-content"> 
-                    <div class="col-md-12 no-padding"> 
+                    <div class="col-md-12 no-padding" ng-repeat="skill in skills"> 
                      <div class="col-md-4"> 
                       <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> 
-                        <span class="sr-only"> 20% Complete </span> 
+                       <div ng-if="skill.degree==0" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%"> 
+                        <span class="sr-only"> 33% Complete </span> 
+                       </div> 
+                       <div ng-if="skill.degree==1" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%"> 
+                        <span class="sr-only"> 66% Complete </span> 
+                       </div> 
+                       <div ng-if="skill.degree==0" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"> 
+                        <span class="sr-only">100% Complete </span> 
                        </div> 
                       </div> 
                      </div> 
                      <div class="col-md-3">
-                       word 
-                     </div> 
-                     <div class="col-md-5 no-padding">
-                     </div> 
-                    </div> 
-                    <div class="col-md-12 no-padding"> 
-                     <div class="col-md-4"> 
-                      <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%"> 
-                        <span class="sr-only"> 30% Complete </span> 
-                       </div> 
-                      </div> 
-                     </div> 
-                     <div class="col-md-3">
-                       Photoshop 
-                     </div> 
-                     <div class="col-md-5 no-padding">
-                     </div> 
-                    </div> 
-                    <div class="col-md-12 no-padding"> 
-                     <div class="col-md-4"> 
-                      <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"> 
-                        <span class="sr-only"> 80% Complete </span> 
-                       </div> 
-                      </div> 
-                     </div> 
-                     <div class="col-md-3">
-                       PPT 
-                     </div> 
-                     <div class="col-md-5 no-padding">
-                     </div> 
-                    </div> 
-                    <div class="col-md-12 no-padding"> 
-                     <div class="col-md-4 "> 
-                      <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> 
-                        <span class="sr-only"> 20% Complete </span> 
-                       </div> 
-                      </div> 
-                     </div> 
-                     <div class="col-md-3">
-                       EXCEL 
+                       {{skill.skill}}
                      </div> 
                      <div class="col-md-5 no-padding">
                      </div> 
@@ -496,6 +439,8 @@
              </div> 
             </div> 
            </div> 
+           
+           
            <div id="resume_edit" style="padding-top:55px; background:#ebedec; display:none"> 
             <div class="portlet light" style="background:#ebedec !important;"> 
              <div class="portlet-body"> 
@@ -558,61 +503,66 @@
                      <label class="col-md-2 control-label">时间</label> 
                      <div class="col-md-4"> 
                       <div class="input-group input-xsmall"> 
-                      <input class="form-control form-control-inline input-small date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="起始时间" >
+                      <input  ng-model="educatestarttime" class="form-control form-control-inline input-small date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="起始时间" >
                       <span class="input-group-addon"> 至 </span>
-                      <input class="form-control form-control-inline input-small date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="结束时间" >
+                      <input ng-model="educateendtime" class="form-control form-control-inline input-small date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="结束时间" >
                      </div> 
                      </div>
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">学校</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="学校" /> 
+                      <input type="text" ng-model="educateschool" class="form-control" placeholder="学校" /> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">学历/学位</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="学历/学位" /> 
+                      <input type="text" ng-model="educatedegree" class="form-control" placeholder="学历/学位" /> 
                      </div> 
                      <div class="col-md-3"> 
                       <div class="checkbox" style="padding-top:7px;"> 
-                       <label> <input type="checkbox" /> 全日制 </label> 
+                       <label> <input type="checkbox" ng-model="educatefulltime"/> 全日制 </label> 
                       </div> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">专业</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="专业" /> 
+                      <input type="text" ng-model="educatemajor" class="form-control" placeholder="专业" /> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">专业描述</label> 
                      <div class="col-md-9"> 
-                      <textarea class="form-control" rows="3"></textarea> 
+                      <textarea class="form-control" ng-model="educatedescribe" rows="3"></textarea> 
                      </div> 
                     </div> 
                    </div> 
                    <div class="form-actions content-center"> 
                     <button type="button" class="btn default" id="cancel_add_education">取消</button> 
-                    <button type="submit" class="btn yellow">保存</button> 
+                    <button type="submit" ng-click="saveEducate()" class="btn yellow">保存</button> 
                    </div> 
                   </div> 
                   <div class="timeline-icon" id="body_edu_icon"> 
                    <i class="fa fa-mortar-board "></i> 
                   </div> 
-                  <div class="timeline-body" id="body_edu"> 
-                   <h2>2010.9—2014.7 </h2> 
-                   <span>上海交通大学</span> 
-                   <span class="pull-right"><a id="edit_edu"><i class="fa fa-edit"></i></a> <a><i class="fa fa-trash-o"></i></a></span> 
-                   <div class="timeline-footer"> 
-                    <a href="javascript:;" class="nav-link pull-left">电子商务 | 全日制本科 </a> 
-                   </div> 
+                  <div class="timeline-body" ng-repeat="educate in educates"> 
+                   <h2>{{educate.starttime}}至{{educate.endtime}} </h2> 
+                   <span>{{educate.school}}</span> 
+                    <span class="pull-right">
+                   <!-- <a><i class="fa fa-edit"></i></a>  -->
+                   <a ng-click="deleteEducate(educate.id)"><i class="fa fa-trash-o"></i></a>
+                   </span>
                    <div class="timeline-content">
-                     国际贸易实务、外贸英语 、 剑桥商务英语 、英语函电及写作、计算机应用，外贸单证制作，外贸跟单操作，跨文化交际与商务礼仪，商务翻译及商务现场口译，英语口语等科目 
+                     {{educate.describe}}
                    </div> 
-                  </div> </li> 
+                   <div class="timeline-footer"> 
+                    <span>{{educate.major}} </span> | <span ng-if="educate.fulltime==1">非</span> 
+                    <span> 全日制 </span>  |  <span>{{educate.degree}}</span>
+                   </div> 
+                  </div>
+                   </li> 
                  <li> 
                   <div class="timeline-time"> 
                    <span class="time"> 工作经历</span> 
@@ -630,82 +580,69 @@
                      <label class="col-md-2 control-label">时间</label> 
                      <div class="col-md-4"> 
                       <div class="input-group input-xsmall"> 
-                      <input class="form-control form-control-inline input-small date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="起始时间" >
+                      <input class="form-control form-control-inline input-small date-picker" ng-model="jobstarttime"  size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="起始时间" >
                       <span class="input-group-addon"> 至 </span>
-                      <input class="form-control form-control-inline input-small date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="结束时间" >
+                      <input class="form-control form-control-inline input-small date-picker" ng-model="jobendtime" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="结束时间" >
                       </div>
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">公司</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="公司" /> 
+                      <input type="text" class="form-control" ng-model="jobcompany" placeholder="公司" /> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">职位</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="职位" /> 
+                      <input type="text" class="form-control" ng-model="jobposition" placeholder="职位" /> 
                      </div> 
                      <label class="col-md-2 control-label">公司规模</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="公司规模" /> 
+                      <input type="text" class="form-control" ng-model="jobcompanysize" placeholder="公司规模" /> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">行业</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="行业" /> 
+                      <input type="text" class="form-control" ng-model="jobindustry" placeholder="行业" /> 
                      </div> 
                      <label class="col-md-2 control-label">公司性质</label> 
                      <div class="col-md-4"> 
-                      <input type="text" class="form-control" placeholder="公司性质" /> 
+                      <input type="text" class="form-control" ng-model="jobcompanynature" placeholder="公司性质" /> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">职位描述</label> 
                      <div class="col-md-9"> 
-                      <textarea class="form-control" rows="3"></textarea> 
+                      <textarea class="form-control" rows="3" ng-model="jobdescribe"></textarea> 
                      </div> 
                     </div> 
                    </div> 
                    <div class="form-actions content-center"> 
                     <button type="button" class="btn default" id="concel_add_work">取消</button> 
-                    <button type="submit" class="btn yellow">保存</button> 
+                    <button type="submit" ng-click="saveJob()" class="btn yellow">保存</button> 
                    </div> 
                   </div> 
                   <div class="timeline-icon"> 
                    <i class="fa fa-user"></i> 
                   </div> 
-                  <div class="timeline-body"> 
-                   <h2>2010.9—2014.7 </h2> 
-                   <span>上海蔚蓝树信息科技有限公司</span> 
-                   <span class="pull-right"><a><i class="fa fa-edit"></i></a> <a><i class="fa fa-trash-o"></i></a></span> 
+                  <div class="timeline-body" ng-repeat="job in jobs"> 
+                   <h2>{{job.starttime}}至{{job.endtime}} </h2> 
+                   <span>{{job.company}}</span>|<span>{{job.companysize}}</span>|
+                   <span>{{job.companynature}}</span> |  <span>{{job.industry}}</span> 
+                   <span ng-click="deleteJob(job.id)" class="pull-right">
+                   <!-- <a><i class="fa fa-edit"></i></a>  -->
+                   <a><i class="fa fa-trash-o"></i></a>
+                   </span>
                    <div class="timeline-content">
-                     职位描述： 
-                    <br /> 1. 专业人员职位，在上级的领导和监督下定期完成量化的工作要求，并能独立处理和解决所负责的任务。 
-                    <br /> 2. 协助财务预算、审核、监督工作，按照公司及政府有关部门要求及时编制各种财务报表并抱送相关部门。 
-                    <br /> 3. 负责员工报销费用的审核、凭证的编制和登帐。 
+                                                    职位描述：{{job.describe}}
                    </div> 
                    <div class="timeline-footer"> 
-                    <a href="javascript:;" class="nav-link pull-left"> 担任职位：产品经理 </a> 
+                    <a href="javascript:;" class="nav-link pull-left"> 担任职位：{{job.position}} </a> 
                    </div> 
-                  </div> 
+                 </div> 
                   <div class="timeline-icon"> 
-                  </div> 
-                  <div class="timeline-body"> 
-                   <h2>2010.9—2014.7 </h2> 
-                   <span>上海蔚蓝树信息科技有限公司</span> 
-                   <span class="pull-right"><a><i class="fa fa-edit"></i></a> <a><i class="fa fa-trash-o"></i></a></span> 
-                   <div class="timeline-content">
-                     职位描述： 
-                    <br /> 1. 专业人员职位，在上级的领导和监督下定期完成量化的工作要求，并能独立处理和解决所负责的任务。 
-                    <br /> 2. 协助财务预算、审核、监督工作，按照公司及政府有关部门要求及时编制各种财务报表并抱送相关部门。 
-                    <br /> 3. 负责员工报销费用的审核、凭证的编制和登帐。 
-                   </div> 
-                   <div class="timeline-footer"> 
-                    <a href="javascript:;" class="nav-link pull-left"> 担任职位：产品经理 </a> 
-                   </div> 
                   </div> 
                  </li> 
                  <li> 
@@ -738,16 +675,16 @@
                      <label class="col-md-2 control-label">时间</label> 
                      <div class="col-md-8"> 
                       <div class="input-group input-xsmall"> 
-                      <input class="form-control form-control-inline input-medium date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="起始时间" >
+                      <input class="form-control form-control-inline input-medium date-picker" ng-model="honorstarttime" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="起始时间" >
                       <span class="input-group-addon"> 至 </span>
-                      <input class="form-control form-control-inline input-medium date-picker" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="结束时间" >
+                      <input class="form-control form-control-inline input-medium date-picker" ng-model="honorendtime" size="10" type="text" value="" data-date-format="yyyy-mm-dd" placeholder="结束时间" >
                      </div> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">荣誉</label> 
                      <div class="col-md-8"> 
-                      <input type="text" class="form-control" placeholder="所获荣誉" /> 
+                      <input type="text" class="form-control" ng-model="honorhonor" placeholder="所获荣誉" /> 
                      </div> 
                     </div> 
                     <div class="form-actions content-center"> 
@@ -756,21 +693,11 @@
                     </div> 
                    </div> 
                   </div> 
-                  <div class="timeline-body"> 
-                   <h2>2007年12月</h2> 
-                   <span class="honor_text">中山大学二等学生奖学金</span> 
-                   <span class="pull-right"><a><i class="fa fa-edit"></i></a> <a><i class="fa fa-trash-o"></i></a></span> 
-                  </div> 
-                  <div class="timeline-body"> 
-                   <h2>2007年12月</h2> 
-                   <span class="honor_text">中山大学二等学生奖学金</span> 
-                   <span class="pull-right"><a><i class="fa fa-edit"></i></a> <a><i class="fa fa-trash-o"></i></a></span> 
-                  </div> 
-                  <div class="timeline-body"> 
-                   <h2>2007年12月</h2> 
-                   <span class="honor_text">中山大学二等学生奖学金</span> 
-                   <span class="pull-right"><a><i class="fa fa-edit"></i></a> <a><i class="fa fa-trash-o"></i></a></span> 
-                  </div> </li> 
+                  <div class="timeline-body" ng-repeat="honor in honors"> 
+                   <h2>{{honor.starttime}}至{{honor.endtime}}</h2> 
+                   <span class="honor_text">{{honor.honor}}</span> 
+                 </div>  
+                  </li> 
                  <li> 
                   <div class="timeline-time"> 
                    <span class="time"> 技能</span> 
@@ -787,13 +714,13 @@
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">技能</label> 
                      <div class="col-md-8"> 
-                      <input type="text" class="form-control" placeholder="技能" /> 
+                      <input type="text" class="form-control"   ng-model="skillskill" placeholder="技能" /> 
                      </div> 
                     </div> 
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">掌握程度</label> 
                      <div class="col-md-8"> 
-                      <select class="form-control " placeholder="掌握程度"> <option>了解</option> <option>熟悉</option> <option>精通</option> </select> 
+                      <select class="form-control" placeholder="掌握程度" ng-model="skilldegree"> <option>了解</option> <option>熟悉</option> <option>精通</option> </select> 
                      </div> 
                     </div> 
                     <div class="form-actions content-center"> 
@@ -805,68 +732,24 @@
                   <div class="timeline-body"> 
                    <h2>技能列表</h2> 
                    <div class="timeline-content"> 
-                    <div class="col-md-12 no-padding"> 
+                     <div class="col-md-12 no-padding" ng-repeat="skill in skills"> 
                      <div class="col-md-4"> 
                       <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> 
-                        <span class="sr-only"> 20% Complete </span> 
+                       <div ng-if="skill.degree==0" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%"> 
+                        <span class="sr-only"> 33% Complete </span> 
+                       </div> 
+                       <div ng-if="skill.degree==1" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%"> 
+                        <span class="sr-only"> 66% Complete </span> 
+                       </div> 
+                       <div ng-if="skill.degree==0" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"> 
+                        <span class="sr-only">100% Complete </span> 
                        </div> 
                       </div> 
                      </div> 
                      <div class="col-md-3">
-                       word 
+                       {{skill.skill}}
                      </div> 
                      <div class="col-md-5 no-padding">
-                      <span class="pull-right"><a><i class="fa fa-edit"></i></a> 
-                      <a><i class="fa fa-trash-o"></i></a></span>
-                     </div> 
-                    </div> 
-                    <div class="col-md-12 no-padding"> 
-                     <div class="col-md-4"> 
-                      <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%"> 
-                        <span class="sr-only"> 30% Complete </span> 
-                       </div> 
-                      </div> 
-                     </div> 
-                     <div class="col-md-3">
-                       Photoshop 
-                     </div> 
-                     <div class="col-md-5 no-padding">
-                      <span class="pull-right"><a><i class="fa fa-edit"></i></a> 
-                      <a><i class="fa fa-trash-o"></i></a></span>
-                     </div> 
-                    </div> 
-                    <div class="col-md-12 no-padding"> 
-                     <div class="col-md-4"> 
-                      <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"> 
-                        <span class="sr-only"> 80% Complete </span> 
-                       </div> 
-                      </div> 
-                     </div> 
-                     <div class="col-md-3">
-                       PPT 
-                     </div> 
-                     <div class="col-md-5 no-padding">
-                      <span class="pull-right"><a><i class="fa fa-edit"></i></a> 
-                      <a><i class="fa fa-trash-o"></i></a></span>
-                     </div> 
-                    </div> 
-                    <div class="col-md-12 no-padding"> 
-                     <div class="col-md-4 "> 
-                      <div class="progress"> 
-                       <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> 
-                        <span class="sr-only"> 20% Complete </span> 
-                       </div> 
-                      </div> 
-                     </div> 
-                     <div class="col-md-3">
-                       EXCEL 
-                     </div> 
-                     <div class="col-md-5 no-padding">
-                      <span class="pull-right"><a><i class="fa fa-edit"></i></a> 
-                      <a><i class="fa fa-trash-o"></i></a></span>
                      </div> 
                     </div> 
                    </div> 

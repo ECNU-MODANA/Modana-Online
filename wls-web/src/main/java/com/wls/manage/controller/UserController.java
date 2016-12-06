@@ -1,8 +1,11 @@
 package com.wls.manage.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,9 +20,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taobao.api.ApiException;
+import com.wls.manage.dao.EducateMapper;
+import com.wls.manage.dao.HonorMapper;
+import com.wls.manage.dao.JobMapper;
+import com.wls.manage.dao.SkillMapper;
 import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.UploadFileEntity;
 import com.wls.manage.entity.CookieEntity;
+import com.wls.manage.entity.EducateEntity;
+import com.wls.manage.entity.HonorEntity;
+import com.wls.manage.entity.JobEntity;
+import com.wls.manage.entity.SkillEntity;
 import com.wls.manage.entity.UserEntity;
 import com.wls.manage.service.CookieService;
 import com.wls.manage.service.FtpService;
@@ -34,6 +45,14 @@ public class UserController extends BaseController {
 	private static String baseDir = "picture";
 	@Autowired
 	private UserMapper userDao;
+	@Autowired
+	private EducateMapper educateMapper;
+	@Autowired
+	private SkillMapper skillMapper;
+	@Autowired
+	private JobMapper jobMapper;
+	@Autowired
+	private HonorMapper honorMapper;
 	@Autowired
 	private CookieService cookieService;
 	@Autowired
@@ -309,5 +328,124 @@ public class UserController extends BaseController {
 		if(StringUtil.isNull(userName)){return true;}
 	    return this.userDao.existenceUserName(userName)>0;
 	}
+	
+	@RequestMapping(value = "/findEducateByUserID")
+	@ResponseBody
+	public Object findEducateByUserID(
+			@RequestParam(value="userID", required=false) Integer userID
+			) throws UnsupportedEncodingException {
+	     List<EducateEntity> educateEntities = educateMapper.findEducateByUserId(userID);
+	     if (educateEntities!=null&&!educateEntities.isEmpty()) {
+	    	 return ResponseData.newSuccess(educateEntities);
+		 }
+	    return ResponseData.newFailure("没有教育经历");
+	}
+	
+	@RequestMapping(value = "/findSkillByUserID")
+	@ResponseBody
+	public Object findSkillByUserID(
+			@RequestParam(value="userID", required=false) Integer userID
+			) throws UnsupportedEncodingException {
+	     List<SkillEntity> skillEntities = skillMapper.findSkillByUserId(userID);
+	     if (skillEntities!=null&&!skillEntities.isEmpty()) {
+	    	 return ResponseData.newSuccess(skillEntities);
+		 }
+	    return ResponseData.newFailure("没有技能");
+	}	
+	
+	@RequestMapping(value = "/findJobByUserID")
+	@ResponseBody
+	public Object findJobByUserID(
+			@RequestParam(value="userID", required=false) Integer userID
+			) throws UnsupportedEncodingException {
+	     List<JobEntity> jobEntities = jobMapper.findJobByUserId(userID);
+	     if (jobEntities!=null&&!jobEntities.isEmpty()) {
+	    	 return ResponseData.newSuccess(jobEntities);
+		 }
+	    return ResponseData.newFailure("没有工作经历");
+	}	
+	
+	@RequestMapping(value = "/findHonorByUserID")
+	@ResponseBody
+	public Object findHonorByUserID(
+			@RequestParam(value="userID", required=false) Integer userID
+			) throws UnsupportedEncodingException {
+	     List<HonorEntity> honorEntities = honorMapper.findHonorByUserId(userID);
+	     if (honorEntities!=null&&!honorEntities.isEmpty()) {
+	    	 return ResponseData.newSuccess(honorEntities);
+		 }
+	    return ResponseData.newFailure("没有获得荣誉");
+	}
+	
+	@RequestMapping(value = "/deleteEducate")
+	@ResponseBody
+	public Object deleteEducate(
+			@RequestParam(value="educateID", required=false) Integer educateID
+			) throws UnsupportedEncodingException {
+		educateMapper.deleteEducate(educateID);
+		return ResponseData.newSuccess();
+	}
+	
 
+	@RequestMapping(value = "/addEducate")
+	@ResponseBody
+	public Object addEducate(HttpServletRequest request, 
+			@RequestParam(value="educatestarttime",required=false)String educatestarttime,
+			@RequestParam(value="educateendtime",required=false)String educateendtime,
+			@RequestParam(value="educateschool",required=false)String educateschool,
+			@RequestParam(value="educatedegree",required=false)String educatedegree,
+			@RequestParam(value="educatefulltime",required=false)int educatefulltime,
+			@RequestParam(value="educateuserid",required=false)int educateuserid,
+			@RequestParam(value="educatemajor",required=false)String educatemajor,
+			@RequestParam(value="educatedescribe",required=false)String educatedescribe
+			) throws ApiException {
+		EducateEntity educateEntity = new EducateEntity();
+		educateEntity.setDegree(educatedegree);
+		educateEntity.setDescribe(educatedescribe);
+		educateEntity.setEndtime(educateendtime);
+		educateEntity.setFulltime(educatefulltime);
+		educateEntity.setMajor(educatemajor);
+		educateEntity.setSchool(educateschool);
+		educateEntity.setStarttime(educatestarttime);
+		educateEntity.setUserid(BigInteger.valueOf(educateuserid));
+		educateMapper.insertEducate(educateEntity);
+		return ResponseData.newSuccess();
+	}
+	
+	@RequestMapping(value = "/deleteJob")
+	@ResponseBody
+	public Object deleteJob(
+			@RequestParam(value="jobID", required=false) Integer jobID
+			) throws UnsupportedEncodingException {
+		jobMapper.deleteJob(jobID);
+		return ResponseData.newSuccess();
+	}
+	
+	@RequestMapping(value = "/addJob")
+	@ResponseBody
+	public Object addJob(HttpServletRequest request, 
+			@RequestParam(value="jobstarttime",required=false)String jobstarttime,
+			@RequestParam(value="jobendtime",required=false)String jobendtime,
+			@RequestParam(value="jobcompany",required=false)String jobcompany,
+			@RequestParam(value="jobposition",required=false)String jobposition,
+			@RequestParam(value="jobcompanysize",required=false)String jobcompanysize,
+			@RequestParam(value="jobindustry",required=false)String jobindustry,
+			@RequestParam(value="jobcompanynature",required=false)String jobcompanynature,
+			@RequestParam(value="jobuserid",required=false)int jobuserid,
+			@RequestParam(value="jobdescribe",required=false)String jobdescribe
+			) throws ApiException {
+		JobEntity jobEntity = new JobEntity();
+		jobEntity.setCompany(jobcompany);
+		jobEntity.setCompanynature(jobcompanynature);
+		jobEntity.setCompanysize(jobcompanysize);
+		jobEntity.setDescribe(jobdescribe);
+		jobEntity.setEndtime(jobendtime);
+		jobEntity.setIndustry(jobindustry);
+		jobEntity.setPosition(jobposition);
+		jobEntity.setStarttime(jobstarttime);
+		jobEntity.setUserid(BigInteger.valueOf(jobuserid));
+		jobMapper.insertJob(jobEntity);
+		return ResponseData.newSuccess();
+	}
+	
 }
