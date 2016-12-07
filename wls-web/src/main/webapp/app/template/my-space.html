@@ -135,8 +135,8 @@
              <tr> 
               <td class="datasheet-features-type">兴趣爱好：</td> 
               <td class="datasheet-features-type2">{{user.interest}}</td> 
-              <td class="datasheet-features-type">技能：</td> 
-              <td class="datasheet-features-type2">{{user.skill}}</td> 
+              <td class="datasheet-features-type">角色：</td> 
+              <td class="datasheet-features-type2">{{userRole}}</td> 
              </tr> 
              <tr> 
               <td class="datasheet-features-type">个性签名：</td> 
@@ -177,7 +177,9 @@
               <td><input type="text" class="form-control" placeholder="兴趣爱好" ng-model="user.interest" /></td> 
               <td class="datasheet-features-type">技能：</td> 
               <td>
-              <input type="text" id="" class="form-control" placeholder="技能" ng-model="user.skill" ></td> 
+              <select id=""  style="height:35px !important"
+               ng-model="user.roleid" ng-disabled="editable"
+                                     ng-options="x.id as x.name for x in roles"></select></td> 
              </tr> 
              <tr> 
               <td class="datasheet-features-type">个性签名：</td> 
@@ -288,7 +290,7 @@
            <div class="pull-right"> 
             <a class="btn blue" id="edit_education">编辑</a> 
             <a class="btn default" id="cancel_education" style="display:none">取消</a> 
-            <a class="btn yellow" id="save_education" style="display:none" data-toggle="modal" >保存</a>
+            <a class="btn yellow" id="save_education" ng-click="saveResume()" style="display:none" data-toggle="modal" >保存</a>
             <button type="button" class="btn red">导出</button>
            </div> 
           </div> 
@@ -354,7 +356,7 @@
                   <div class="timeline-time"> 
                    <span class="time"> 工作经历</span> 
                    <span class="time-en"> WORK</span> 
-                  </div> 
+                  </div>  
                   <div class="timeline-icon"> 
                    <i class="fa fa-user"></i> 
                   </div> 
@@ -689,13 +691,17 @@
                     </div> 
                     <div class="form-actions content-center"> 
                      <button type="button" class="btn default" id="concel_add_honor">取消</button> 
-                     <button type="submit" class="btn yellow">保存</button> 
+                     <button type="submit" ng-click="saveHonor()"  class="btn yellow">保存</button> 
                     </div> 
                    </div> 
                   </div> 
                   <div class="timeline-body" ng-repeat="honor in honors"> 
                    <h2>{{honor.starttime}}至{{honor.endtime}}</h2> 
                    <span class="honor_text">{{honor.honor}}</span> 
+                   <span ng-click="deleteHonor(honor.id)" class="pull-right">
+                   <!-- <a><i class="fa fa-edit"></i></a>  -->
+                   <a><i class="fa fa-trash-o"></i></a>
+                   </span>
                  </div>  
                   </li> 
                  <li> 
@@ -720,12 +726,13 @@
                     <div class="form-group"> 
                      <label class="col-md-2 control-label">掌握程度</label> 
                      <div class="col-md-8"> 
-                      <select class="form-control" placeholder="掌握程度" ng-model="skilldegree"> <option>了解</option> <option>熟悉</option> <option>精通</option> </select> 
+                      <select class="form-control" placeholder="掌握程度" ng-model="skilldegree"> <option value="0">了解</option> 
+                      <option value="1">熟悉</option> <option value="2">精通</option> </select> 
                      </div> 
                     </div> 
                     <div class="form-actions content-center"> 
                      <button type="button" class="btn default" id="concel_add_skill">取消</button> 
-                     <button type="submit" class="btn yellow">保存</button> 
+                     <button type="submit" ng-click="saveSkill()"  class="btn yellow">保存</button> 
                     </div> 
                    </div> 
                   </div> 
@@ -749,6 +756,10 @@
                      <div class="col-md-3">
                        {{skill.skill}}
                      </div> 
+                     <span ng-click="deleteSkill(skill.id)" class="pull-right">
+                   <!-- <a><i class="fa fa-edit"></i></a>  -->
+                     <a><i class="fa fa-trash-o"></i></a>
+                     </span>
                      <div class="col-md-5 no-padding">
                      </div> 
                     </div> 

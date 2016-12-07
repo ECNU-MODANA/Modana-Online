@@ -7,6 +7,7 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 					 $scope.skills = {};
 					 $scope.honors = {};
 					 $scope.jobs = {};
+					 $scope.skilldegree=0;
 					 $http.get('/i/user/findEducateByUserID', {
 				            params: {
 				                "userID": $scope.user.id
@@ -57,6 +58,20 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 				        }).success(function (data) {
 				            $scope.schools = data;
 				        });
+					 
+					 if($scope.user.roleid!=null){
+						 $http.get('/i/user/findRoleById', {
+					            params: {
+					                "roleID": $scope.user.roleid
+					            }
+					        }).success(function (data) {
+					            $scope.userRole = data.name;
+					     });
+						 }
+						 else{
+							 $scope.userRole = '';
+						 }
+					 
 					 if($scope.user.provinceid!=null){
 					 $http.get('/i/city/findProvinceById', {
 				            params: {
@@ -123,6 +138,14 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 	        if($scope.user.provinceid==null)
 	        	$scope.user.provinceid = data[0].pr_id;
 	    });
+	    
+	    
+	    // 获取角色列表
+	    $http.get('/i/user/findRoles').success(function (data) {
+	        $scope.roles = data.data;
+	        if($scope.user.roleid==null)
+	        	$scope.user.roleid = data.data[0].id;
+	    });
 	   
 	    // 根据省ID查询城市列表
 	    $scope.provinceSelected = function () {
@@ -167,7 +190,7 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 		    			ci_id : $scope.user.cityid,
 		    			sh_id : $scope.user.schoolid,
 		    			major : $scope.user.major,
-		    			skill : $scope.user.skill,
+		    			roleid : $scope.user.roleid,
 		    			nickname : $scope.user.nickname,
 		    			interest : $scope.user.interest,
 		    			age : $scope.user.age
@@ -175,6 +198,7 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 		    	}).success(function(data) {
 		    		if(data.success){
 		    			alert("信息修改成功");
+		    			window.location.reload();
 		    		}
 		    		else{
 		    			alert("信息修改失败");
@@ -198,7 +222,7 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 	        }).success(function (data) {
 	        	if(data.success){
 	    			alert("删除成功");
-	    			window.location.reload();
+	    			$scope.educates = data.data;
 	    		}
 	        });
 	    	}
@@ -220,7 +244,7 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 			    	}).success(function(data) {
 			    		if(data.success){
 			    			alert("教育经历添加成功");
-			    			window.location.reload();
+			    			 $scope.educates = data.data;
 			    		}
 			    		else{
 			    			alert("教育经历添加失败");
@@ -239,7 +263,7 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 			        }).success(function (data) {
 			        	if(data.success){
 			    			alert("删除成功");
-			    			window.location.reload();
+			    			 $scope.jobs = data.data;
 			    		}
 			        });
 			    	}
@@ -261,12 +285,103 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 					    	}).success(function(data) {
 					    		if(data.success){
 					    			alert("工作经历添加成功");
-					    			window.location.reload();
+					    			 $scope.jobs = data.data;
 					    		}
 					    		else{
 					    			alert("工作经历添加失败");
 					    		}
 						   });
 					   };
-				   
+					   
+					   
+					   
+					   $scope.deleteHonor = function (honorID) {
+					    	if(delcfm()){
+					    	$http.get('/i/user/deleteHonor', {
+					            params: {
+					                "honorID": honorID
+					            }
+					        }).success(function (data) {
+					        	if(data.success){
+					    			alert("删除成功");
+					    			$scope.honors = data.data;
+					    		}
+					        });
+					    	}
+					    };
+						   
+						   $scope.saveHonor = function() {
+							    	$http.get( "/i/user/addHonor",{
+							    		params : {
+							    			honorstarttime : $scope.honorstarttime,
+							    			honorendtime : $scope.honorendtime,
+							    			honorhonor : $scope.honorhonor,
+							    			honoruserid : $scope.user.id
+							    		}
+							    	}).success(function(data) {
+							    		if(data.success){
+							    			alert("所获荣誉添加成功");
+							    			$scope.honors = data.data;
+							    		}
+							    		else{
+							    			alert("所获荣誉添加失败");
+							    		}
+								   });
+							   };
+							   
+							   
+							   $scope.deleteSkill = function (skillID) {
+							    	if(delcfm()){
+							    	$http.get('/i/user/deleteSkill', {
+							            params: {
+							                "skillID": skillID
+							            }
+							        }).success(function (data) {
+							        	if(data.success){
+							    			alert("删除成功");
+							    			$scope.skills = data.data;
+							    		}
+							        });
+							    	}
+							    };
+								   
+								   $scope.saveSkill = function() {
+									    	$http.get( "/i/user/addSkill",{
+									    		params : {
+									    			skillskill : $scope.skillskill,
+									    			skilldegree : $scope.skilldegree,
+									    			skilluserid : $scope.user.id
+									    		}
+									    	}).success(function(data) {
+									    		if(data.success){
+									    			alert("技能添加成功");
+									    			$scope.skills = data.data;
+									    		}
+									    		else{
+									    			alert("技能添加失败");
+									    		}
+										   });
+									   };
+									   
+									   
+									   $scope.saveResume = function() {
+									    	$http.get( "/i/user/updateResume",{
+									    		params : {
+									    			realname : $scope.user.realname,
+									    			intention : $scope.user.intention,
+									    			age : $scope.user.age,
+									    			address : $scope.user.address,
+									    			telephone : $scope.user.telephone,
+									    			email : $scope.user.email
+									    		}
+									    	}).success(function(data) {
+									    		if(data.success){
+									    			alert("简历修改成功");
+									    			window.location.reload();
+									    		}
+									    		else{
+									    			alert("简历修改失败");
+									    		}
+										   });
+									   };
 });

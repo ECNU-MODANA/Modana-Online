@@ -23,6 +23,7 @@ import com.taobao.api.ApiException;
 import com.wls.manage.dao.EducateMapper;
 import com.wls.manage.dao.HonorMapper;
 import com.wls.manage.dao.JobMapper;
+import com.wls.manage.dao.RoleMapper;
 import com.wls.manage.dao.SkillMapper;
 import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.UploadFileEntity;
@@ -30,6 +31,7 @@ import com.wls.manage.entity.CookieEntity;
 import com.wls.manage.entity.EducateEntity;
 import com.wls.manage.entity.HonorEntity;
 import com.wls.manage.entity.JobEntity;
+import com.wls.manage.entity.RoleEntity;
 import com.wls.manage.entity.SkillEntity;
 import com.wls.manage.entity.UserEntity;
 import com.wls.manage.service.CookieService;
@@ -45,6 +47,8 @@ public class UserController extends BaseController {
 	private static String baseDir = "picture";
 	@Autowired
 	private UserMapper userDao;
+	@Autowired
+	private RoleMapper roleMapper;
 	@Autowired
 	private EducateMapper educateMapper;
 	@Autowired
@@ -228,10 +232,14 @@ public class UserController extends BaseController {
 			@RequestParam(value="ci_id",required=false)int ci_id,
 			@RequestParam(value="sh_id",required=false)int sh_id,
 			@RequestParam(value="major",required=false)String major,
-			@RequestParam(value="skill",required=false)String skill,
+			@RequestParam(value="roleid",required=false)int roleid,
 			@RequestParam(value="nickname",required=false)String nickname,
 			@RequestParam(value="interest",required=false)String interest,
-			@RequestParam(value="age",required=false)int age
+			@RequestParam(value="age",required=false)int age,
+			
+			
+			@RequestParam(value="intention",required=false)String intention
+			
 			) throws ApiException {
 		UserEntity user = new UserEntity();
 		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
@@ -250,10 +258,12 @@ public class UserController extends BaseController {
 		user.setCityid(ci_id);
 		user.setSchoolid(sh_id);
 		user.setMajor(major);
-		user.setSkill(skill);
+		user.setRoleid(roleid);
 		user.setNickname(nickname);
 		user.setInterest(interest);
 		user.setAge(age);
+		
+		user.setIntention(intention);
 		if(!user.getId().equals(0)){
 			if(StringUtil.isnotNull(user.getPassword()))
 			{
@@ -267,6 +277,42 @@ public class UserController extends BaseController {
 		}
 		return ResponseData.newFailure();
 	}
+	
+	
+	@RequestMapping(value = "/updateResume")
+	@ResponseBody
+	public Object updateResume(HttpServletRequest request, 
+			@RequestParam(value="realname",required=false)String realname,
+			@RequestParam(value="telephone",required=false)String telephone,
+			@RequestParam(value="address",required=false)String address,
+			@RequestParam(value="email",required=false)String email,
+			@RequestParam(value="age",required=false)int age,
+			@RequestParam(value="intention",required=false)String intention
+			
+			) throws ApiException {
+		UserEntity user = new UserEntity();
+		UserEntity old_user = (UserEntity)request.getSession().getAttribute("user");
+		user.setId(old_user.getId());
+		user.setAddress(address);
+		user.setRealname(realname);
+		user.setTelephone(telephone);
+		user.setEmail(email);
+		user.setAge(age);
+		user.setIntention(intention);
+		if(!user.getId().equals(0)){
+			if(StringUtil.isnotNull(user.getPassword()))
+			{
+				user.setPassword(EncodeUtil.encodeByMD5(user.getPassword()));
+			}
+			this.userDao.updateUser(user);
+			UserEntity	ol_user = this.userDao.findUserById(user.getId().intValue());
+			ol_user.setPassword("********");
+			request.getSession().setAttribute("user",ol_user);
+			return ResponseData.newSuccess(ol_user);
+		}
+		return ResponseData.newFailure();
+	}
+	
 	
 	@RequestMapping(value = "/updateAvatar")
 	@ResponseBody
@@ -329,6 +375,25 @@ public class UserController extends BaseController {
 	    return this.userDao.existenceUserName(userName)>0;
 	}
 	
+	
+	@RequestMapping(value = "/findRoles")
+	@ResponseBody
+	public Object findRoles(
+			HttpServletRequest request
+			) throws UnsupportedEncodingException {
+	     List<RoleEntity> roleEntities = roleMapper.findRoles();
+	     if (roleEntities!=null&&!roleEntities.isEmpty()) {
+	    	 return ResponseData.newSuccess(roleEntities);
+		 }
+	    return ResponseData.newFailure("没有找到角色");
+	}	
+	
+	 @RequestMapping(value = "/findRoleById", method = RequestMethod.GET)
+	 @ResponseBody
+	 public Object findRoleById(@RequestParam int roleID) {
+	        return roleMapper.findRoleById(roleID);
+     }
+	
 	@RequestMapping(value = "/findEducateByUserID")
 	@ResponseBody
 	public Object findEducateByUserID(
@@ -379,11 +444,12 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value = "/deleteEducate")
 	@ResponseBody
-	public Object deleteEducate(
+	public Object deleteEducate(HttpServletRequest request, 
 			@RequestParam(value="educateID", required=false) Integer educateID
 			) throws UnsupportedEncodingException {
 		educateMapper.deleteEducate(educateID);
-		return ResponseData.newSuccess();
+		UserEntity userEntity = (UserEntity)request.getSession().getAttribute("user");
+		return ResponseData.newSuccess(educateMapper.findEducateByUserId(userEntity.getId().intValue()));
 	}
 	
 
@@ -409,16 +475,17 @@ public class UserController extends BaseController {
 		educateEntity.setStarttime(educatestarttime);
 		educateEntity.setUserid(BigInteger.valueOf(educateuserid));
 		educateMapper.insertEducate(educateEntity);
-		return ResponseData.newSuccess();
+		return ResponseData.newSuccess(educateMapper.findEducateByUserId(educateuserid));
 	}
 	
 	@RequestMapping(value = "/deleteJob")
 	@ResponseBody
-	public Object deleteJob(
+	public Object deleteJob(HttpServletRequest request, 
 			@RequestParam(value="jobID", required=false) Integer jobID
 			) throws UnsupportedEncodingException {
 		jobMapper.deleteJob(jobID);
-		return ResponseData.newSuccess();
+		UserEntity userEntity = (UserEntity)request.getSession().getAttribute("user");
+		return ResponseData.newSuccess(jobMapper.findJobByUserId(userEntity.getId().intValue()));
 	}
 	
 	@RequestMapping(value = "/addJob")
@@ -445,7 +512,58 @@ public class UserController extends BaseController {
 		jobEntity.setStarttime(jobstarttime);
 		jobEntity.setUserid(BigInteger.valueOf(jobuserid));
 		jobMapper.insertJob(jobEntity);
-		return ResponseData.newSuccess();
+		return ResponseData.newSuccess(jobMapper.findJobByUserId(jobuserid));
 	}
 	
+	@RequestMapping(value = "/deleteHonor")
+	@ResponseBody
+	public Object deleteHonor(HttpServletRequest request, 
+			@RequestParam(value="honorID", required=false) Integer honorID
+			) throws UnsupportedEncodingException {
+		honorMapper.deleteHonor(honorID);
+		UserEntity userEntity = (UserEntity)request.getSession().getAttribute("user");
+		return ResponseData.newSuccess(honorMapper.findHonorByUserId(userEntity.getId().intValue()));
+	}
+	
+	@RequestMapping(value = "/addHonor")
+	@ResponseBody
+	public Object addHonor(HttpServletRequest request, 
+			@RequestParam(value="honorstarttime",required=false)String honorstarttime,
+			@RequestParam(value="honorendtime",required=false)String honorendtime,
+			@RequestParam(value="honorhonor",required=false)String honorhonor,
+			@RequestParam(value="honoruserid",required=false)int honoruserid
+			) throws ApiException {
+		HonorEntity honorEntity = new HonorEntity();
+		honorEntity.setEndtime(honorendtime);
+		honorEntity.setHonor(honorhonor);
+		honorEntity.setStarttime(honorstarttime);
+		honorEntity.setUserid(BigInteger.valueOf(honoruserid));
+		honorMapper.insertHonor(honorEntity);
+		return ResponseData.newSuccess(honorMapper.findHonorByUserId(honoruserid));
+	}
+	
+	@RequestMapping(value = "/deleteSkill")
+	@ResponseBody
+	public Object deleteSkill(HttpServletRequest request, 
+			@RequestParam(value="skillID", required=false) Integer skillID
+			) throws UnsupportedEncodingException {
+		skillMapper.deleteSkill(skillID);
+		UserEntity userEntity = (UserEntity)request.getSession().getAttribute("user");
+		return ResponseData.newSuccess(skillMapper.findSkillByUserId(userEntity.getId().intValue()));
+	}
+	
+	@RequestMapping(value = "/addSkill")
+	@ResponseBody
+	public Object addSkill(HttpServletRequest request, 
+			@RequestParam(value="skillskill",required=false)String skillskill,
+			@RequestParam(value="skilldegree",required=false)int skilldegree,
+			@RequestParam(value="skilluserid",required=false)int skilluserid
+			) throws ApiException {
+		SkillEntity skillEntity = new SkillEntity();
+		skillEntity.setDegree(skilldegree);
+		skillEntity.setSkill(skillskill);
+		skillEntity.setUserid(BigInteger.valueOf(skilluserid));
+		skillMapper.insertSkill(skillEntity);
+		return ResponseData.newSuccess(skillMapper.findSkillByUserId(skilluserid));
+	}
 }
