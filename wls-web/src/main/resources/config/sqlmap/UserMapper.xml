@@ -64,11 +64,14 @@
          SELECT * FROM `user`
 		 <where> 
 			<if test="audit != null">
-			    audit=#{audit}
+			    roleid=#{audit}
 			</if>
 		    <if test="keyword != null">
-		        AND username like "%"#{keyword}"%"
+		        AND nickname like "%"#{keyword}"%"
 		    </if>
+		    <if test="suproleid != 0">
+		        AND  suproleid = #{suproleid}
+		    </if>		    
 		 </where>
          order by `registertime` desc
     </select>

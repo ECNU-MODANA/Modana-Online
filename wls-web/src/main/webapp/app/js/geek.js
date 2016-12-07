@@ -35,30 +35,12 @@ var app = angular.module('app', []).controller('geek',function($http, $location,
 	};
 	$scope.getUsers();
 	// 获取当前冷库的列表
-	$scope.auditChanged = function(optAudiet) {
+	$scope.auditChanged = function(optAudit) {
+		$scope.optAudit = optAudit;
 		$scope.getUsers();
 	};
     
 	$scope.goSearch = function () {
 		$scope.getUsers();
     };
-    $scope.myspace = function() {
-	      if($scope.user!=undefined&&$scope.user!=null&&$scope.user.id!=undefined){
-	    	  if($scope.user.suproleid==1){
-	    		  window.location.href="my-space.html";
-	    	  }
-	    	  else if($scope.user.suproleid==2){
-	    		  window.location.href="my-space-company.html";
-	    	  }
-	      }
-	      else{
-	    	 alert("请先登录"); 
-	    	 window.location.href="index.html";
-	      }
-	   };
-	   $scope.logout = function() {
-		   $http.get( "/i/user/logout").success(function(data){
-			   window.location.reload();
-		   });
-	  };
 });

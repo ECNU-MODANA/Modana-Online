@@ -79,7 +79,7 @@
       </a> <p>{{user.nickname}} <span ng-if="user.sex=='男'"><i class="fa fa-male"></i></span> <span ng-if="user.sex=='女'"><i class="fa fa-female"></i></span> 
       <span class="badge bg-yellow-casablanca">Lv {{level}}</span></p>
        <p style="font-size:14px">{{user.signature}}</p>
-      <a href="#attention_me" data-toggle="modal" class="btn red" id="unattention"><i class="fa fa-plus"></i> 关注</a> 
+      <a href="#attention_me" data-toggle="modal" class="btn red" id="unattention"><i class="fa fa-plus"></i> 关注({{followerNum}})</a> 
       <a href="#unattention_me" data-toggle="modal" class="btn red" id="attention" style="display:none"><i class="fa fa-check"></i> 已关注</a> 
       <a href="#" class="btn red" id="send_message"><i class="fa fa-comment"></i> 私信</a> </em> 
      </div> 
@@ -781,7 +781,7 @@
            <div class="caption caption-md"> 
             <i class="icon-bar-chart theme-font hide"></i> 
             <span class="caption-subject font-blue-madison bold uppercase">全部关注</span> 
-            <span class="caption-helper">45个</span> 
+            <span class="caption-helper">{{followerNum}}个</span> 
            </div> 
            <div class="inputs"> 
             <div class="portlet-input input-inline input-small "> 
@@ -794,33 +794,13 @@
           </div> 
           <div class="portlet-body"> 
            <div class="row geeks-list margin-bottom-20"> 
-            <div class="col-md-6 margin-bottom-20"> 
+            <div class="col-md-6 margin-bottom-20"  ng-repeat="user in followers"> 
              <div class="geek-item col-md-12"> 
               <a href="my-space.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/1.jpg" /> <img class="geek-item-img-v" src="../../assets/img/vip.png" /></a> 
-              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">伊个小希</a> <span class="geek-item-score"><i class="fa fa-star"></i>51986</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
+              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">{{user.username}}</a> <span class="badge bg-yellow-casablanca">Lv 8</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
               <div class="geek-item-tags col-md-3"> 
                <span class="bgblue"> 宅男 </span> 
                <span class="bgyellow"> 宅男 </span> 
-              </div> 
-             </div> 
-            </div> 
-            <div class="col-md-6 margin-bottom-20"> 
-             <div class="geek-item col-md-12"> 
-              <a href="my-space.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/2.jpg" /></a> 
-              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">伊个小希</a> <span class="geek-item-score"><i class="fa fa-star"></i>51986</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
-              <div class="geek-item-tags col-md-3"> 
-               <span class="bggreen"> 宅男 </span> 
-               <span class="bgred"> 宅男 </span> 
-               <span class="bgblue"> 宅男 </span> 
-              </div> 
-             </div> 
-            </div> 
-            <div class="col-md-6 margin-bottom-20"> 
-             <div class="geek-item col-md-12"> 
-              <a href="my-space.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/3.jpg" /></a> 
-              <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space.html">伊个小希</a> <span class="geek-item-score"><i class="fa fa-star"></i>51986</span> <span class="geek-item-desc">画画的！会继续努力！合作联系请私信！</span> </p> 
-              <div class="geek-item-tags col-md-3"> 
-               <span class="bggreen"> 宅男 </span> 
               </div> 
              </div> 
             </div> 

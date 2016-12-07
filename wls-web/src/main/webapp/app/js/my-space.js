@@ -8,6 +8,15 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 					 $scope.honors = {};
 					 $scope.jobs = {};
 					 $scope.skilldegree=0;
+					 $scope.followerNum = 0;
+					 $http.get('/i/user/findFollowerByUserId', {
+				            params: {
+				                "userID": $scope.user.id
+				            }
+				        }).success(function (data) { 
+				        	$scope.followers = data;
+				        	$scope.followerNum = $scope.followers.length;
+				     });
 					 $http.get('/i/user/findEducateByUserID', {
 				            params: {
 				                "userID": $scope.user.id

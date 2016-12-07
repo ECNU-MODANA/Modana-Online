@@ -3,6 +3,7 @@ package com.wls.manage.controller;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,14 +22,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taobao.api.ApiException;
 import com.wls.manage.dao.EducateMapper;
+import com.wls.manage.dao.FollowMapper;
 import com.wls.manage.dao.HonorMapper;
 import com.wls.manage.dao.JobMapper;
 import com.wls.manage.dao.RoleMapper;
 import com.wls.manage.dao.SkillMapper;
 import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.UploadFileEntity;
+import com.wls.manage.dto.UserDto;
 import com.wls.manage.entity.CookieEntity;
 import com.wls.manage.entity.EducateEntity;
+import com.wls.manage.entity.FollowEntity;
 import com.wls.manage.entity.HonorEntity;
 import com.wls.manage.entity.JobEntity;
 import com.wls.manage.entity.RoleEntity;
@@ -47,6 +51,8 @@ public class UserController extends BaseController {
 	private static String baseDir = "picture";
 	@Autowired
 	private UserMapper userDao;
+	@Autowired
+	private FollowMapper followMapper;
 	@Autowired
 	private RoleMapper roleMapper;
 	@Autowired
@@ -128,18 +134,55 @@ public class UserController extends BaseController {
 			@RequestParam(value="pageSize") Integer pageSize, 
 			@RequestParam(value="audit", required=false) Integer audit,
 			@RequestParam(value="keyword", required=false) String keyword) throws UnsupportedEncodingException {
-		if( !(audit == -1 || audit == 1 || audit == 0) ){
+		if( !(audit == 1 || audit == 2 || audit == 3||audit == 4 || audit == 5 || audit == 6) ){
 			audit = null;
 		}
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 12:pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		if(keyword.equals("undefined"))
+		if(keyword.equals("undefined")||keyword.equals(""))
 			keyword = null;
 		else{
 		keyword = URLDecoder.decode(keyword, "UTF-8");
 		}
-		return new PageInfo<UserEntity>(userDao.findAllUser(audit,keyword));
+		List<UserEntity> userEntities = userDao.findAllUser(audit,keyword,1);
+		List<UserDto> userDtos = new ArrayList<UserDto>();
+		for (int i = 0; i < userEntities.size(); i++) {
+			UserEntity userEntity = userEntities.get(i);
+			UserDto userDto = new UserDto();
+			userDto.setId(userEntity.getId());
+			userDto.setAvatar(userEntity.getAvatar());
+			if(userEntity.getSignature()==null){
+				userDto.setSignature("该用户还没有留下自己的签名");
+			}
+			else {
+				userDto.setSignature(userEntity.getSignature());
+			}
+			if (userEntity.getNickname()==null) {
+				userDto.setNickname("游客"+userEntity.getId());
+			}
+			else {
+				userDto.setNickname(userEntity.getNickname());
+			}
+			
+			if (userEntity.getScore()!=null) {
+				if(userEntity.getScore().intValue()<100){
+					userDto.setLevel(1);
+				}
+				else if (userEntity.getScore().intValue()>=100&&userEntity.getScore().intValue()<500) {
+					userDto.setLevel(2);
+				}
+				else if (userEntity.getScore().intValue()>=500) {
+					userDto.setLevel(3);
+				}
+			}
+			else {
+				userDto.setLevel(0);
+			}
+			userDto.setSkillEntities(skillMapper.findSkillByUserId(userEntity.getId().intValue()));
+			userDtos.add(userDto);
+		}
+		return new PageInfo<UserDto>(userDtos);
 		
 	}
 	@RequestMapping(value = "/userNameVerify", method = RequestMethod.POST)
@@ -394,6 +437,17 @@ public class UserController extends BaseController {
 	        return roleMapper.findRoleById(roleID);
      }
 	
+	 @RequestMapping(value = "/findFollowerByUserId", method = RequestMethod.GET)
+	 @ResponseBody
+	 public Object findFollowerByUserId(@RequestParam int userID) {
+		    List<FollowEntity> followEntities = followMapper.findFollowByUserId(userID);
+		    List<UserEntity> userEntities = new ArrayList<UserEntity>();
+		    for (int i = 0; i < followEntities.size(); i++) {
+				userEntities.add(userDao.findUserById(followEntities.get(i).getFollowedid().intValue()));
+			}
+	        return userEntities;
+     }
+	 
 	@RequestMapping(value = "/findEducateByUserID")
 	@ResponseBody
 	public Object findEducateByUserID(
@@ -403,7 +457,7 @@ public class UserController extends BaseController {
 	     if (educateEntities!=null&&!educateEntities.isEmpty()) {
 	    	 return ResponseData.newSuccess(educateEntities);
 		 }
-	    return ResponseData.newFailure("没有教育经历");
+	    return ResponseData.newFailure("没有教育经历"); 
 	}
 	
 	@RequestMapping(value = "/findSkillByUserID")
