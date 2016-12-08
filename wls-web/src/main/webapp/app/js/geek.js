@@ -1,4 +1,4 @@
-var app = angular.module('app', []).controller('geek',function($http, $location, $scope) {
+wlsWeb.controller('geek',function($http, $location, $scope) {
     $scope.load = function(){
     	$http.get( "/i/user/findUser").success(function(data,status,config,headers){
 				 $scope.user = data;

@@ -69,11 +69,34 @@
   </script>
 <!-- END JAVASCRIPTS -->
 <script type="text/javascript" src="../../assets/js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="assets/js/angular.min.js"></script>
-   <script src="app/js/index.js" type="text/javascript"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js?"></script>
+<script src="bower_components/angular/ng-file-upload.min.js"></script>
+<script src="bower_components/angular/ng-file-upload-shim.min.js"></script>
+<script src="bower_components/highlightjs/highlight.pack.js"></script>
+<script src="bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
+<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+<script src="bower_components/angular-multi-select-master/isteven-multi-select.js"></script>
+<script src="bower_components/angucomplete/angucomplete.js"></script>
+<script src="bower_components/at-table/dist/angular-table.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/js/carousel.js"></script>
+<script src="bower_components/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="bower_components/angular/ngRemoteValidate.0.6.1.min.js"></script>
+  <!--  <script src="app/js/index.js" type="text/javascript"></script> -->
+<script src="app/js/app.js" type="text/javascript"></script>
+<script src="app/js/home.js" type="text/javascript"></script>
+<script src="app/js/geek.js" type="text/javascript"></script>
+<script src="app/js/login.js" type="text/javascript"></script>
+<script src="app/js/my-space.js" type="text/javascript"></script>
+<script src="app/js/my-space-company.js" type="text/javascript"></script>
+<script src="app/js/register.js" type="text/javascript"></script>
 </head>
 <!--DOC: menu-always-on-top class to the body element to set menu on top -->
-<body class="menu-always-on-top" ng-app="app" ng-controller="index">
+<body class="menu-always-on-top">
   <!-- Header BEGIN -->
   <div class="header header-mobi-ext">
     <div class="container">
@@ -87,15 +110,16 @@
         <!-- Navigation BEGIN -->
         <div class="col-md-10 pull-right">
           <ul class="header-navigation">
-            <li class="current"><a href="index.html">首页</a></li>
-            <li><a href="app/template/news.html" target="main">资讯</a></li>
-            <li><a href="app/template/geek.html" target="main">创客</a></li>
-            <li><a href="app/template/post-bar.html" target="main">创吧</a></li>
-            <li><a href="app/template/my-space.html" target="main"><span ng-show="user != null && user.id != 0 && user.suproleid==1" >我的</span></a></li>
-             <li><a href="app/template/my-space-company.html" target="main"><span ng-show="user != null && user.id != 0 && user.suproleid==2" >我的</span></a></li>
-            <li><div ng-show="user == null ||user.id == 0"><a href="register.html" style="display: inline; font-size:15px;">注册</a> 
-             |  <a href="login.html"style="display: inline; font-size:15px;"><span>登录</span></a></div></li>
-            <li ng-click="logout()"><div ng-show="user != null && user.id != 0"><a style="display: inline; font-size:15px;">注销</a> </div></li>
+            <li class="current"><a href="#/home">首页</a></li>
+            <li><a href="#/news">资讯</a></li>
+            <li><a href="#/geek">创客</a></li>
+            <li><a href="#/post-bar">创吧</a></li>
+            <li><a href="#/my-space"><span ng-show="user != null && user.id != 0 && user.suproleid==1" >我的</span></a></li>
+             <li><a href="#/my-space-company" target="main"><span ng-show="user != null && user.id != 0 && user.suproleid==2" >我的</span></a></li>
+            <li><div ng-if="user == null || user == undefined || user == '' ||user.id == undefined"><a href="#/register" style="display: inline; font-size:15px;">注册</a> 
+             |  <a href="/login.html"style="display: inline; font-size:15px;"><span>登录</span></a></div></li>
+            <li ng-click="logout()"><div ng-if="user != null && user.id != 0 && user.id != undefined
+            && user != ''"><a style="display: inline; font-size:15px;">注销</a> </div></li>
           </ul>
         </div> 
         <!-- Navigation END -->
@@ -103,7 +127,8 @@
     </div>
   </div>
   <!-- Header END -->
-  <iframe src="home.html" name="main" width="100%"  height="1000px" style="border:0px solid;"></iframe>
+  <!-- <iframe src="home.html" name="main" width="100%"  height="1000px" style="border:0px solid;"></iframe> -->
+  <div  ui-view style="overflow: hidden"></div>
   <!-- BEGIN FOOTER -->
   <div class="footer">
     <div class="container">

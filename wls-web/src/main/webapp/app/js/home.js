@@ -1,3 +1,3 @@
-wls.controller('home',function($http, $location, $scope) {
+wlsWeb.controller('home',function($http, $location, $scope) {
 	
 });

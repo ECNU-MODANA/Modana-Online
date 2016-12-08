@@ -1,4 +1,4 @@
-var app = angular.module('app', []).controller('register',function($http, $location, $scope) {
+wlsWeb.controller('register',function($http, $location, $scope) {
 	$scope.suproleid = 1;
 	$scope.company_gate = function() {
        $scope.suproleid = 2;

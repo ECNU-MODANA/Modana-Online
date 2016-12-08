@@ -9,7 +9,7 @@ var app = angular.module('app', []).controller('login',function($http, $location
  	    			}
  	    	}).success(function(data) {
  	    		if(data!=null&&user.id!=undefined){
- 	    			window.location.href="index.html";
+ 	    			window.location.href="#/home";
  	    		}
  		   });
 	   }

@@ -1,4 +1,4 @@
-var app = angular.module('app', []).controller('my-space',function($http, $location, $scope) {
+wlsWeb.controller('my-space',function($http, $location, $scope) {
 	 $scope.load = function(){
 	    	$http.get( "/i/user/findUser").success(function(data,status,config,headers){
 					 if(data!=null&&data.id!=undefined){
