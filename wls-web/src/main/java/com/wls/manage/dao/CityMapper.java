@@ -17,6 +17,8 @@ import java.util.List;
 public interface CityMapper {
     List<City_infoEntity> findCitysByProvinceId(@Param("provinceID") int provinceID);
     
+    List<City_infoEntity> findCityList();
+    
     List<School_infoEntity> findSchoolsByCityId(@Param("cityID") int cityID);
 
     City_infoEntity findCityById(@Param("CityID") int CityID);

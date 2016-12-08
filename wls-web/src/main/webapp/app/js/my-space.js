@@ -17,6 +17,14 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 				        	$scope.followers = data;
 				        	$scope.followerNum = $scope.followers.length;
 				     });
+					 $http.get('/i/message/findMessageByReceiverId', {
+				            params: {
+				                "userID": $scope.user.id
+				            }
+				        }).success(function (data) { 
+				        	$scope.messages = data;
+				        	$scope.messageNum = $scope.messages.length;
+				     });
 					 $http.get('/i/user/findEducateByUserID', {
 				            params: {
 				                "userID": $scope.user.id

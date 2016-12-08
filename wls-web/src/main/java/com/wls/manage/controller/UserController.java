@@ -133,9 +133,21 @@ public class UserController extends BaseController {
 	public Object findUserList(@RequestParam(value="pageNum",required=false) Integer pageNum,
 			@RequestParam(value="pageSize") Integer pageSize, 
 			@RequestParam(value="audit", required=false) Integer audit,
+			@RequestParam(value="provinceid", required=false) Integer provinceid,
+			@RequestParam(value="cityid", required=false) Integer cityid,
+			@RequestParam(value="schoolid", required=false) Integer schoolid,
 			@RequestParam(value="keyword", required=false) String keyword) throws UnsupportedEncodingException {
 		if( !(audit == 1 || audit == 2 || audit == 3||audit == 4 || audit == 5 || audit == 6) ){
 			audit = null;
+		}
+		if(provinceid==null||provinceid==-1){
+			provinceid = null;
+		}
+		if(cityid==null||cityid==-1){
+			cityid = null;
+		}
+		if(schoolid==null||schoolid==-1){
+			schoolid = null;
 		}
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 12:pageSize;
@@ -145,7 +157,7 @@ public class UserController extends BaseController {
 		else{
 		keyword = URLDecoder.decode(keyword, "UTF-8");
 		}
-		List<UserEntity> userEntities = userDao.findAllUser(audit,keyword,1);
+		List<UserEntity> userEntities = userDao.findAllUser(audit,keyword,1,provinceid,cityid,schoolid);
 		List<UserDto> userDtos = new ArrayList<UserDto>();
 		for (int i = 0; i < userEntities.size(); i++) {
 			UserEntity userEntity = userEntities.get(i);
@@ -441,11 +453,43 @@ public class UserController extends BaseController {
 	 @ResponseBody
 	 public Object findFollowerByUserId(@RequestParam int userID) {
 		    List<FollowEntity> followEntities = followMapper.findFollowByUserId(userID);
-		    List<UserEntity> userEntities = new ArrayList<UserEntity>();
+		    List<UserDto> userDtos = new ArrayList<UserDto>();
 		    for (int i = 0; i < followEntities.size(); i++) {
-				userEntities.add(userDao.findUserById(followEntities.get(i).getFollowedid().intValue()));
+		    	UserEntity userEntity = userDao.findUserById(followEntities.get(i).getFollowedid().intValue());
+				UserDto userDto = new UserDto();
+				userDto.setId(userEntity.getId());
+				userDto.setAvatar(userEntity.getAvatar());
+				if(userEntity.getSignature()==null){
+					userDto.setSignature("该用户还没有留下自己的签名");
+				}
+				else {
+					userDto.setSignature(userEntity.getSignature());
+				}
+				if (userEntity.getNickname()==null) {
+					userDto.setNickname("游客"+userEntity.getId());
+				}
+				else {
+					userDto.setNickname(userEntity.getNickname());
+				}
+				
+				if (userEntity.getScore()!=null) {
+					if(userEntity.getScore().intValue()<100){
+						userDto.setLevel(1);
+					}
+					else if (userEntity.getScore().intValue()>=100&&userEntity.getScore().intValue()<500) {
+						userDto.setLevel(2);
+					}
+					else if (userEntity.getScore().intValue()>=500) {
+						userDto.setLevel(3);
+					}
+				}
+				else {
+					userDto.setLevel(0);
+				}
+				userDto.setSkillEntities(skillMapper.findSkillByUserId(userEntity.getId().intValue()));
+				userDtos.add(userDto);
 			}
-	        return userEntities;
+	        return userDtos;
      }
 	 
 	@RequestMapping(value = "/findEducateByUserID")

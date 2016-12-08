@@ -1,5 +1,6 @@
 package com.wls.manage.dao;
 
+
 import org.apache.ibatis.annotations.Param;
 
 import com.github.pagehelper.Page;
@@ -25,5 +26,6 @@ public interface MessageMapper {
 	void insertMessage(MessageEntity messageEntity);
 	
 	void deleteMessage(@Param("msgID") int msgID);
+
 	
 }

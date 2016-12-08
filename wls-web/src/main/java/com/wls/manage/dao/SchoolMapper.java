@@ -16,4 +16,8 @@ public interface SchoolMapper {
     List<School_infoEntity> findSchoolsByCityId(@Param("cityID") int cityID);
 
     School_infoEntity findSchoolById(@Param("schoolID") int schoolID);
+    
+    
+    List<School_infoEntity> findSchoolList();
+
 }

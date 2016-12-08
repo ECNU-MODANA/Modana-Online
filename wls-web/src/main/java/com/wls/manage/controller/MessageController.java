@@ -1,6 +1,9 @@
 package com.wls.manage.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +14,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wls.manage.dao.MessageMapper;
 import com.wls.manage.dao.MsgCategoryMapper;
+import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.BaseDto;
+import com.wls.manage.dto.MessageDto;
 import com.wls.manage.entity.MessageEntity;
+import com.wls.manage.entity.UserEntity;
 import com.wls.manage.util.ResponseData;
 /**
  * 
@@ -26,6 +32,8 @@ public class MessageController extends BaseController {
 	@Autowired
 	private MessageMapper messageDao;
 	@Autowired
+	private UserMapper userMapper;
+	@Autowired 
 	private MsgCategoryMapper msgCategoryDao;
 	
 	/**
@@ -38,14 +46,41 @@ public class MessageController extends BaseController {
 	 */
 	@RequestMapping(value = "/findMessageByUserId")
 	@ResponseBody
-	public Object findMessageByUserId(@RequestParam(value="pageNum",required=false) Integer pageNum,
-			@RequestParam(value="pageSize") Integer pageSize, 
+	public Object findMessageByUserId(
 			@RequestParam(value="userID", required=false) Integer userID) throws UnsupportedEncodingException {
-		pageNum = pageNum == null? 1:pageNum;
-		pageSize = pageSize==null? 10:pageSize;
-		PageHelper.startPage(pageNum, pageSize);
-		PageInfo<MessageEntity> data= new PageInfo<MessageEntity>(messageDao.findMessageBySenderID(userID));
+		List<MessageEntity> data= new ArrayList<MessageEntity>(messageDao.findMessageBySenderID(userID));
 		return ResponseData.newSuccess(data);
+	}
+	
+	
+	@RequestMapping(value = "/findMessageByReceiverId")
+	@ResponseBody
+	public Object findMessageByReceiverId(
+			@RequestParam(value="userID", required=false) Integer userID) throws UnsupportedEncodingException {
+		List<MessageEntity> messageEntities= new ArrayList<MessageEntity>(messageDao.findMessageByReceiverID(userID));
+		List<MessageDto> messageDtos = new ArrayList<MessageDto>();
+		for (MessageEntity messageEntity : messageEntities) {
+			MessageDto messageDto = new MessageDto();
+			messageDto.setId(messageEntity.getId());
+			messageDto.setContent(messageEntity.getContent());
+			messageDto.setInformtime(messageEntity.getInformtime());
+			messageDto.setMsgcategory(messageEntity.getMsgcategory());
+			messageDto.setReceiverid(messageEntity.getReceiverid());
+			messageDto.setSenderid(messageEntity.getSenderid());
+			UserEntity senderEntity  = userMapper.findUserById(messageEntity.getSenderid().intValue());
+			UserEntity ReceiverEntity  = userMapper.findUserById(messageEntity.getReceiverid().intValue());
+			messageDto.setReceiveravatar(ReceiverEntity.getAvatar());
+			messageDto.setReceivername(ReceiverEntity.getNickname());
+			messageDto.setSenderavatar(senderEntity.getAvatar());
+			if (senderEntity.getNickname()==null) {
+				messageDto.setSendername("游客"+senderEntity.getId());
+			}
+			else {
+				messageDto.setSendername(senderEntity.getNickname());
+			}
+			messageDtos.add(messageDto);
+		}
+		return messageDtos;
 	}
 	
 	/**

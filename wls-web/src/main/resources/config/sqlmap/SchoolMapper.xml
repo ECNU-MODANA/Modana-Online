@@ -14,4 +14,9 @@
         FROM `shool_info` WHERE `sh_id` = #{schoolID}
     </select>
 
+
+ <select id="findSchoolList" parameterType="map" resultType="School_infoEntity">
+        SELECT *
+        FROM `shool_info` 
+    </select>
 </mapper>

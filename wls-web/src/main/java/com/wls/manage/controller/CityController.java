@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wls.manage.dao.CityMapper;
 import com.wls.manage.dao.ProvinceMapper;
+import com.wls.manage.dao.SchoolMapper;
 import com.wls.manage.util.APP;
 
 @Controller
@@ -20,6 +21,9 @@ public class CityController {
 
     @Autowired
     private CityMapper cityListDao;
+    
+    @Autowired
+    private SchoolMapper schoolMapper;
 
     
     @APP
@@ -27,6 +31,20 @@ public class CityController {
     @ResponseBody
     public Object findProvinceList() {
         return provinceListMapper.findProvinceList();
+    }
+    
+    @APP
+    @RequestMapping(value = "/findCityList", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findCityList() {
+        return cityListDao.findCityList();
+    }
+    
+    @APP
+    @RequestMapping(value = "/findSchoolList", method = RequestMethod.GET)
+    @ResponseBody
+    public Object findSchoolList() {
+        return schoolMapper.findSchoolList();
     }
     
     @APP

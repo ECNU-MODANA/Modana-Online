@@ -118,11 +118,21 @@
        <div class="col-md-9 col-sm-7"> 
         <div class="content-search margin-bottom-20"> 
          <div class="row"> 
+           <div class="col-md-4"> 
+              <select id=""  style="height:35px !important"
+               ng-model="provinceid" ng-disabled="editable"
+                                     ng-change="provinceSelected(provinceid)"
+                                     ng-options="x.pr_id as x.pr_province for x in provinces"></select>
+              <select id=""  style="height:35px !important" ng-model="cityid"
+                                    ng-disabled="editable" ng-change="citySelected(cityid)"
+                                    ng-options="x.ci_id as x.ci_city for x in citys"></select>
+          <!-- <input type="text" id="cityChoice" class="form-control" placeholder="请选择地区"/> -->
+          </div>  
           <div class="col-md-4"> 
-          <input type="text" id="cityChoice" class="form-control" placeholder="请选择地区"/>
-          </div> 
-          <div class="col-md-4"> 
-           <select id="" class="selectpicker form-control" data-live-search="true"> <option selected="">全部</option> <option>上海交通大学</option> <option>北京大学</option> <option>浙江大学</option> <option>清华大学</option> <option>南京大学</option> <option>四川大学</option> <option>浙江大学</option> <option>复旦大学</option> <option>同济大学</option> <option>西安交通大学</option> <option>大连理工大学</option> <option>上海财经学院</option> <option>上海师范学院</option> <option>山东大学</option> <option>厦门大学</option> </select> 
+           <select id="" style="height:35px !important" ng-model="schoolid"
+                                    ng-disabled="editable"
+                                    ng-change="schoolSelected(schoolid)"
+                                    ng-options="x.sh_id as x.sh_shool for x in schools"> </select>
           </div> 
           <div class="col-md-4"> 
            <div class="input-group"> 
@@ -136,7 +146,7 @@
         <div class="row geeks-list margin-bottom-20"> 
          <div class="col-md-6 margin-bottom-20"> 
           <div class="geek-item col-md-12" ng-repeat="user in Allusers"> 
-           <a href="my-space-ask.html" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/1.jpg" /> <img class="geek-item-img-v" src="../../assets/img/vip.png" /></a> 
+           <a ng-click="goUserSpace(user.id)" class="col-md-2 pull-left padding-left-0"><img class="geek-item-img" src="../../assets/img/people/1.jpg" /> <img class="geek-item-img-v" src="../../assets/img/vip.png" /></a> 
            <p class="geek-item-content col-md-6"> <a class="geek-item-name" target="_blank" href="my-space-ask.html">{{user.nickname}}</a> <span class="badge bg-yellow-casablanca">Lv {{user.level}}</span> <span class="geek-item-desc">{{user.signature}}</span> </p> 
            <div class="geek-item-tags col-md-3"> 
             <span class="bgblue" ng-repeat="skill in user.skillEntities"> {{skill.skill}} </span> 

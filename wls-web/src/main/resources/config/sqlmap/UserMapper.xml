@@ -66,6 +66,15 @@
 			<if test="audit != null">
 			    roleid=#{audit}
 			</if>
+			<if test="provinceid != null">
+			    AND provinceid=#{provinceid}
+			</if>
+			<if test="cityid != null">
+			    AND cityid=#{cityid}
+			</if>
+			<if test="schoolid != null">
+			    AND schoolid=#{schoolid}
+			</if>
 		    <if test="keyword != null">
 		        AND nickname like "%"#{keyword}"%"
 		    </if>

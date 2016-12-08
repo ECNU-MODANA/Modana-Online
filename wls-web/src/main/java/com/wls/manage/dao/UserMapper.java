@@ -17,7 +17,8 @@ public interface UserMapper {
 	
 	void updateUser(UserEntity userEntity);
 	
-	Page<UserEntity> findAllUser(@Param("audit")Integer audit, @Param("keyword")String keyword,@Param("suproleid")int suproleid);
+	Page<UserEntity> findAllUser(@Param("audit")Integer audit, @Param("keyword")String keyword,@Param("suproleid")int suproleid,
+			@Param("provinceid")Integer provinceid,@Param("cityid")Integer cityid,@Param("schoolid")Integer schoolid);
 	
 	public int existenceUserName(@Param("username")String username);
 }

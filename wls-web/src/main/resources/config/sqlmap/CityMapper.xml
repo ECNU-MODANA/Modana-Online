@@ -28,5 +28,11 @@
         SELECT *
         FROM `shool_info` WHERE `sh_id` = #{schoolID}
     </select>
+    
+     <select id="findCityList" parameterType="map" resultType="City_infoEntity">
+        SELECT *
+        FROM `city_info` 
+    </select>
+    
 
 </mapper>
