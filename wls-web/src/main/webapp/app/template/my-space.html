@@ -840,16 +840,17 @@
                </div> 
                <span class="item-status">
               <!--  <span class="badge badge-empty badge-success"></span> 已读  -->
-              <a class="btn" ng-if="message.msgcategory=='2'">同意</a>
+              <a class="btn" ng-if="message.msgcategory=='2'" ng-click="messageResponse(message.id,message.senderid,message.msgcategory)">同意</a>
               <a class="btn" ng-if="message.msgcategory=='1'" id="quick_reply">回复</a>
-              <a class="btn">删除</a>
+              <a class="btn" ng-click="deleteResume(message.id)">删除</a>
                </span> 
               </div> 
               <div class="item-body">
                        {{message.content}}
                 <div class="col-md-12 form-group input-group padding-top-10" id="input_quick_reply" style="display:none"> 
-                 <input type="text" class="form-control"> 
-                 <span class="input-group-btn"> <button class="btn btn-primary" type="button" id="quick_reply_btn">回复</button> </span> 
+                 <input type="text" ng-model="resopnseMsg" class="form-control"> 
+                 <span class="input-group-btn"> 
+                 <button class="btn btn-primary" type="button" ng-click="messageResponse(message.id,message.senderid,message.msgcategory,resopnseMsg)" id="quick_reply_btn">回复</button> </span> 
                 </div>
               </div> 
              </div> 

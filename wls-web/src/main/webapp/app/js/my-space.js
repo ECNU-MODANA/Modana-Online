@@ -401,4 +401,37 @@ var app = angular.module('app', []).controller('my-space',function($http, $locat
 									    		}
 										   });
 									   };
+									   
+									   
+									   $scope.deleteResume  = function(messageID) {
+										   if(delcfm()){
+									    	$http.get( "/i/message/deleteMessage",{
+									    		params : {
+									    			msgID : messageID,
+									    			messageSenderID : $scope.user.id
+									    			}
+									    	}).success(function(data) {
+									    		alert("删除成功");
+									    		$scope.messages = data;
+									        	$scope.messageNum = $scope.messages.length;
+										   });
+										   }
+									   };
+									   
+									   $scope.messageResponse  = function(messageID,messageReceiverID,msgcategory
+											   ,resopnseMsg) {
+									    	$http.get( "/i/message/messageResponse",{
+									    		params : {
+									    			messageID : messageID,
+									    			messageReceiverID : messageReceiverID,
+									    			messageResponse : resopnseMsg,
+									    			msgcategory : msgcategory,
+									    			messageSenderID : $scope.user.id
+									    		}
+									    	}).success(function(data) {
+									    		alert("回复成功");
+									    		$scope.messages = data;
+									        	$scope.messageNum = $scope.messages.length;
+										   });
+									   };
 });

@@ -1,6 +1,7 @@
 package com.wls.manage.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wls.manage.dao.MessageMapper;
 import com.wls.manage.dao.MsgCategoryMapper;
+import com.wls.manage.dao.ResumeVisMapper;
 import com.wls.manage.dao.UserMapper;
 import com.wls.manage.dto.BaseDto;
 import com.wls.manage.dto.MessageDto;
 import com.wls.manage.entity.MessageEntity;
+import com.wls.manage.entity.ResumeVisEntity;
 import com.wls.manage.entity.UserEntity;
 import com.wls.manage.util.ResponseData;
 /**
@@ -35,6 +38,8 @@ public class MessageController extends BaseController {
 	private UserMapper userMapper;
 	@Autowired 
 	private MsgCategoryMapper msgCategoryDao;
+	@Autowired 
+	private ResumeVisMapper resumeVisMapper;
 	
 	/**
 	 * 为前台user查询通知提供服务
@@ -110,9 +115,9 @@ public class MessageController extends BaseController {
 	 */
 	@RequestMapping(value = "/deleteMessage")
 	@ResponseBody
-	public Object deleteMessage(int msgID) {
+	public Object deleteMessage(int msgID,Integer messageSenderID) {
 		 messageDao.deleteMessage(msgID);
-		 return new BaseDto(0);
+		 return  messageDao.findMessageByReceiverID(messageSenderID);
 	}
 	
 	/**
@@ -137,6 +142,38 @@ public class MessageController extends BaseController {
 	public Object addMessage(MessageEntity message) throws Exception {
 		messageDao.insertMessage(message);
 		return new BaseDto(0);
+	}
+	
+	/**
+	 * 增加消息
+	 * @param message
+	 * @return
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = "/messageResponse")
+	@ResponseBody
+	public Object messageResponse(@RequestParam(value="messageID",required=false) Integer messageID,
+			@RequestParam(value="messageReceiverID",required=false) Integer messageReceiverID,
+			@RequestParam(value="messageResponse",required=false) String messageResponse,
+			@RequestParam(value="msgcategory",required=false) String msgcategory,
+			@RequestParam(value="messageSenderID",required=false) Integer messageSenderID) throws Exception {
+		if (msgcategory.equals("1")) {
+			MessageEntity messageEntity = new MessageEntity();
+			messageEntity.setContent(messageResponse);
+			messageEntity.setMsgcategory("1");
+			messageEntity.setReceiverid(BigInteger.valueOf(messageReceiverID));
+			messageEntity.setSenderid(BigInteger.valueOf(messageSenderID));
+			messageDao.insertMessage(messageEntity);
+		}
+		if (msgcategory.equals("2")) {
+			ResumeVisEntity resumeVisEntity = new ResumeVisEntity();
+			resumeVisEntity.setOwnerid(BigInteger.valueOf(messageSenderID));
+			resumeVisEntity.setVisiblerid(BigInteger.valueOf(messageReceiverID));
+			resumeVisMapper.insertResumeVis(resumeVisEntity);
+		}
+		messageDao.deleteMessage(messageID);
+		return messageDao.findMessageByReceiverID(messageSenderID);
 	}
 	
 	/**
