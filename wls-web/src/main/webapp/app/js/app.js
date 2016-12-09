@@ -49,5 +49,25 @@ wlsWeb.config(function ($stateProvider, $urlRouterProvider) {
         url: '/register',
         controller: 'register',
         templateUrl: '../../register.html'
+    }).state('post-bar', {
+        url: '/post-bar',
+        controller: 'post-bar',
+        templateUrl: 'app/template/post-bar.html'
+    }).state('news', {
+        url: '/news',
+        controller: 'news',
+        templateUrl: 'app/template/news.html'
+    }).state('post-message', {
+        url: '/post-message',
+        controller: 'post-message',
+        templateUrl: 'app/template/post-message.html'
+    }).state('news-info', {
+        url: '/news-info',
+        controller: 'news-info',
+        templateUrl: 'app/template/news-info.html'
+    }).state('my-space-ask', {
+        url: '/my-space-ask',
+        controller: 'my-space-ask',
+        templateUrl: 'app/template/my-space-ask.html'
     });
 });

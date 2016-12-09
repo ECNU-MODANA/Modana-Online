@@ -11,15 +11,17 @@ import java.util.Date;
 public class PublishEntity {
 	private BigInteger id;
 	
-	private BigInteger publisherid;//接收者id
+	private BigInteger publisher;//接收者id
 	
 	private String title;
 	
-	private String pubcategory;
+	private Integer pubcategory;
 	
     private Date pubtime;//发布时间
 	
 	private String content;
+	
+	private Integer schoolid;
 
 	public BigInteger getId() {
 		return id;
@@ -30,11 +32,11 @@ public class PublishEntity {
 	}
 
 	public BigInteger getPublisherid() {
-		return publisherid;
+		return publisher;
 	}
 
 	public void setPublisherid(BigInteger publisherid) {
-		this.publisherid = publisherid;
+		this.publisher = publisherid;
 	}
 
 	public String getTitle() {
@@ -43,14 +45,6 @@ public class PublishEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getPubcategory() {
-		return pubcategory;
-	}
-
-	public void setPubcategory(String pubcategory) {
-		this.pubcategory = pubcategory;
 	}
 
 	public Date getPubtime() {
@@ -68,5 +62,22 @@ public class PublishEntity {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public Integer getPubcategory() {
+		return pubcategory;
+	}
+
+	public void setPubcategory(Integer pubcategory) {
+		this.pubcategory = pubcategory;
+	}
+
+	public Integer getSchoolid() {
+		return schoolid;
+	}
+
+	public void setSchoolid(Integer schoolid) {
+		this.schoolid = schoolid;
+	}
+	
 	
 }

@@ -26,6 +26,31 @@
   <link href="../../assets/css/style.css" rel="stylesheet">
   <link href="../../assets/css/style-responsive.css" rel="stylesheet">
   <!-- Theme styles END -->
+  
+   <!--[if lt IE 9]>
+  <script src="../../assets/global/plugins/respond.min.js"></script>
+  <![endif]-->
+  <!-- Load JavaScripts at the bottom, because it will reduce page load time -->
+  <!-- Core plugins BEGIN (For ALL pages) -->
+  <script src="../../assets/js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../assets/js/jquery-migrate.min.js" type="text/javascript"></script>
+  <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <!-- Core plugins END (For ALL pages) -->
+  <!-- Core plugins BEGIN (required only for current page) -->
+  <script src="../../assets/js/jquery.nav.js"></script>
+  <!-- Core plugins END (required only for current page) -->
+  <!-- Global js BEGIN -->
+  <script src="../../assets/js/layout.js" type="text/javascript"></script>
+  <script src="../../assets/js/common.js"></script> 
+  <script type="text/javascript" src="../../assets/js/jquery-3.1.0.min.js"></script> 
+  <script type="text/javascript" src="../../assets/js/angular.min.js"></script>
+  <script src="../../app/js/news.js" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+      Layout.init();
+	  CommonObj.init();
+    });
+  </script>
 </head>
 <!--DOC: menu-always-on-top class to the body element to set menu on top -->
 <body class="menu-always-on-top">
@@ -253,26 +278,5 @@
       </div>
     </div>
   </div>
-  <!--[if lt IE 9]>
-  <script src="../../assets/global/plugins/respond.min.js"></script>
-  <![endif]-->
-  <!-- Load JavaScripts at the bottom, because it will reduce page load time -->
-  <!-- Core plugins BEGIN (For ALL pages) -->
-  <script src="../../assets/js/jquery.min.js" type="text/javascript"></script>
-  <script src="../../assets/js/jquery-migrate.min.js" type="text/javascript"></script>
-  <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
-  <!-- Core plugins END (For ALL pages) -->
-  <!-- Core plugins BEGIN (required only for current page) -->
-  <script src="../../assets/js/jquery.nav.js"></script>
-  <!-- Core plugins END (required only for current page) -->
-  <!-- Global js BEGIN -->
-  <script src="../../assets/js/layout.js" type="text/javascript"></script>
-  <script src="../../assets/js/common.js"></script> 
-  <script>
-    $(document).ready(function() {
-      Layout.init();
-	  CommonObj.init();
-    });
-  </script>
   <!-- Global js END -->
 </body>

@@ -27,6 +27,52 @@
   <!-- Theme styles END --> 
   <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-select.css" /> 
   <link rel="stylesheet" type="text/css" href="../../assets/css/hzw-city-picker.css">
+  
+  <!--[if lt IE 9]>
+  <script src="../../assets/global/plugins/respond.min.js"></script>
+  <![endif]--> 
+  <!-- Load JavaScripts at the bottom, because it will reduce page load time --> 
+  <!-- Core plugins BEGIN (For ALL pages) --> 
+  <script src="../../assets/js/jquery.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/jquery-migrate.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script> 
+  <script src="../../assets/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script> 
+  <!-- Core plugins END (For ALL pages) --> 
+  <script src="../../assets/js/jquery.nav.js"></script> 
+  <!-- Global js BEGIN --> 
+  <script src="../../assets/js/layout.js" type="text/javascript"></script> 
+  <script type="text/javascript" src="../../assets/js/bootstrap-select.js"></script> 
+  <script src="../../assets/js/common.js"></script> 
+  <script type="text/javascript" src="../../assets/js/city-data.js"></script>
+  <script type="text/javascript" src="../../assets/js/hzw-city-picker.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/jquery-3.1.0.min.js"></script> 
+  <script type="text/javascript" src="../../assets/js/angular.min.js"></script>
+  <script src="../../app/js/post-bar.js" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+     Layout.init();
+	 CommonObj.init();
+    });
+  </script> 
+  <script>
+    var cityPicker = new HzwCityPicker({
+        data: data,
+        target: 'cityChoice',
+        valType: 'k-v',
+        hideCityInput: {
+            name: 'city',
+            id: 'city'
+        },
+        hideProvinceInput: {
+            name: 'province',
+            id: 'province'
+        },
+        callback: function(){
+            //alert('OK');
+        }
+    });
+    cityPicker.init();
+</script>
  </head> 
  <!--DOC: menu-always-on-top class to the body element to set menu on top --> 
  <body class="menu-always-on-top"> 
@@ -42,19 +88,22 @@
        <div class="post_bar_mune" style="position:fixed; background:#fff; padding:18px 90px 40px 20px;">
               <div class="mt-radio-list col-md-12">
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios1" value="科技类" checked> 科技类</a>
+                      <a ng-click="auditChanged(8)"><input type="radio" name="optionsRadios"  id="optionsRadios0" value="全部" checked> 全部</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios2" value="互联网类" > 互联网类</a>
+                      <a ng-click="auditChanged(1)"><input type="radio"  name="optionsRadios" id="optionsRadios1" value="科技类" checked> 科技类</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios3" value="校园类" > 校园类</a>
+                      <a ng-click="auditChanged(2)"><input type="radio"  name="optionsRadios" id="optionsRadios2" value="互联网类" > 互联网类</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios4" value="财经类" > 财经类</a>
+                      <a ng-click="auditChanged(3)"><input type="radio"  name="optionsRadios" id="optionsRadios3" value="校园类" > 校园类</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios5" value="创业类" > 创业类</a>
+                      <a ng-click="auditChanged(4)"><input type="radio"  name="optionsRadios" id="optionsRadios4" value="财经类" > 财经类</a>
+                  </label><br/>
+                  <label class="mt-radio margin-bottom-10">
+                      <a ng-click="auditChanged(5)"><input type="radio"  name="optionsRadios" id="optionsRadios5" value="创业类" > 创业类</a>
                   </label><br/>
               </div>
             </div> 
@@ -71,17 +120,17 @@
 		 </div> 
          <div class="col-md-3"> 
           <div class="input-group"> 
-           <input type="text" placeholder="输入关键词" class="form-control" /> 
-           <span class="input-group-btn"> <button class="btn btn-primary" type="submit">搜索</button> </span> 
+           <input type="text" placeholder="输入关键词" ng-model="keyword" class="form-control" /> 
+           <span class="input-group-btn"> <button class="btn btn-primary" ng-click="goSearch()" type="submit">搜索</button> </span> 
           </div> 
          </div> 
          <div class="col-md-offset-2 col-md-1"> 
-          <a class="btn btn-primary pull-right" href="post-message.html"><i class="fa fa-edit"></i> 发布</a> 
+          <a class="btn btn-primary pull-right" href="#/post-message"><i class="fa fa-edit"></i> 发布</a> 
          </div> 
         </div> 
        </div> 
        <!-- BEGIN PRODUCT LIST --> 
-       <div class="row blogs-list margin-bottom-20"> 
+       <div class="row blogs-list margin-bottom-20" ng-repeat="publish in AllPublishs"> 
         <div class="col-md-12 margin-bottom-20"> 
          <div class="blog-item col-md-12"> 
           <div class="col-md-12"> 
@@ -89,20 +138,13 @@
            <div class="blog-item-body col-md-11 margin-bottom-10"> 
             <div class="blog-item-body-title"> 
              <div class="col-md-12"> 
-              <a class="blog-item-name" href="blog-info.html">考考你，这副“崇明美食牌”认识几个？</a> 
-              <span class="blog-item-time"><i class="fa fa-clock-o"></i> 1小时以前 来自#hhhh#</span> 
+              <a class="blog-item-name" href="blog-info.html">{{publish.title}}</a> 
+              <span class="blog-item-time"><i class="fa fa-clock-o"></i> {{publish.pubtime}} ###来自{{publish.publishername}}</span> 
              </div> 
-             <!--<div class="btn-group col-md-1">
-                            <button type="button" class="btn btn-default dropdown-toggle pull-right" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
-                            <ul class="dropdown-menu" role="menu">
-                              <li><a href="#">帮上头条</a></li>
-                              <li><a href="#">屏蔽</a></li>
-                              <li><a href="#">关注</a></li>
-                            </ul>
-                          </div>--> 
             </div> 
             <div class="blog-item-body-info col-md-12"> 
-             <p>【考考你，这副“崇明美食牌”认识几个？】秋高气爽人气旺，橘黄蟹肥稻米香。金秋时节是崇明一年中最好的季节，闻名遐迩的崇明美食更是散发出了令人难以抵挡的诱惑！今天，崇明金秋美食节将拉开帷幕，活动持续一个月。寻找崇明生态美食之前，不妨先来看看这副牌你认识多少？尝过多少？最喜欢哪手牌？</p> 
+             <p>{{publish.content}}
+             </p> 
              <img src="../../assets/img/facts.jpg"/> 
             </div> 
            </div> 
@@ -112,152 +154,7 @@
             <span><a href="blog-info.html#comments"><i class="fa fa-comments"></i> 评论100</a></span>
            </div> 
            <div class="col-md-4 line">
-            <span><a><i class="fa fa-thumbs-up"></i> 点赞</a></span>
-           </div> 
-           <div class="col-md-4">
-            <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false"><a><i class="fa fa-share-alt"></i> 分享</a></span>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-wechat"></i> 微信 </a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-weibo"></i> 新浪微博</a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-qq"></i> QQ</a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-star"></i> QQ空间 </a>
-                </li>
-            </ul>
-           </div> 
-          </div> 
-         </div> 
-        </div> 
-        <div class="col-md-12 margin-bottom-20"> 
-         <div class="blog-item col-md-12"> 
-          <div class="col-md-12"> 
-           <a href="" ><img class="blog-item-img" src="../../assets/img/people/4.jpg" /></a> 
-           <div class="blog-item-body col-md-11 margin-bottom-10"> 
-            <div class="blog-item-body-title"> 
-             <div class="col-md-11"> 
-              <a class="blog-item-name" target="_blank" href="#">考考你，这副“崇明美食牌”认识几个？</a> 
-              <span class="blog-item-time"><i class="fa fa-clock-o"></i> 1小时以前 来自#hhhh#</span> 
-             </div> 
-            </div> 
-            <div class="blog-item-body-info col-md-12"> 
-             <p>【考考你，这副“崇明美食牌”认识几个？】秋高气爽人气旺，橘黄蟹肥稻米香。金秋时节是崇明一年中最好的季节，闻名遐迩的崇明美食更是散发出了令人难以抵挡的诱惑！今天，崇明金秋美食节将拉开帷幕，活动持续一个月。寻找崇明生态美食之前，不妨先来看看这副牌你认识多少？尝过多少？最喜欢哪手牌？</p> 
-             <img src="../../assets/img/facts.jpg"/> 
-			 <img src="../../assets/img/facts.jpg"/> 
-            </div> 
-           </div> 
-          </div> 
-          <div class="col-md-12 blog-item-action"> 
-           <div class="col-md-4">
-            <span><a href="blog-info.html"><i class="fa fa-comments"></i> 评论50</a></span>
-           </div> 
-           <div class="col-md-4 line">
-            <span><a class="thumbs-up" id="thumbs_up"><i class="fa fa-thumbs-up"></i> 已点赞</a></span>
-           </div> 
-           <div class="col-md-4">
-            <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false"><a><i class="fa fa-share-alt"></i> 分享</a></span>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-wechat"></i> 微信 </a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-weibo"></i> 新浪微博</a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-qq"></i> QQ</a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-star"></i> QQ空间 </a>
-                </li>
-            </ul>
-           </div>
-          </div> 
-         </div> 
-        </div> 
-        <div class="col-md-12 margin-bottom-20"> 
-         <div class="blog-item col-md-12"> 
-          <div class="col-md-12"> 
-           <a href="" ><img class="blog-item-img" src="../../assets/img/people/2.jpg" /></a> 
-           <div class="blog-item-body col-md-11 margin-bottom-10"> 
-            <div class="blog-item-body-title"> 
-             <div class="col-md-11"> 
-              <a class="blog-item-name" target="_blank" href="#">考考你，这副“崇明美食牌”认识几个？</a> 
-              <span class="blog-item-time"><i class="fa fa-clock-o"></i> 1小时以前 来自#hhhh#</span> 
-             </div> 
-            </div> 
-            <div class="blog-item-body-info col-md-12"> 
-             <p>【考考你，这副“崇明美食牌”认识几个？】秋高气爽人气旺，橘黄蟹肥稻米香。金秋时节是崇明一年中最好的季节，闻名遐迩的崇明美食更是散发出了令人难以抵挡的诱惑！今天，崇明金秋美食节将拉开帷幕，活动持续一个月。寻找崇明生态美食之前，不妨先来看看这副牌你认识多少？尝过多少？最喜欢哪手牌？</p> 
-             <img src="../../assets/img/facts.jpg"/> 
-            </div> 
-           </div> 
-          </div> 
-          <div class="col-md-12 blog-item-action"> 
-           <div class="col-md-4">
-            <span><a href="blog-info.html"><i class="fa fa-comments"></i> 评论0</a></span>
-           </div> 
-           <div class="col-md-4 line">
-            <span><a><i class="fa fa-thumbs-up"></i> 点赞</a></span>
-           </div> 
-           <div class="col-md-4">
-            <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false"><a><i class="fa fa-share-alt"></i> 分享</a></span>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-wechat"></i> 微信 </a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-weibo"></i> 新浪微博</a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-qq"></i> QQ</a>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                    <i class="fa fa-star"></i> QQ空间 </a>
-                </li>
-            </ul>
-           </div>
-          </div> 
-         </div> 
-        </div> 
-        <div class="col-md-12 margin-bottom-20"> 
-         <div class="blog-item col-md-12"> 
-          <div class="col-md-12"> 
-           <a href="" ><img class="blog-item-img" src="../../assets/img/people/3.jpg" /></a> 
-           <div class="blog-item-body col-md-11 margin-bottom-10"> 
-            <div class="blog-item-body-title"> 
-             <div class="col-md-11"> 
-              <a class="blog-item-name" target="_blank" href="#">考考你，这副“崇明美食牌”认识几个？</a> 
-              <span class="blog-item-time"><i class="fa fa-clock-o"></i> 1小时以前 来自#hhhh#</span> 
-             </div> 
-            </div> 
-            <div class="blog-item-body-info col-md-12"> 
-             <p>【考考你，这副“崇明美食牌”认识几个？】秋高气爽人气旺，橘黄蟹肥稻米香。金秋时节是崇明一年中最好的季节，闻名遐迩的崇明美食更是散发出了令人难以抵挡的诱惑！今天，崇明金秋美食节将拉开帷幕，活动持续一个月。寻找崇明生态美食之前，不妨先来看看这副牌你认识多少？尝过多少？最喜欢哪手牌？</p> 
-             <img src="../../assets/img/facts.jpg"/> 
-            </div> 
-           </div> 
-          </div> 
-          <div class="col-md-12 blog-item-action"> 
-           <div class="col-md-4">
-            <span><a href="blog-info.html"><i class="fa fa-comments"></i> 评论23</a></span>
-           </div> 
-           <div class="col-md-4 line">
-            <span><a><i class="fa fa-thumbs-up"></i> 点赞</a></span>
+            <span><a><i class="fa fa-thumbs-up"></i> 点赞10</a></span>
            </div> 
            <div class="col-md-4">
             <span class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false"><a><i class="fa fa-share-alt"></i> 分享</a></span>
@@ -293,48 +190,6 @@
    </div> 
   </div> 
   <!--END --> 
-  <!--[if lt IE 9]>
-  <script src="../../assets/global/plugins/respond.min.js"></script>
-  <![endif]--> 
-  <!-- Load JavaScripts at the bottom, because it will reduce page load time --> 
-  <!-- Core plugins BEGIN (For ALL pages) --> 
-  <script src="../../assets/js/jquery.min.js" type="text/javascript"></script> 
-  <script src="../../assets/js/jquery-migrate.min.js" type="text/javascript"></script> 
-  <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script> 
-  <script src="../../assets/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script> 
-  <!-- Core plugins END (For ALL pages) --> 
-  <script src="../../assets/js/jquery.nav.js"></script> 
-  <!-- Global js BEGIN --> 
-  <script src="../../assets/js/layout.js" type="text/javascript"></script> 
-  <script type="text/javascript" src="../../assets/js/bootstrap-select.js"></script> 
-  <script src="../../assets/js/common.js"></script> 
-  <script type="text/javascript" src="../../assets/js/city-data.js"></script>
-  <script type="text/javascript" src="../../assets/js/hzw-city-picker.min.js"></script>
-  <script>
-    $(document).ready(function() {
-     Layout.init();
-	 CommonObj.init();
-    });
-  </script> 
-  <script>
-    var cityPicker = new HzwCityPicker({
-        data: data,
-        target: 'cityChoice',
-        valType: 'k-v',
-        hideCityInput: {
-            name: 'city',
-            id: 'city'
-        },
-        hideProvinceInput: {
-            name: 'province',
-            id: 'province'
-        },
-        callback: function(){
-            //alert('OK');
-        }
-    });
-    cityPicker.init();
-</script>
   <!-- Global js END -->  
  </body>
 </html>

@@ -1,10 +1,4 @@
 wlsWeb.controller('geek',function($http, $location, $scope) {
-    $scope.load = function(){
-    	$http.get( "/i/user/findUser").success(function(data,status,config,headers){
-				 $scope.user = data;
-		    });
-	};
-	$scope.load();
 	// 显示最大页数
     $scope.maxSize = 12;
     // 总条目数(默认每页十条)
@@ -112,7 +106,7 @@ wlsWeb.controller('geek',function($http, $location, $scope) {
     };
     
     $scope.goUserSpace = function(userID) {
-    	window.location.href="my-space-ask.html?id="+userID;
+    	window.location.href="#/my-space-ask?id="+userID;
 	};
     
 	$scope.pageChanged = function() {

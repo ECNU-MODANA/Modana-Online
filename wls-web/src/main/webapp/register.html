@@ -29,6 +29,37 @@
   <link href="assets/css/components-rounded.css" rel="stylesheet">
   <link href="assets/css/style-responsive.css" rel="stylesheet">
   <!-- Theme styles END -->
+  <!--[if lt IE 9]>
+  <script src="../../assets/global/plugins/respond.min.js"></script>
+  <![endif]-->
+  <!-- Load JavaScripts at the bottom, because it will reduce page load time -->
+  <!-- Core plugins BEGIN (For ALL pages) -->
+  <script src="assets/js/jquery.min.js" type="text/javascript"></script>
+  <script src="assets/js/jquery-migrate.min.js" type="text/javascript"></script>
+  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <!-- Core plugins END (For ALL pages) -->
+  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="assets/js/additional-methods.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.bootstrap.wizard.min.js"></script>
+  <script type="text/javascript" src="assets/js/select2.min.js"></script>
+  <!-- Core plugins BEGIN (required only for current page) -->
+  <script src="assets/js/jquery.nav.js"></script>
+  <!-- Core plugins END (required only for current page) -->
+  <!-- Global js BEGIN -->
+  <script src="assets/js/metronic.js" type="text/javascript"></script>
+  <script src="assets/js/layout.js" type="text/javascript"></script>
+  <script src="assets/js/form-wizard.js"></script>
+  <script src="assets/js/common.js" type="text/javascript"></script>
+   <script type="text/javascript" src="../../assets/js/jquery-3.1.0.min.js"></script> 
+   <script type="text/javascript" src="../../assets/js/angular.min.js"></script>
+  <script src="../../app/js/register.js" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+      Layout.init();
+      FormWizard.init();
+      CommonObj.init();
+    });
+  </script>
 </head>
 <!--DOC: menu-always-on-top class to the body element to set menu on top -->
 <body class="menu-always-on-top">
@@ -232,62 +263,6 @@
       </div>
     </div>
   </div>
-  <!--END REGISTER block BEGIN -->
-  <!-- BEGIN FOOTER -->
-  <div class="footer">
-    <div class="container">
-      <div class="row">
-        <!-- BEGIN COPYRIGHT -->
-        <div class="col-md-6 col-sm-6">
-          <div class="pull-left copyright">2016 © 蔚蓝树. ALL Rights Reserved.</div>
-        </div>
-        <!-- END COPYRIGHT -->
-        <!-- BEGIN SOCIAL ICONS -->
-        <div class="col-md-6 col-sm-6">
-          <div class="pull-right copyright">
-            <a href="javascript:void(0);">免责</a>
-            <span>|</span>
-            <a href="javascript:void(0);">关于我们</a>
-            <span>|</span>
-            <a href="javascript:void(0);">联系我们</a>
-          </div>
-        </div>
-        <!-- END SOCIAL ICONS -->
-      </div>
-    </div>
-  </div>
-  <!-- END FOOTER -->
-  <a href="#base_content_container" class="go2top scroll"><i class="fa fa-arrow-up"></i></a>
-  <!--[if lt IE 9]>
-  <script src="../../assets/global/plugins/respond.min.js"></script>
-  <![endif]-->
-  <!-- Load JavaScripts at the bottom, because it will reduce page load time -->
-  <!-- Core plugins BEGIN (For ALL pages) -->
-  <script src="assets/js/jquery.min.js" type="text/javascript"></script>
-  <script src="assets/js/jquery-migrate.min.js" type="text/javascript"></script>
-  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-  <!-- Core plugins END (For ALL pages) -->
-  <script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
-  <script type="text/javascript" src="assets/js/additional-methods.min.js"></script>
-  <script type="text/javascript" src="assets/js/jquery.bootstrap.wizard.min.js"></script>
-  <script type="text/javascript" src="assets/js/select2.min.js"></script>
-  <!-- Core plugins BEGIN (required only for current page) -->
-  <script src="assets/js/jquery.nav.js"></script>
-  <!-- Core plugins END (required only for current page) -->
-  <!-- Global js BEGIN -->
-  <script src="assets/js/metronic.js" type="text/javascript"></script>
-  <script src="assets/js/layout.js" type="text/javascript"></script>
-  <script src="assets/js/form-wizard.js"></script>
-  <script src="assets/js/common.js" type="text/javascript"></script>
-  <script src="../bower_components/angular/angular.min.js"></script>
-  <script src="app/js/register.js" type="text/javascript"></script>
-  <script>
-    $(document).ready(function() {
-      Layout.init();
-      FormWizard.init();
-      CommonObj.init();
-    });
-  </script>
   <!-- Global js END -->
 </body>
 </html>
