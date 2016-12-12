@@ -1,4 +1,4 @@
-wlsWeb.controller('geek',function($http, $location, $scope) {
+wlsWeb.controller('geek',function($http, $location, $scope,$state, $stateParams) {
 	// 显示最大页数
     $scope.maxSize = 12;
     // 总条目数(默认每页十条)
@@ -106,7 +106,7 @@ wlsWeb.controller('geek',function($http, $location, $scope) {
     };
     
     $scope.goUserSpace = function(userID) {
-    	window.location.href="#/my-space-ask?id="+userID;
+    	 $state.go('my-space-ask', {"spaceID": userID});
 	};
     
 	$scope.pageChanged = function() {

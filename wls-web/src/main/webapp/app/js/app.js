@@ -66,7 +66,7 @@ wlsWeb.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'news-info',
         templateUrl: 'app/template/news-info.html'
     }).state('my-space-ask', {
-        url: '/my-space-ask',
+        url: '/my-space-ask/:spaceID',
         controller: 'my-space-ask',
         templateUrl: 'app/template/my-space-ask.html'
     });
