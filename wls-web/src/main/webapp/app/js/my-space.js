@@ -434,4 +434,8 @@ wlsWeb.controller('my-space',function($http, $location, $scope) {
 									        	$scope.messageNum = $scope.messages.length;
 										   });
 									   };
+									   $scope.Preview=function(){ //打印预览
+										   $("#resume").jqprint();
+										};
+
 });

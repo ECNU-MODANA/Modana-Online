@@ -56,8 +56,8 @@
   <script src="../../assets/js/demo.js" type="text/javascript"></script> 
   <script src="../../assets/js/layout.js" type="text/javascript"></script> 
   <script src="../../assets/js/common.js" type="text/javascript"></script> 
- <script type="text/javascript" src="../../assets/js/jquery-3.1.0.min.js"></script> 
   <script type="text/javascript" src="../../assets/js/angular.min.js"></script>
+   <script type="text/javascript" src="../../assets/js/jquery.jqprint-0.3.js"></script>
   <script src="../../app/js/my-space.js" type="text/javascript"></script>
   <!-- END PAGE LEVEL SCRIPTS --> 
   <script>
@@ -291,7 +291,7 @@
             <a class="btn blue" id="edit_education">编辑</a> 
             <a class="btn default" id="cancel_education" style="display:none">取消</a> 
             <a class="btn yellow" id="save_education" ng-click="saveResume()" style="display:none" data-toggle="modal" >保存</a>
-            <button type="button" class="btn red">导出</button>
+            <button type="button" ng-click="Preview()" class="btn red">导出</button>
            </div> 
           </div> 
           <div class="portlet-body"> 
