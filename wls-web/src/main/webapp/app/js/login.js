@@ -8,8 +8,12 @@ var app = angular.module('app', []).controller('login',function($http, $location
  	    			password : $scope.password
  	    			}
  	    	}).success(function(data) {
- 	    		if(data!=null&&user.id!=undefined){
+ 	    		if(data.success){
+ 	    			alert("登录成功");
  	    			window.location.href="#/home";
+ 	    		}
+ 	    		else{
+ 	    			
  	    		}
  		   });
 	   }

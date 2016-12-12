@@ -25,6 +25,7 @@ import com.wls.manage.dao.EducateMapper;
 import com.wls.manage.dao.FollowMapper;
 import com.wls.manage.dao.HonorMapper;
 import com.wls.manage.dao.JobMapper;
+import com.wls.manage.dao.ResumeVisMapper;
 import com.wls.manage.dao.RoleMapper;
 import com.wls.manage.dao.SkillMapper;
 import com.wls.manage.dao.UserMapper;
@@ -35,6 +36,7 @@ import com.wls.manage.entity.EducateEntity;
 import com.wls.manage.entity.FollowEntity;
 import com.wls.manage.entity.HonorEntity;
 import com.wls.manage.entity.JobEntity;
+import com.wls.manage.entity.ResumeVisEntity;
 import com.wls.manage.entity.RoleEntity;
 import com.wls.manage.entity.SkillEntity;
 import com.wls.manage.entity.UserEntity;
@@ -67,6 +69,9 @@ public class UserController extends BaseController {
 	private CookieService cookieService;
 	@Autowired
 	private FtpService ftpService;
+	@Autowired
+	private ResumeVisMapper resumeVisMapper;
+	
 	@RequestMapping(value = "/login")
 	@ResponseBody
 	public ResponseData<String> login(HttpServletRequest request, String userName, String password) {
@@ -83,6 +88,51 @@ public class UserController extends BaseController {
 			return ResponseData.newFailure("用户名和密码不能为空~");
 		}
 		
+	}
+	
+	@RequestMapping(value = "/findUserByID")
+	@ResponseBody
+	public Object findUserByID(
+			@RequestParam(value="spaceUserID", required=false) Integer spaceUserID
+			) throws UnsupportedEncodingException {
+	     UserEntity userEntity = userDao.findUserById(spaceUserID);
+	     return userEntity;
+	}
+	
+	@RequestMapping(value = "/askResumeFlag")
+	@ResponseBody
+	public Object askResumeFlag(
+			@RequestParam(value="spaceUserID", required=false) Integer spaceUserID,
+			@RequestParam(value="askUserID", required=false) Integer askUserID
+			) throws UnsupportedEncodingException {
+		if (askUserID==null) {
+			return false;
+		}
+		List<ResumeVisEntity> resumeVisEntities = resumeVisMapper.findvisibleridByOwnerId(spaceUserID);
+		for (ResumeVisEntity resumeVisEntity : resumeVisEntities) {
+			if (askUserID.intValue()==resumeVisEntity.getVisiblerid().intValue()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@RequestMapping(value = "/askFollowFlag")
+	@ResponseBody
+	public Object askFollowFlag(
+			@RequestParam(value="spaceUserID", required=false) Integer spaceUserID,
+			@RequestParam(value="askUserID", required=false) Integer askUserID
+			) throws UnsupportedEncodingException {
+		if (askUserID==null) {
+			return false;
+		}
+		List<FollowEntity> followEntities = followMapper.findFollowByUserId(askUserID);
+		for (FollowEntity followEntity : followEntities) {
+			if (followEntity.getFollowedid().intValue()==spaceUserID.intValue()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
