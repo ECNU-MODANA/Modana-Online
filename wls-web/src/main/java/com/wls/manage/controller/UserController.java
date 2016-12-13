@@ -135,6 +135,40 @@ public class UserController extends BaseController {
 		return false;
 	}
 
+	@RequestMapping(value = "/addFollow")
+	@ResponseBody
+	public Object addFollow(
+			@RequestParam(value="spaceUserID", required=false) Integer spaceUserID,
+			@RequestParam(value="askUserID", required=false) Integer askUserID
+			) throws UnsupportedEncodingException {
+		if (askUserID==null) {
+			return ResponseData.newFailure("请先登录");
+		}
+		FollowEntity followEntity = new FollowEntity();
+		followEntity.setFollowedid(BigInteger.valueOf(spaceUserID));
+		followEntity.setFollowid(BigInteger.valueOf(askUserID));
+		followMapper.insertFollow(followEntity);
+		return ResponseData.newSuccess();
+	}
+	
+	
+	@RequestMapping(value = "/deleteFollow")
+	@ResponseBody
+	public Object deleteFollow(
+			@RequestParam(value="spaceUserID", required=false) Integer spaceUserID,
+			@RequestParam(value="askUserID", required=false) Integer askUserID
+			) throws UnsupportedEncodingException {
+		if (askUserID==null) {
+			return ResponseData.newFailure("请先登录");
+		}
+		FollowEntity followEntity = new FollowEntity();
+		followEntity.setFollowedid(BigInteger.valueOf(spaceUserID));
+		followEntity.setFollowid(BigInteger.valueOf(askUserID));
+		followMapper.deleteFollow(followEntity);
+		return ResponseData.newSuccess();
+	}
+	
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	@ResponseBody
 	public Object logout(HttpServletRequest request) {

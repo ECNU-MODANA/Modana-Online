@@ -27,7 +27,8 @@
 	</select>
 	
 	<delete id="deleteFollow" parameterType="map">
-	    DELETE FROM follow WHERE `id` = #{followID}
+	    DELETE FROM follow WHERE `followid` = #{followid} 
+	    AND `followedid` = #{followedid}
 	</delete>
 	
 	

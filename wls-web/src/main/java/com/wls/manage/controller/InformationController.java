@@ -92,22 +92,31 @@ public class InformationController extends BaseController {
 	}
 	
 	/**
-	 * 添加和修改资讯公用服务
+	 * 添加资讯公用服务
 	 * @param information
 	 * @return
 	 * @throws Exception 
 	 */
-	@RequestMapping(value = "/addInformation")
-	@ResponseBody
-	public Object addInformation( @RequestParam(required = false) MultipartFile uploadcoverpic,InformationEntity information) throws Exception {
-		if (information.getTitle() == null || information.getContent() == null) {
-			return new ResultDto(-1, "标题和内容不能为空");
+	
+	public Object addInformation( 
+			/*@RequestParam(required = false) MultipartFile uploadcoverpic,*/
+			@RequestParam(required = false) String title,//标题
+			@RequestParam(required = false) String content,//内容
+			@RequestParam(required = false) String infocategory,//分类：“1”：科技类，“2”：互联网类，3：校园类；4：财经类；5：创业类
+			@RequestParam(required = false) String source,//来源：腾讯新闻 等等
+			@RequestParam(required = false) String coverpiclist//封面图片：解析几张放在这，用特殊字符隔开
+			) throws Exception {
+		/**
+		 * 此处注释掉图片上传至ftp服务器，下次开发可能用到
+		 */
+		if (title == null || content == null) {
+			return ResponseData.newFailure("标题和内容不能为空");
 		}
-		String dir = String.format("%s/infor/%s", baseDir, information.getId());
+		/*String dir = String.format("%s/infor/%s", baseDir, information.getId());
 		if (uploadcoverpic != null) {
-			/**
+			*//**
 			 * 这个地方需要把information爬取得图片存到ftp服务器上
-			 */
+			 *//*
 			String fileName = String.format("information%s_%s.%s", information.getId(), new Date().getTime(), "jpg");
 			UploadFileEntity uploadFileEntity = new UploadFileEntity(fileName, uploadcoverpic, dir);
 			ftpService.uploadFile(uploadFileEntity);
@@ -115,9 +124,15 @@ public class InformationController extends BaseController {
 		}
 		else {
 			  throw new Exception("资讯上传图片时，封面图片为空异常");
-		}
-		informationDao.insertInformation(information);
-		return new BaseDto(0);
+		}*/
+	    InformationEntity informationEntity = new InformationEntity();
+	    informationEntity.setContent(content);
+	    informationEntity.setCoverpiclist(coverpiclist);
+	    informationEntity.setInfocategory(infocategory);
+	    informationEntity.setSource(source);
+	    informationEntity.setTitle(title);
+	    informationDao.insertInformation(informationEntity);
+		return ResponseData.newSuccess("添加成功");
 	}
 	
 }

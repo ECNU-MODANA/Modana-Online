@@ -23,5 +23,5 @@ public interface FollowMapper {
 
 	void insertFollow(FollowEntity followEntity);
 	
-	void deleteFollow(@Param("followID") int followID);
+	void deleteFollow(FollowEntity followEntity);
 }

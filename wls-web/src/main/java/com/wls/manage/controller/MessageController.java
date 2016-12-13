@@ -17,7 +17,6 @@ import com.wls.manage.dao.MessageMapper;
 import com.wls.manage.dao.MsgCategoryMapper;
 import com.wls.manage.dao.ResumeVisMapper;
 import com.wls.manage.dao.UserMapper;
-import com.wls.manage.dto.BaseDto;
 import com.wls.manage.dto.MessageDto;
 import com.wls.manage.entity.MessageEntity;
 import com.wls.manage.entity.ResumeVisEntity;
@@ -139,9 +138,24 @@ public class MessageController extends BaseController {
 	 */
 	@RequestMapping(value = "/addMessage")
 	@ResponseBody
-	public Object addMessage(MessageEntity message) throws Exception {
-		messageDao.insertMessage(message);
-		return new BaseDto(0);
+	public Object addMessage(
+			@RequestParam(value="messageReceiverID",required=false) Integer messageReceiverID,
+			@RequestParam(value="messageContent",required=false) String messageContent,
+			@RequestParam(value="msgcategory",required=false) String msgcategory,
+			@RequestParam(value="messageSenderID",required=false) Integer messageSenderID) throws Exception {
+		if (messageSenderID==null) {
+			return ResponseData.newFailure("请先登录");
+		}
+		MessageEntity messageEntity = new MessageEntity();
+		messageEntity.setContent(messageContent);
+		messageEntity.setMsgcategory(msgcategory);
+		messageEntity.setReceiverid(BigInteger.valueOf(messageReceiverID));
+		messageEntity.setSenderid(BigInteger.valueOf(messageSenderID));
+		messageDao.insertMessage(messageEntity);
+		if (msgcategory.equals("1")) {
+			return ResponseData.newSuccess("消息已发送，等待对方回复");
+		}
+		return ResponseData.newSuccess("请求已发送，等待对方同意");
 	}
 	
 	/**

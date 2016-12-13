@@ -147,6 +147,54 @@ wlsWeb.controller('my-space-ask',function($http, $location, $scope,$state, $stat
 		   };
 		$scope.load();
 		$scope.attention = function(){
-			
+			$http.get('/i/user/addFollow', {
+	            params: {
+	            	"askUserID" :$rootScope.user.id,
+	                "spaceUserID": $scope.spaceID
+	            }
+	        }).success(function (data) {  
+	        	if(data.success){
+	        		$scope.askFollowFlag = true;
+	        	}
+	        	else{
+	        		alert(data.message);
+	        	}
+	     });
 		};
+		
+		$scope.unattention = function(){
+			$http.get('/i/user/deleteFollow', {
+	            params: {
+	            	"askUserID" :$rootScope.user.id,
+	                "spaceUserID": $scope.spaceID
+	            }
+	        }).success(function (data) {  
+	        	if(data.success){
+	        		$scope.askFollowFlag = false;
+	        	}
+	        	else{
+	        		alert(data.message);
+	        	}
+	     });
+		};
+		
+		$scope.askResume = function(){
+			$http.get('/i/user/askResume', {
+	            params: {
+	            	"messageSenderID" :$rootScope.user.id,
+	                "messageReceiverID": $scope.spaceID,
+	                "msgcategory" : 2,
+	                "messageContent" : "申请查看您的简历"
+	            }
+	        }).success(function (data) {  
+	        	if(data.success){
+	        		$scope.askFollowFlag = false;
+	        	}
+	        	else{
+	        		alert(data.message);
+	        	}
+	     });
+		};
+		
+		
 });
