@@ -16,7 +16,6 @@ import com.github.pagehelper.PageInfo;
 import com.wls.manage.dao.InforCategoryMapper;
 import com.wls.manage.dao.InformationMapper;
 import com.wls.manage.dto.BaseDto;
-import com.wls.manage.dto.ResultDto;
 import com.wls.manage.dto.UploadFileEntity;
 import com.wls.manage.entity.InformationEntity;
 import com.wls.manage.service.FtpService;

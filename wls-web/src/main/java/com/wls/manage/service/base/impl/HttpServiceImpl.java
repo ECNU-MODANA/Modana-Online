@@ -71,7 +71,6 @@ public class HttpServiceImpl implements HttpService {
 		return sendPost(url, params, 10);
 	}
 
-	@Override
 	public String sendPost(String url, String params, int secTimeout) {
 		PrintWriter out = null;
 		BufferedReader in = null;
