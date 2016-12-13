@@ -97,7 +97,8 @@ public class InformationController extends BaseController {
 	 * @return
 	 * @throws Exception 
 	 */
-	
+	@RequestMapping(value = "/addInformation")
+	@ResponseBody
 	public Object addInformation( 
 			/*@RequestParam(required = false) MultipartFile uploadcoverpic,*/
 			@RequestParam(required = false) String title,//标题
