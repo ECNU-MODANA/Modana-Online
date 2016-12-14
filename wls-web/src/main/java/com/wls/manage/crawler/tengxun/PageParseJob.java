@@ -42,7 +42,7 @@ public class PageParseJob {
             }
 
         }
-
+        genHTML genHTML = new genHTML();
         genHTML.Gen(txsci,"D:\\Test.html");
     }
 

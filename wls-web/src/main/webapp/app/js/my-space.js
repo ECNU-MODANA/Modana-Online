@@ -384,7 +384,7 @@ wlsWeb.controller('my-space',function($http, $location, $scope) {
 									   $scope.saveResume = function() {
 									    	$http.get( "/i/user/updateResume",{
 									    		params : {
-									    9			realname : $scope.user.realname,
+									    			realname : $scope.user.realname,
 									    			intention : $scope.user.intention,
 									    			age : $scope.user.age,
 									    			address : $scope.user.address,

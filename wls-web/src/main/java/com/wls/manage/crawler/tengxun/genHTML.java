@@ -45,10 +45,10 @@ public class genHTML {
             bw.write(HTMLcontent);
             System.out.println(pic);
             HttpService httpService = new HttpServiceImpl();
-            String msg="content="+HTMLcontent+"&infocategory=1&source=腾讯新闻&coverpiclist="+pic+"&content="+txsci.getTitle();
-             System.out.println(msg);
+            String msg="content="+HTMLcontent+"&infocategory=1&source=腾讯新闻&coverpiclist="+pic+"&title="+txsci.getTitle();
+            System.out.println(msg);
 //            InformationController infoctl = new InformationController();
-            httpService.sendPost("http://localhost:8080/information/addInformation", msg);
+            httpService.sendPost("http://localhost:8989/i/information/addInformation", msg,1);
 //            infoctl.addInformation(txsci.getTitle(), HTMLcontent, "科学类", "", pic);
 //            infoctl.findInformationByID(1);
             bw.close();
