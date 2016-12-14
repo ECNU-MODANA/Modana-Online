@@ -214,7 +214,9 @@ public class UserController extends BaseController {
 	
 	@RequestMapping(value = "/findUserList", method = RequestMethod.POST)
 	@ResponseBody
-	public Object findUserList(@RequestParam(value="pageNum",required=false) Integer pageNum,
+	public Object findUserList(
+			@RequestParam(value="userid",required=false) Integer userid,
+			@RequestParam(value="pageNum",required=false) Integer pageNum,
 			@RequestParam(value="pageSize") Integer pageSize, 
 			@RequestParam(value="audit", required=false) Integer audit,
 			@RequestParam(value="provinceid", required=false) Integer provinceid,
@@ -241,7 +243,7 @@ public class UserController extends BaseController {
 		else{
 		keyword = URLDecoder.decode(keyword, "UTF-8");
 		}
-		List<UserEntity> userEntities = userDao.findAllUser(audit,keyword,1,provinceid,cityid,schoolid);
+		List<UserEntity> userEntities = userDao.findAllUser(audit,keyword,1,provinceid,cityid,schoolid,userid);
 		List<UserDto> userDtos = new ArrayList<UserDto>();
 		for (int i = 0; i < userEntities.size(); i++) {
 			UserEntity userEntity = userEntities.get(i);

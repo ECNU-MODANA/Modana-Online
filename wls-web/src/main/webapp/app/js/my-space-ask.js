@@ -155,6 +155,7 @@ wlsWeb.controller('my-space-ask',function($http, $location, $scope,$state, $stat
 	        }).success(function (data) {  
 	        	if(data.success){
 	        		$scope.askFollowFlag = true;
+	        		alert("关注成功");
 	        	}
 	        	else{
 	        		alert(data.message);
@@ -170,6 +171,7 @@ wlsWeb.controller('my-space-ask',function($http, $location, $scope,$state, $stat
 	            }
 	        }).success(function (data) {  
 	        	if(data.success){
+	        		alert("已取消关注");
 	        		$scope.askFollowFlag = false;
 	        	}
 	        	else{
@@ -179,7 +181,7 @@ wlsWeb.controller('my-space-ask',function($http, $location, $scope,$state, $stat
 		};
 		
 		$scope.askResume = function(){
-			$http.get('/i/user/askResume', {
+			$http.get('/i/message/addMessage', {
 	            params: {
 	            	"messageSenderID" :$rootScope.user.id,
 	                "messageReceiverID": $scope.spaceID,
@@ -188,6 +190,7 @@ wlsWeb.controller('my-space-ask',function($http, $location, $scope,$state, $stat
 	            }
 	        }).success(function (data) {  
 	        	if(data.success){
+	        		alert(data.message);
 	        		$scope.askFollowFlag = false;
 	        	}
 	        	else{

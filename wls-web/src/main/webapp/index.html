@@ -120,7 +120,7 @@
             <li><a href="#/geek">创客</a></li>
             <li><a href="#/post-bar">创吧</a></li>
             <li><a href="#/my-space"><span ng-show="user != null && user.id != 0 && user.suproleid==1" >我的</span></a></li>
-             <li><a href="#/my-space-company" target="main"><span ng-show="user != null && user.id != 0 && user.suproleid==2" >我的</span></a></li>
+             <li><a href="#/my-space-company"><span ng-show="user != null && user.id != 0 && user.suproleid==2" >我的</span></a></li>
             <li><div ng-if="user == null || user == undefined || user == '' ||user.id == undefined"><a href="#/register" style="display: inline; font-size:15px;">注册</a> 
              |  <a href="/login.html"style="display: inline; font-size:15px;"><span>登录</span></a></div></li>
             <li ng-click="logout()"><div ng-if="user != null && user.id != 0 && user.id != undefined
@@ -158,6 +158,5 @@
     </div>
   </div>
   <!-- END FOOTER -->
-  <a href="#promo-block" class="go2top scroll"><i class="fa fa-arrow-up"></i></a>
 </body>
 </html>

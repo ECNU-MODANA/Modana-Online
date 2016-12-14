@@ -1,8 +1,13 @@
 package com.wls.manage.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wls.manage.dao.CommentMapper;
 import com.wls.manage.dao.InforCategoryMapper;
 import com.wls.manage.dao.InformationMapper;
 import com.wls.manage.dto.BaseDto;
+import com.wls.manage.dto.InformationDto;
 import com.wls.manage.dto.UploadFileEntity;
+import com.wls.manage.entity.CommentEntity;
 import com.wls.manage.entity.InformationEntity;
 import com.wls.manage.service.FtpService;
 import com.wls.manage.util.ResponseData;
@@ -34,6 +42,8 @@ public class InformationController extends BaseController {
 
 	@Autowired
 	private InformationMapper informationDao;
+	@Autowired
+	private CommentMapper commentMapper;
 	/**
 	 * 提供查询服务
 	 * @param pageNum
@@ -45,13 +55,43 @@ public class InformationController extends BaseController {
 	 */
 	@RequestMapping(value = "/findAllInformation")
 	@ResponseBody
-	public Object findAllInformationForAdmin(@RequestParam(value="pageNum",required=false) Integer pageNum,
+	public Object findAllInformation(@RequestParam(value="pageNum",required=false) Integer pageNum,
 			@RequestParam(value="pageSize") Integer pageSize, 
+			@RequestParam(value="audit", required=false) Integer audit,
 			@RequestParam(value="keyword", required=false) String keyword) throws UnsupportedEncodingException {
+		if( !(audit == 1 || audit == 2 || audit == 3||audit == 4 || audit == 5) ){
+			audit = null;
+		}
 		pageNum = pageNum == null? 1:pageNum;
 		pageSize = pageSize==null? 10:pageSize;
 		PageHelper.startPage(pageNum, pageSize);
-		return new PageInfo<InformationEntity>(informationDao.findAllInformation(keyword));
+		if(keyword.equals("undefined")||keyword.equals(""))
+			keyword = null;
+		else{
+		keyword = URLDecoder.decode(keyword, "UTF-8");
+		}
+		Page<InformationEntity> informationEntities = informationDao.findAllInformation(audit,keyword);
+		Page<InformationDto> informationDtos = new Page<InformationDto>();
+		for (InformationEntity informationEntity : informationEntities) {
+			InformationDto informationDto = new InformationDto();
+			informationDto.setTitle(informationEntity.getTitle());
+			informationDto.setTime(informationEntity.getTime());
+			informationDto.setSource(informationEntity.getSource());
+			informationDto.setContent(informationEntity.getContent());
+			informationDto.setInfocategory(Integer.parseInt(informationEntity.getInfocategory()));
+			String[] inforCovers = informationEntity.getCoverpiclist().split(";");
+			List<String> infList = new ArrayList<String>();
+			for (String infor : inforCovers) {
+				infList.add(infor);
+			}
+			informationDto.setCoverpiclist(infList);
+			informationDto.setCoverpicnum(infList.size());
+			List<CommentEntity> commentEntities = commentMapper.findCommentsByCommentId(informationEntity.getId().intValue(), 0);
+			informationDto.setCommentEntities(commentEntities);
+			informationDto.setCommentnum(commentEntities.size());
+			informationDtos.add(informationDto);
+		}
+		return new PageInfo<InformationDto>(informationDtos);
 	}
 	
 	

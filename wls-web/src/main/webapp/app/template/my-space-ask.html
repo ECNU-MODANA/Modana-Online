@@ -68,8 +68,10 @@
        <p>{{user.nickname}} <span ng-if="user.sex=='男'"><i class="fa fa-male"></i></span> <span ng-if="user.sex=='女'"><i class="fa fa-female"></i></span> 
        <span class="badge bg-yellow-casablanca">Lv {{level}}</span></p>
        <p style="font-size:14px">{{user.signature}}</p>
-         <a href="#attention_me" data-toggle="modal" class="btn red" ng-click="attention()" ng-if="askFollowFlag==false"><i class="fa fa-plus"></i> 关注</a> 
-         <a href="#unattention_me" data-toggle="modal" class="btn red" id="attention" ng-click="unattention()" ng-if="askFollowFlag==true"><i class="fa fa-check"></i> 已关注</a> 
+         <!-- href="#attention_me" data-toggle="modal" -->
+         <a class="btn red" ng-click="attention()" ng-if="askFollowFlag==false"><i class="fa fa-plus"></i> 关注</a> 
+         <!--  href="#unattention_me" data-toggle="modal"  -->
+         <a class="btn red" id="attention" ng-click="unattention()" ng-if="askFollowFlag==true"><i class="fa fa-check"></i> 取消关注</a> 
          <a href="#" class="btn red" id="send_message"><i class="fa fa-comment"></i> 私信</a> </em> 
      </div> 
     </div> 
@@ -476,7 +478,7 @@
   <div class="send-message" style="display:none;" id="send-message"> 
    <div class="col-md-12 padding-top-10 message-title"> 
     <div class="col-md-11 no-padding">
-             呵呵呵
+             私信
     </div> 
     <div class="col-md-1 no-padding">
      <a class="pull-right" id="colse_message"> &times; </a>

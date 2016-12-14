@@ -112,11 +112,15 @@
       <div class="col-md-9 col-sm-7"> 
        <div class="content-search margin-bottom-20"> 
         <div class="row"> 
-         <div class="col-md-3"> 
+        <!--  <div class="col-md-3"> 
           <input type="text" id="cityChoice" class="form-control" placeholder="请选择地区"/>
-         </div> 
+         </div>  -->
          <div class="col-md-3"> 
-          <select id="" class="selectpicker form-control" data-live-search="true"> <option selected="">全部学校</option> <option>上海交通大学</option> <option>北京大学</option> <option>浙江大学</option> <option>清华大学</option> <option>南京大学</option> <option>四川大学</option> <option>浙江大学</option> <option>复旦大学</option> <option>同济大学</option> <option>西安交通大学</option> <option>大连理工大学</option> <option>上海财经学院</option> <option>上海师范学院</option> <option>山东大学</option> <option>厦门大学</option> </select> 
+          <select id="" class="selectpicker form-control" data-live-search="true" ng-model="schoolid" 
+          style="height:35px !important"
+                                    ng-disabled="editable"
+                                    ng-change="schoolSelected(schoolid)"
+                                    ng-options="x.sh_id as x.sh_shool for x in schools"> </select>
 		 </div> 
          <div class="col-md-3"> 
           <div class="input-group"> 

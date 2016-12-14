@@ -70,20 +70,23 @@
           <div class="sidebar col-md-3 col-sm-5">
             <div class="news_mune" style="position:fixed; background:#fff; padding:18px 90px 40px 20px;">
               <div class="mt-radio-list col-md-12">
-                  <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios1" value="科技类" checked> 科技类</a>
+                 <label class="mt-radio margin-bottom-10">
+                      <a ng-click="auditChanged(8)"><input type="radio" name="optionsRadios"  id="optionsRadios0" value="全部" checked> 全部</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios2" value="互联网类" > 互联网类</a>
+                      <a ng-click="auditChanged(1)"><input type="radio" name="optionsRadios" id="optionsRadios1" value="科技类" checked> 科技类</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios3" value="校园类" > 校园类</a>
+                      <a ng-click="auditChanged(2)"><input type="radio" name="optionsRadios" id="optionsRadios2" value="互联网类" > 互联网类</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios4" value="财经类" > 财经类</a>
+                      <a ng-click="auditChanged(3)"><input type="radio" name="optionsRadios" id="optionsRadios3" value="校园类" > 校园类</a>
                   </label><br/>
                   <label class="mt-radio margin-bottom-10">
-                      <a><input type="radio" name="optionsRadios" id="optionsRadios5" value="创业类" > 创业类</a>
+                      <a ng-click="auditChanged(4)"><input type="radio" name="optionsRadios" id="optionsRadios4" value="财经类" > 财经类</a>
+                  </label><br/>
+                  <label class="mt-radio margin-bottom-10">
+                      <a ng-click="auditChanged(5)"><input type="radio" name="optionsRadios" id="optionsRadios5" value="创业类" > 创业类</a>
                   </label><br/>
               </div>
             </div>
@@ -96,9 +99,9 @@
                 <div class="col-md-12">
                   <form action="#">
                     <div class="input-group">
-                      <input type="text" placeholder="输入关键词" class="form-control">
+                      <input type="text" placeholder="输入关键词" ng-model="keyword" class="form-control">
                       <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">搜索</button>
+                        <button class="btn btn-primary" ng-click="goSearch()"  type="submit">搜索</button>
                       </span>
                     </div>
                   </form>
@@ -135,123 +138,34 @@
             <!-- BEGIN PRODUCT LIST -->
             <div class="row news-list margin-bottom-20">
               <div class="col-md-12 col-sm-12">
-              <div class="sidebar-news clearfix">
-              <div class="item">
-                <a href=""><img src="../../assets/img/portfolio/1.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                  <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a href="shop-item.html"><img src="../../assets/img/portfolio/2.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
+              <div class="sidebar-news clearfix" ng-repeat="newdto in AllNews">
+              <div class="item" ng-if="newdto.coverpicnum<=1">
+                <a href="" ng-repeat="coverpic in newdto.coverpiclist"><img ng-src="{{coverpic}}" alt=""></a>
+                <h3><a href="news-info.html">{{newdto.title}}</a></h3>
                 <div class="news-info">
                 <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
+                   <a><i class="fa fa-paper-plane"></i> {{newdto.source}}·</a>
+                   <a> <i class="fa fa-comments"></i> {{newdto.commentnum}}评论 · </a>
+                   <em> <i class="fa fa-clock-o"></i> {{newdto.time}}</em>
                   </div>
                 </div>
               </div>
-              <div class="item">
-                <a href="shop-item.html"><img src="../../assets/img/portfolio/3.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a href=""><img src="../../assets/img/portfolio/4.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item item-pics">
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <a href=""><img src="../../assets/img/portfolio/5.jpg" alt=""></a>
+              <div class="item item-pics" ng-if="newdto.coverpicnum>1">
+                <h3><a href="news-info.html">{{newdto.title}}！</a></h3>
+                <!-- <a href=""><img src="../../assets/img/portfolio/5.jpg" alt=""></a>
                 <a href=""><img src="../../assets/img/portfolio/6.jpg" alt=""></a>
-                <a href=""><img src="../../assets/img/portfolio/7.jpg" alt=""></a>
+                <a href=""><img src="../../assets/img/portfolio/7.jpg" alt=""></a> -->
+                <a href="" ng-repeat="coverpic in newdto.coverpiclist"><img ng-src="{{coverpic}}" alt=""></a>
                 <div class="news-info">
                   <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a href=""><img src="../../assets/img/portfolio/1.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                  <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a href="shop-item.html"><img src="../../assets/img/portfolio/2.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a href="shop-item.html"><img src="../../assets/img/portfolio/3.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <a href=""><img src="../../assets/img/portfolio/4.jpg" alt=""></a>
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <div class="news-info">
-                <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
-                  </div>
-                </div>
-              </div>
-              <div class="item item-pics">
-                <h3><a href="news-info.html">支付宝逆天功能上线，用户笑了，马化腾慌了！</a></h3>
-                <a href=""><img src="../../assets/img/portfolio/5.jpg" alt=""></a>
-                <a href=""><img src="../../assets/img/portfolio/6.jpg" alt=""></a>
-                <a href=""><img src="../../assets/img/portfolio/7.jpg" alt=""></a>
-                <div class="news-info">
-                  <div class="news-block-tags">
-                   <a><i class="fa fa-paper-plane"></i> 数据师 · </a>
-                   <a> <i class="fa fa-comments"></i> 100评论 · </a>
-                   <em> <i class="fa fa-clock-o"></i> 2小时前</em>
+                   <a><i class="fa fa-paper-plane"></i> {{newdto.source}}· </a>
+                   <a> <i class="fa fa-comments"></i> {{newdto.commentnum}}评论· </a>
+                   <em> <i class="fa fa-clock-o"></i> {{newdto.time}}</em>
                   </div>
                 </div>
               </div>
             </div>
-              </div>
+            </div>
             </div>
             <!-- END PRODUCT LIST -->
             <!-- BEGIN PAGINATOR -->

@@ -53,7 +53,10 @@
 	
 	<select id="findAllInformation" parameterType="map" resultType="InformationEntity">
          SELECT * FROM `information`
-		 <where> 1=1
+		 <where>
+		    <if test="audit != null">
+			    infocategory=#{audit}
+			</if>
 		    <if test="keyword != null">
 		        AND title like "%"#{keyword}"%"
 		    </if>

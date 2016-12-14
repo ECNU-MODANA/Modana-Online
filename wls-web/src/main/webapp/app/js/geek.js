@@ -1,4 +1,4 @@
-wlsWeb.controller('geek',function($http, $location, $scope,$state, $stateParams) {
+wlsWeb.controller('geek',function($http, $location,$rootScope, $scope,$state, $stateParams) {
 	// 显示最大页数
     $scope.maxSize = 12;
     // 总条目数(默认每页十条)
@@ -7,12 +7,15 @@ wlsWeb.controller('geek',function($http, $location, $scope,$state, $stateParams)
     $scope.bigCurrentPage = 1;
 	$scope.Allusers = [];
 	$scope.optAudit = 8;
+	$scope.citys = [];
+	$scope.schools = [];
 	 // 获取当前geek的列表
     $scope.getUsers = function() {
 		$http({
 			method : 'POST',
 			url : '/i/user/findUserList',
 			params : {
+				userid : $rootScope.user.id,
 				pageNum : $scope.bigCurrentPage,
 				pageSize : $scope.maxSize,
 				provinceid  : $scope.provinceid,
@@ -36,7 +39,7 @@ wlsWeb.controller('geek',function($http, $location, $scope,$state, $stateParams)
         $scope.provinceid = -1;
     });
 
-    // 获取城市列表
+   // 获取城市列表
     $http.get('/i/city/findCityList').success(function (data) {
     	 $scope.citys = data;
          var ci = {"ci_id":-1,"ci_city":"全部城市"};
@@ -50,13 +53,14 @@ wlsWeb.controller('geek',function($http, $location, $scope,$state, $stateParams)
     	$scope.schools = data;
         var sh = {"sh_id":-1,"sh_shool":"全部学校"};
     	 $scope.schools.push(sh);
-    	 $scope.schools = sortJson($scope.schools,"sh_id");
+    	$scope.schools = sortJson($scope.schools,"sh_id");
     	 $scope.schoolid = -1;
     });
     
     // 根据省ID查询城市列表
     $scope.provinceSelected = function () {
     	$scope.cityid = -1;
+    	$scope.schoolid = -1;
     	$scope.getUsers();
         $http.get('/i/city/findCitysByProvinceId', {
             params: {

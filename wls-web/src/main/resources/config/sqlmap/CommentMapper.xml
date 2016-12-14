@@ -34,7 +34,7 @@
 		SELECT *
 		FROM `comment` WHERE `commenterid` =
 		#{commenterID}
-		order by `addTime` desc
+		order by `commenttime` desc
 	</select>
 	
 	<select id="findCommentsByCommentId" parameterType="map"
@@ -43,7 +43,7 @@
 		FROM `comment` WHERE `commentid` =
 		#{commentID} AND `flag` =
 		#{flag}
-		order by `addTime` desc
+		order by `commenttime` desc
 	</select>
 
 </mapper>

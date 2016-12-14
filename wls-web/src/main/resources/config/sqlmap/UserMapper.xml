@@ -63,6 +63,9 @@
     <select id="findAllUser" parameterType="int" resultType="UserEntity">
          SELECT * FROM `user`
 		 <where> 
+		 <if test="userid != null">
+			    id!=#{userid}
+			</if>
 			<if test="audit != null">
 			    roleid=#{audit}
 			</if>
