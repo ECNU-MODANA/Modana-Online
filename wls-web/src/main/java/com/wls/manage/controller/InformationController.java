@@ -173,7 +173,7 @@ public class InformationController extends BaseController {
 	    informationEntity.setInfocategory(infocategory);
 	    informationEntity.setSource(source);
 	    informationEntity.setTitle(title);
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Date date = sdf.parse(time);
 	    informationEntity.setTime(date);
 	    informationDao.insertInformation(informationEntity);
