@@ -22,7 +22,7 @@
 		#{coverpiclist},
 		#{source},
 		#{content},
-		now()
+		#{time}
 		)
     </insert>
     
