@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.modana.manage.dao.UserMapper">
+
+
+    <insert id="insertUser" parameterType="UserEntity">
+        INSERT INTO `user`(
+		`username`,
+		`password`,
+		`telephone`,
+		`email`,
+		`suproleid`,
+		`registertime`
+		)
+		VALUE 
+		(
+		#{username},
+		#{password},
+		#{telephone},
+		#{email},
+		#{suproleid},
+		now()
+		)
+    </insert>
+    
+      <update id="updateUser" parameterType="UserEntity" >
+        update user
+        <set>
+	         <if test="roleid       !=null">roleid       =#{roleid      },</if>
+	         <if test="authority       !=null">authority       =#{authority      },</if>
+	         <if test="sex        !=null">sex        =#{sex       },</if>
+	         <if test="address  !=null">address  =#{address },</if>
+	         <if test="provinceid !=null">provinceid =#{provinceid},</if>
+	         <if test="cityid !=null">cityid =#{cityid},</if>
+	         <if test="schoolid !=null">schoolid =#{schoolid},</if>
+	         <if test="verify !=null">   verify  =#{verify    },</if>
+	         <if test="age !=null and age !=''">   age  =#{age    },</if>
+	         <if test="password   !=null and password !=''">password   =#{password  },</if>
+	         <if test="telephone  !=null and telephone!=''">telephone  =#{telephone },</if>
+	         <if test="qq  !=null and qq!=''">qq  =#{qq },</if>
+	         <if test="realname   !=null and realname !=''"> realname  =#{realname  },</if>
+	         <if test="nickname   !=null and nickname !=''"> nickname  =#{nickname  },</if> 
+	         <if test="email      !=null and email    !=''">   email   =#{email     },</if>
+	         <if test="avatar     !=null and avatar   !=''">   avatar  =#{avatar    },</if>
+	         <if test="score     !=null and score   !=''">   score  =#{score    },</if>
+	         <if test="company   !=null and company !=''"> company  =#{company  },</if>
+	         <if test="phone   !=null and phone !=''"> phone  =#{phone  },</if> 
+	         <if test="position      !=null and position    !=''">   position   =#{position     },</if>
+	         <if test="signature     !=null and signature   !=''">   signature  =#{signature    },</if>
+	         <if test="interest     !=null and interest   !=''">   interest  =#{interest    },</if>
+	         <if test="skill   !=null and skill !=''"> skill  =#{skill  },</if> 
+	         <if test="major      !=null and major    !=''">   major   =#{major     },</if>
+	         <if test="intention     !=null and intention   !=''">   intention  =#{intention    },</if>
+	         <if test="introduction     !=null and introduction   !=''">   introduction  =#{introduction    },</if>
+	         
+	         <if test="updatetime !=null and updatetime!=''">updatetime=now()</if>
+        </set>
+        where id = ${id}
+    </update>
+    
+    <select id="findAllUser" parameterType="int" resultType="UserEntity">
+         SELECT * FROM `user`
+		 <where> 
+		 <if test="userid != null">
+			    id!=#{userid}
+			</if>
+			<if test="audit != null">
+			    roleid=#{audit}
+			</if>
+			<if test="provinceid != null">
+			    AND provinceid=#{provinceid}
+			</if>
+			<if test="cityid != null">
+			    AND cityid=#{cityid}
+			</if>
+			<if test="schoolid != null">
+			    AND schoolid=#{schoolid}
+			</if>
+		    <if test="keyword != null">
+		        AND nickname like "%"#{keyword}"%"
+		    </if>
+		    <if test="suproleid != 0">
+		        AND  suproleid = #{suproleid}
+		    </if>		    
+		 </where>
+         order by `registertime` desc
+    </select>
+    
+    <select id="existenceUserName" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM user u  WHERE u.`username` = #{username};
+	</select>
+    <select id="findUser" parameterType="map" resultType="UserEntity">
+		SELECT u.* FROM user u 
+		WHERE u.`username` = #{username} AND u.`password` = #{password}
+	</select>
+	<select id="findUserByName" parameterType="map" resultType="UserEntity">
+		SELECT u.* FROM user u 
+		WHERE u.`username` = #{username}
+	</select>
+    <select id="findUserById" parameterType="map" resultType="UserEntity">
+		SELECT u.* FROM user u 
+	    WHERE u.id = #{id}
+	</select>
+
+</mapper>
