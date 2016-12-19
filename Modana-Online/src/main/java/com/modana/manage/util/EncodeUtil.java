@@ -73,5 +73,4 @@ public class EncodeUtil {
 		}
 		return buf.toString();
 	}
-	
 }

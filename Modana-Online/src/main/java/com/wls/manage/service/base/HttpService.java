@@ -1,4 +1,4 @@
-package com.modana.manage.service.base;
+package com.wls.manage.service.base;
 
 public interface HttpService {
 	public String sendGet(String url);

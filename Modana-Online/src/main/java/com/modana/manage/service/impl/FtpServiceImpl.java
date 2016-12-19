@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.modana.manage.dto.UploadFileEntity;
 import com.modana.manage.service.FtpService;
 
+
 /**
  * @author jiangkaiqiang
  * @date 2016-6-7 下午8:16:03

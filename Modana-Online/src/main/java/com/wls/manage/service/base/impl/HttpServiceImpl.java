@@ -1,4 +1,4 @@
-package com.modana.manage.service.base.impl;
+package com.wls.manage.service.base.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-import com.modana.manage.service.base.HttpService;
+import com.wls.manage.service.base.HttpService;
 
 public class HttpServiceImpl implements HttpService {
 

@@ -4,7 +4,7 @@
 	<version>0.0.1</version>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.modana.manage</groupId>
-	<artifactId>Modana-Online</artifactId>
+	<artifactId>modana-online</artifactId>
 	<packaging>war</packaging>
 	<properties>
 		<env>alpha</env>
@@ -96,17 +96,11 @@
 			<artifactId>modelmapper</artifactId>
 			<version>0.7.2</version>
 		</dependency>
-            <!-- PageHelper -->
-	 		<dependency> 
-	 			<groupId>com.github.pagehelper</groupId> 
-	 			<artifactId>pagehelper</artifactId> 
-	 			<version>4.0.3</version> 
-	 		</dependency>
-	 		<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>1.2.3</version>
-		    </dependency>
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper</artifactId>
+		    <version>4.1.6</version>
+		</dependency>
 		<!-- log -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -130,16 +124,11 @@
 		</dependency>
 		
 		<!-- other -->
-
-		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
-		
-
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -155,6 +144,13 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
+
+		<!-- Util -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
@@ -166,41 +162,16 @@
 			<version>2.2</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- Util -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>18.0</version>
+		<dependency><!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.9</version>
 		</dependency>
-		<!-- 支持短信验证  -->
-	    <dependency>
-	      <groupId>org.taobao.sdk</groupId>
-	      <artifactId>taobo-jar</artifactId>
-	      <version>1.0</version>
-	      <scope>system</scope>
-	      <systemPath>${project.basedir}/lib/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath>
-	    </dependency>
-	       <!-- 支持消息推送编辑器  -->
-	   <dependency> 
-            <groupId>comet4j-tomcat7</groupId> 
-            <artifactId>test</artifactId> 
-            <version>1.0</version> 
-            <scope>system</scope> 
-            <systemPath>${project.basedir}/lib/comet4j-tomcat7.jar</systemPath>
-        </dependency>
-        <!-- 爬虫 -->
-            <dependency>
-      <groupId>org.jsoup</groupId>
-      <artifactId>jsoup</artifactId>
-      <version>1.7.3</version>
-    </dependency>
-        <dependency>
-      <groupId>net.sourceforge.htmlunit</groupId>
-      <artifactId>htmlunit</artifactId>
-      <version>2.15</version>
-    </dependency>
-      
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.3</version>
+		 </dependency>
 	</dependencies>
 
 	<build>
@@ -263,3 +234,4 @@
 		</plugins>
 	</build>
 </project>
+

@@ -26,7 +26,6 @@ coldWeb.run(function(editableOptions) {
 
 coldWeb.run(function(userService) {
       userService.setUser(user);
-	  userService.setStorage();
 });
 
 
@@ -138,113 +137,6 @@ coldWeb.factory('userService', ['$rootScope', '$state', '$http', function ($root
 	        	 window.location.href="login.html";
 	        };
         },
-        setStorage: function () {
-        	$rootScope.initAllByRdcId = function(rdcId){
-        		$rootScope.rdcId = rdcId;
-        		window.sessionStorage.smrdcId=rdcId;//缓存rdcid
-        		// 初始化冷库
-        		$http.get('/i/coldStorageSet/findStorageSetByRdcId?rdcID=' + rdcId).success(
-        				function(data,status,headers,config){
-        					$rootScope.mystorages = data;
-        					$rootScope.storageModal = data[0];
-        				});
-        		$http.get('/i/coldStorageSet/findHasDoorStorageSetByRdcId?rdcID=' + rdcId).success(
-        				function(data,status,headers,config){
-        					$rootScope.hasDoorStorages = data;
-        				});
-        		// 初始化压缩机组
-        		$http.get('/i/compressorGroup/findByRdcId?rdcId=' + rdcId).success(
-        				function(data,status,headers,config){
-        					$rootScope.compressorGroups = data;
-        					// 初始化压缩机
-        					angular.forEach($rootScope.compressorGroups,function(item){
-        						$http.get('/i/compressor/findBygroupId?groupId=' + item.id).success(
-        								function(data,status,headers,config){
-        									item.compressors = data;
-        								})
-        					})
-        				})
-        	  // 初始化电量
-        	  $http.get('/i/power/findByRdcId?rdcId=' + rdcId).success(
-        			  function(data,status,headers,config){
-        				  $rootScope.powers = data;
-        			  })
-        	 //  初始化月台门
-             $http.get('/i/platformDoor/findByRdcId?rdcId=' + rdcId).success(
-            		 function(data,status,headers,config){
-            			 $rootScope.platformDoors = data;
-            		 })
-             // 初始化
-        	}
-        	
-        	$rootScope.changeRdc = function(value){
-        		if(value){
-        			if(value.originalObject == $rootScope.vm.choserdc){
-        				return
-        			}
-            		$rootScope.vm.choserdc = value.originalObject
-        		}
-        		$rootScope.initAllByRdcId($rootScope.vm.choserdc.id)
-        	}
-
-            var compressors = [];
-            var mystorages = [];
-            if ($rootScope.user != null && $rootScope.user!='' && $rootScope.user!= undefined && $rootScope.user.id != 0){
-            	$http.get('/i/rdc/findRDCsByUserid?userid=' + $rootScope.user.id).success(
-            			function(data,status,headers,config){
-            				if(data.length == 0){
-            					document.location.href = "/notAudit.html";
-            				}
-            				$rootScope.vm = {choserdc:data[0],allUserRdcs:data};
-            				$rootScope.initAllByRdcId($rootScope.vm.choserdc.id)
-            			})
-            }
-
-            $rootScope.toMyCompressor = function (compressorID) {
-                $state.go('compressorPressure', {'compressorID': compressorID});
-            };
-            $rootScope.toMyBlowers = function () {
-                $state.go('compressorBlower', {'rdcId': $rootScope.rdcId});
-            };
-            //$rootScope.mystorages = [{'name': "上海-浦东-#1", 'id': 1}, {'name': "上海-浦东-#2",'id': 2}, {'name': "北京-五环-#1", 'id': 3}];
-//      xuyanan coldStorageDiv.html - -
- /*           $rootScope.openColdDiv = function (storageID){
-            	console.log("openColdDiv: "+storageID);
-            	$state.go('coldStorageDiv',{'storageID': storageID});
-            }*/
-            $rootScope.openColdDiv = function (){
-                console.log("openColdDiv: "+$rootScope.rdcId);
-                $state.go('coldStorageDiv',{'storageID': $rootScope.rdcId});
-            }
-            $rootScope.openLightDiv = function (){
-                console.log("openLightDiv: "+$rootScope.rdcId);
-                $state.go('light',{'storageID': $rootScope.rdcId});
-            }
-            $rootScope.openWarn = function (){
-                console.log("openWarn: "+$rootScope.rdcId);
-                $state.go('warn',{'rdcId': $rootScope.rdcId});
-            }
-            $rootScope.toRdcPower = function () {
-                console.log($rootScope.rdcId);
-                $state.go('rdcPower', {'rdcId': $rootScope.rdcId});
-            };
-            $rootScope.toMyStorageTemper = function (storageID) {
-                console.log(storageID);
-                $state.go('coldStorageTemper', {'storageID': storageID});
-            };
-            $rootScope.toMyStorageDoor = function (storageID) {
-                console.log(storageID);
-                $state.go('coldStorageDoor', {'storageID': storageID});
-            };
-            $rootScope.toMap = function () {
-                $state.go('coldStorageMap', {});
-            };
-            $rootScope.toReport = function () {
-                var time = 'daily';
-                var item = 'data';
-                $state.go('report', {'time':time,'item':item});
-            };
-        },
     };
 }]);
 
@@ -332,13 +224,13 @@ coldWeb.filter('sizeformat',function(){
 });
 
 coldWeb.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/cold360Physical");
+    $urlRouterProvider.otherwise("/home");
 
     //index
-    $stateProvider.state('cold360Physical',{
-		url:'/cold360Physical',
+    $stateProvider.state('home',{
+		url:'/home',
 		controller: 'base',
-	    templateUrl: 'app/template/cold360Physical.html'
+	    templateUrl: 'app/template/home.html'
     }).state('about',{
     	url:'/about',
     	controller: 'base0',
@@ -359,10 +251,10 @@ coldWeb.config(function ($stateProvider, $urlRouterProvider) {
     	url:'/myColdStorage/:storageID',
     	controller: 'myColdStorage',
         templateUrl: 'app/template/myColdStorage.html'
-    }).state('designStorage',{
-    	url:'/designStorage',
-    	controller: 'designStorage',
-        templateUrl: 'app/template/designStorage.html'
+    }).state('aboutus',{
+    	url:'/aboutus',
+    	controller: 'aboutus',
+        templateUrl: 'app/template/about-us.html'
     }).state('report',{
     	url:'/report-{time}-{item}',
     	controller: 'report',
@@ -491,10 +383,10 @@ coldWeb.config(function ($stateProvider, $urlRouterProvider) {
     	url:'/hotAnalysis',
     	controller: 'hotAnalysis',
         templateUrl: 'app/template/hotAnalysis.html'
-    }).state('alarmLog',{
-    	url:'/alarmLog',
-    	controller: 'alarmLog',
-        templateUrl: 'app/template/alarmLog.html'
+    }).state('dalsmc',{
+    	url:'/dalsmc',
+    	controller: 'dalsmc',
+        templateUrl: 'app/template/dalsmc.html'
     });
 });
 

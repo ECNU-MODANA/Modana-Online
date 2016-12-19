@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="Modana-Online"
-  id="myeclipse.1465024770130"
-  context-root="/Modana-Online"
+  name="modana-online"
+  id="myeclipse.1465024786490"
+  context-root="/modana-online"
   j2ee-spec="6.0"
-  archive="Modana-Online.war">
+  archive="modana-online.war">
   <attributes>
     <attribute name="webrootdir" value="src/main/webapp" />
   </attributes>

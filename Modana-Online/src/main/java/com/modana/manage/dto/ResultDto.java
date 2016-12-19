@@ -6,10 +6,6 @@ public class ResultDto {
 
 	private String message;
 
-	public ResultDto() {
-
-	}
-
 	public ResultDto(int status, String message) {
 		this.status = status;
 		this.message = message;

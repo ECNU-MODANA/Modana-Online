@@ -1,12 +1,7 @@
 package com.modana.manage.entity;
 
 import java.util.Date;
-/**
- * cookie 实体类
- * @author jiangkaiqiang
- * @version 创建时间：2016-10-21 下午2:08:26 
- *
- */
+
 public class CookieEntity {
 
 	private int id;

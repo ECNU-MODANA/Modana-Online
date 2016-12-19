@@ -1,25 +1,32 @@
 package com.modana.manage.dao;
 
-import com.github.pagehelper.Page;
-import com.modana.manage.entity.UserEntity;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.modana.manage.entity.UserEntity;
+
 public interface UserMapper {
 
-	UserEntity findUser(@Param("username") String username, @Param("password") String password);
+	public UserEntity findByPassword(@Param("username") String username, @Param("password") String password);
 
-	UserEntity findUserByName(@Param("username") String username);
+	public UserEntity findById(@Param("id") int id);
+	
+	int deleteByPrimaryKey(Integer id);
 
-	UserEntity findUserById(@Param("id") int id);
+    int insert(UserEntity record);
 
-	void insertUser(UserEntity userEntity);
+    int insertSelective(UserEntity record);
+
+    UserEntity selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(UserEntity record);
+
+    int updateByPrimaryKey(UserEntity record);
+    
+    List<UserEntity> findUserByNAndP(UserEntity user);
+    
+    UserEntity findUserByName(@Param("username") String username);
 	
-	void updateUser(UserEntity userEntity);
-	
-	Page<UserEntity> findAllUser(@Param("audit")Integer audit, @Param("keyword")String keyword,@Param("suproleid")int suproleid,
-			@Param("provinceid")Integer provinceid,@Param("cityid")Integer cityid,@Param("schoolid")Integer schoolid
-			,@Param("userid")Integer userid);
-	
-	public int existenceUserName(@Param("username")String username);
+	List<UserEntity> findAllUsers();
 }
