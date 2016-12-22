@@ -2,20 +2,37 @@
   <br>&nbsp;&nbsp;DAL-SMC
 </div>
 <div>
- <h3>Model Select</h3>
+ <h3>Model input</h3>
  <div class="form-group" style="margin-left:20px;">
     <label for="exampleInputFile">Uppaal Model input</label>
     <input type="file" id="modelInputFile">
     <p class="help-block">Choose Uppaal Model here.</p>
   </div>
-  <div class="form-group" style="margin-top:-90px;margin-left:400px;">
+  <div class="form-group" style="margin-top:-90px;margin-left:300px;">
     <label for="exampleInputFile">Uppaal query input</label>
     <input type="file" id="queryInputFile">
     <p class="help-block">Choose Uppaal query here.</p>
   </div>
-  <h3>Parameter Setting</h3>
+  <div class="form-group" style="margin-top:-90px;margin-left:600px;">
+    <label for="exampleInputFile">Property input</label>
+   <input type="text" class="form-control" style="width:200px" id="exampleInput" placeholder="property">
+    <p class="help-block">input property here.</p>
+  </div>
+  <h3>Parameter setting</h3>
     <div class="form-group" style="margin-left:20px;">
-    <label>pa</label> <input type="text" class="form-control" style="width:200px" id="exampleInput" placeholder="Enter pa">
+    <label>Continuous Variable Number</label>
+     <input type="text" class="form-control" style="width:200px" id="exampleInput" placeholder="continuous">
+  </div>
+   <div class="form-group" style="margin-top:-75px;margin-left:300px;">
+    <label>Location Number</label>
+     <input type="text" class="form-control" style="width:200px" id="exampleInput" placeholder="location">
+  </div>
+  <h3>Operation</h3>
+   <div class="form-group" style="margin-left:100px;">
+   <input type="submit" class="btn btn-primary" style="width:200px" ng-click="sampling()" value="Sampling&BuildPFT">
+  </div>
+   <div class="form-group" style="margin-top:-50px;margin-left:400px;">
+   <input  class="btn btn-primary" style="width:200px" ng-click="traceGen()" value="Checking&Result">
   </div>
 </div>
 
